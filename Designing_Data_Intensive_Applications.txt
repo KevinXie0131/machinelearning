@@ -1,6 +1,4 @@
-Scalability
-Fault tolerance/high availability
-Latency
+Scalability / Fault tolerance / High availability / Latency
 
 Shared-Nothing Architectures (horizontal scaling / scaling out)
 node / multiple geographic regions
