@@ -32,7 +32,14 @@ Implementation of Replication Logs
 Statement-based replication / nondeterministic function / autoincrementing column
 Write-ahead log (WAL) shipping
 Logical (row-based) log replication
-Trigger-based replication
+Trigger-based replication / triggers & stored procedures
+
+Problems with Replication Lag / eventual consistency
+
+Reading Your Own Writes
+Monotonic Reads
+Consistent Prefix Reads
+
 
 
 Partitioning - sharding
