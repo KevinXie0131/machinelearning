@@ -56,6 +56,15 @@ stale (outdated)
 Read repair / Anti-entropy process
 Quorums for reading and writing / w + r > n /  w = r = (n + 1) / 2 (rounded up)
 Limitations of Quorum Consistency / clock skew
+Monitoring staleness / tolerate stale reads / replication lag / measure replica staleness
+Sloppy Quorums and Hinted Handoff
+Cross-datacenter replication
+
+Detecting Concurrent Writes / Last write wins (discarding concurrent writes) / order is undefined / achieve eventual convergence
+The “happens-before” relationship and concurrency / B is causally dependent on A / causal dependencies between / get overwritten eventually
+Merging concurrently written values / Merging sibling values / deletion marker is known as tombstone
+Version vectors
+
 
 
 
