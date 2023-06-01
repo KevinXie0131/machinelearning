@@ -51,7 +51,12 @@ replication topology / all-to-all / circular / star
 
 version vectors / conflict detection
 
-Leaderless Replication
+Leaderless Replication / Dynamo-style / coordinator / A quorum write, quorum read, and read repair after a node outage / read requests are also sent to several nodes in parallel
+stale (outdated)
+Read repair / Anti-entropy process
+Quorums for reading and writing / w + r > n /  w = r = (n + 1) / 2 (rounded up)
+Limitations of Quorum Consistency
+
 
 
 Partitioning - sharding
