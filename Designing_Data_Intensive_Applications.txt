@@ -8,7 +8,7 @@ node / multiple geographic regions
 Replication - redundancy
 reduce latency / increase availability / increase read throughput
 single-leader / multi-leader / leaderless replication
-synchronous or asynchronous replication
+synchronous / asynchronous / semi-synchronous replication - durability / consensus
 
 eventual consistency
 read-your-writes / mono‐tonic reads guarantees
@@ -17,5 +17,13 @@ replica - leader-based replication - active/passive / master–slave replication
 leader (master / primary)
 followers (read replicas / slaves / secondaries / hot standbys) - replication log or change stream
 
+Setting Up New Followers / downtime / snapshot / caught up
+go down / high availability
+Follower failure: Catch-up recovery
+
+Leader failure: Failover
+1. Determining that the leader has failed / timeout
+2. Choosing a new leader
+3. Reconfiguring the system to use the new leader
 
 Partitioning - sharding
