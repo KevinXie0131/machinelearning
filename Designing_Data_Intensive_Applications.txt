@@ -45,7 +45,10 @@ Performance / Tolerance of datacenter outages / Tolerance of network problems
 conflict resolution / auto-incrementing keys / triggers / integrity constraints
 Clients with offline operation /  synced with  Collaborative editing / Real-time collaborative editing
 Handling Write Conflicts / committed changes / released the lock / Conflict avoidance
-Converging toward a consistent state
+Converging toward a consistent state / unique ID (timestamp, long random number, UUID, hash) / last write wins (LWW)
+Custom conflict resolution logic / On write / On read
+replication topology / all-to-all / circular / star
+
 
 
 
