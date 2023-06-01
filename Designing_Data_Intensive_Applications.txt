@@ -23,7 +23,16 @@ Follower failure: Catch-up recovery
 
 Leader failure: Failover
 1. Determining that the leader has failed / timeout
-2. Choosing a new leader
-3. Reconfiguring the system to use the new leader
+2. Choosing a new leader / election / elected controller node / consensus
+3. Reconfiguring the system to use the new leader / Request Routing
+
+Discarding writes /  lagged behind / be disclosed to / split brain / resolving conflicts / temporary load spike / network glitch
+
+Implementation of Replication Logs
+Statement-based replication / nondeterministic function / autoincrementing column
+Write-ahead log (WAL) shipping
+Logical (row-based) log replication
+Trigger-based replication
+
 
 Partitioning - sharding
