@@ -49,7 +49,9 @@ Converging toward a consistent state / unique ID (timestamp, long random number,
 Custom conflict resolution logic / On write / On read
 replication topology / all-to-all / circular / star
 
+version vectors / conflict detection
 
+Leaderless Replication
 
 
 Partitioning - sharding
