@@ -1,0 +1,21 @@
+Scalability
+Fault tolerance/high availability
+Latency
+
+Shared-Nothing Architectures (horizontal scaling / scaling out)
+node / multiple geographic regions
+
+Replication - redundancy
+reduce latency / increase availability / increase read throughput
+single-leader / multi-leader / leaderless replication
+synchronous or asynchronous replication
+
+eventual consistency
+read-your-writes / mono‐tonic reads guarantees
+
+replica - leader-based replication - active/passive / master–slave replication
+leader (master / primary)
+followers (read replicas / slaves / secondaries / hot standbys) - replication log or change stream
+
+
+Partitioning - sharding
