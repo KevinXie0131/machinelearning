@@ -38,6 +38,15 @@ Reading Your Own Writes / stale replica / read-after-write consistency / read-yo
 Monotonic Reads / moving backward in time / little/greater lag / fresh/stale replica / anomaly
 Consistent Prefix Reads / replication lag anomalies concerns violation of causality / a sequence of writes happens in a certain order / written to the same partition
 
+Solutions for Replication Lag / transactions abandoned
+
+Multi-Leader Replication (master–master / active/active replication)) / across multiple datacenters /  single-leader based replication
+Performance / Tolerance of datacenter outages / Tolerance of network problems
+conflict resolution / auto-incrementing keys / triggers / integrity constraints
+Clients with offline operation /  synced with  Collaborative editing / Real-time collaborative editing
+Handling Write Conflicts / committed changes / released the lock / Conflict avoidance
+Converging toward a consistent state
+
 
 
 Partitioning - sharding
