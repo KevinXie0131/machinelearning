@@ -55,7 +55,7 @@ Leaderless Replication / Dynamo-style / coordinator / A quorum write, quorum rea
 stale (outdated)
 Read repair / Anti-entropy process
 Quorums for reading and writing / w + r > n /  w = r = (n + 1) / 2 (rounded up)
-Limitations of Quorum Consistency
+Limitations of Quorum Consistency / clock skew
 
 
 
