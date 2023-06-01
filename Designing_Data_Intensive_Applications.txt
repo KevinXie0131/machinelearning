@@ -35,8 +35,8 @@ Trigger-based replication / triggers & stored procedures
 Problems with Replication Lag / eventual consistency
 
 Reading Your Own Writes / stale replica / read-after-write consistency / read-your-writes consistency / logical timestamp
-Monotonic Reads
-Consistent Prefix Reads
+Monotonic Reads / moving backward in time / little/greater lag / fresh/stale replica / anomaly
+Consistent Prefix Reads / replication lag anomalies concerns violation of causality / a sequence of writes happens in a certain order / written to the same partition
 
 
 
