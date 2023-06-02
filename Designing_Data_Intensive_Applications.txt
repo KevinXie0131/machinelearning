@@ -75,8 +75,8 @@ Combining replication and partitioning: each node acts as leader for some partit
 Partitioning of Key-Value Data / read & write throughput
 skewed / hot spot
 
-Partitioning by Key Range (partition boundaries need to adapt to the data to distribute the data evenly) / lead to hot spots / prefix each timestamp
-Partitioning by Hash of Key (hash function to determine the partition for a given key) / MD5 / consistent hashing / hash partitioning (a particular approach to re-balancing)
+Partitioning by Key Range - Key range partitioning (partition boundaries need to adapt to the data to distribute the data evenly) / lead to hot spots / prefix each timestamp
+Partitioning by Hash of Key - Hash partitioning (hash function to determine the partition for a given key) / MD5 / consistent hashing / hash partitioning (a particular approach to re-balancing)
 lose the ability to do efficient range queries / sort order is lost
 compound primary key / concatenated index for sorting the data
 
@@ -100,6 +100,11 @@ When a node is added or removed, ZooKeeper notifies the routing tier so that it 
 use ZooKeeper to track partition assignment / for cluster management
 
 gossip protocol
-massively parallel processing (MPP)
+massively parallel processing (MPP) / join, filtering, grouping, aggregation operations
+choosing a partitioning scheme
 
-
+In Key range partitioning, partitions are typically rebalanced dynamically by splitting the range into two sub-ranges when a partition gets too big.
+In Hash partitioning, it is common to create a fixed number of partitions in advance, to assign several partitions to each node, and to move entire partitions
+ from one node to another when nodes are added or removed.
+Hash partitioning - compound key: using one part of the key to identify the partition and another part for the sort order
+------------------------------------------------------------------------------------------------------------------------
