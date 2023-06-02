@@ -86,4 +86,10 @@ Partitioning and Secondary Indexes
 Partitioning Secondary Indexes by Document / local index / document-partitioned / scatter/gather
 Partitioning Secondary Indexes by Term / global index / term-partitioned
 
+Re-balancing Partitions
+Strategies for Re-balancing
+hash mod N (not do it) / Fixed number of partitions / Dynamic partitioning / Partitioning proportionally to nodes
+
+
+
 
