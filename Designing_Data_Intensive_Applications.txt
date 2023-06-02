@@ -83,7 +83,7 @@ compound primary key / concatenated index for sorting the data
 Skewed Workloads and Relieving Hot Spots
 
 Partitioning and Secondary Indexes
-Partitioning Secondary Indexes by Document
-Partitioning Secondary Indexes by Term
+Partitioning Secondary Indexes by Document / local index / document-partitioned / scatter/gather
+Partitioning Secondary Indexes by Term / global index / term-partitioned
 
 
