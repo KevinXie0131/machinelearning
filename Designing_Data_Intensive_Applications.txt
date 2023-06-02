@@ -3,7 +3,7 @@ Scalability / Fault tolerance / High availability / Latency
 Shared-Nothing Architectures (horizontal scaling / scaling out)
 node / multiple geographic regions
 
-Replication - redundancy
+Replication - redundancy (multiple copies of the same data on different nodes)
 reduce latency / increase availability / increase read throughput
 single-leader / multi-leader / leaderless replication
 synchronous / asynchronous / semi-synchronous replication - durability / consensus
@@ -27,7 +27,7 @@ Leader failure: Failover
 Discarding writes /  lagged behind / be disclosed to / split brain / resolving conflicts / temporary load spike / network glitch
 
 Implementation of Replication Logs
-Statement-based replication / nondeterministic function / autoincrementing column
+Statement-based replication / nondeterministic function / auto-incrementing column
 Write-ahead log (WAL) shipping
 Logical (row-based) log replication
 Trigger-based replication / triggers & stored procedures
@@ -51,7 +51,8 @@ replication topology / all-to-all / circular / star
 
 version vectors / conflict detection
 
-Leaderless Replication / Dynamo-style / coordinator / A quorum write, quorum read, and read repair after a node outage / read requests are also sent to several nodes in parallel
+Leaderless Replication (Clients send each write to several nodes, and read from several nodes in parallel in order to detect and correct nodes with stale data.)
+Dynamo-style / coordinator / A quorum write, quorum read, and read repair after a node outage / read requests are also sent to several nodes in parallel
 stale (outdated)
 Read repair / Anti-entropy process
 Quorums for reading and writing / w + r > n /  w = r = (n + 1) / 2 (rounded up)
@@ -64,8 +65,22 @@ Detecting Concurrent Writes / Last write wins (discarding concurrent writes) / o
 The “happens-before” relationship and concurrency / B is causally dependent on A / causal dependencies between / get overwritten eventually
 Merging concurrently written values / Merging sibling values / deletion marker is known as tombstone
 Version vectors (also called a vector clock)
-
-
-
+------------------------------------------------------------------------------------------------------------------------
 
 Partitioning - sharding
+scalability (Different partitions can be placed on different nodes)
+re-balancing / route requests to
+
+Combining replication and partitioning: each node acts as leader for some partitions and follower for other partitions.
+Partitioning of Key-Value Data / read & write throughput
+skewed / hot spot
+
+Partitioning by Key Range (partition boundaries need to adapt to the data to distribute the data evenly) / lead to hot spots / prefix each timestamp
+
+
+
+
+
+
+
+
