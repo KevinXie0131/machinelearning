@@ -88,7 +88,7 @@ Partitioning Secondary Indexes by Term / global index / term-partitioned
 
 Re-balancing Partitions
 Strategies for Re-balancing
-hash mod N (not do it) / Fixed number of partitions / Dynamic partitioning / Partitioning proportionally to nodes
+hash mod N (not do it) / Fixed number of partitions / Dynamic partitioning (pre-splitting) / Partitioning proportionally to nodes
 
 
 
