@@ -76,11 +76,14 @@ Partitioning of Key-Value Data / read & write throughput
 skewed / hot spot
 
 Partitioning by Key Range (partition boundaries need to adapt to the data to distribute the data evenly) / lead to hot spots / prefix each timestamp
+Partitioning by Hash of Key (hash function to determine the partition for a given key) / MD5 / consistent hashing / hash partitioning (a particular approach to re-balancing)
+lose the ability to do efficient range queries / sort order is lost
+compound primary key / concatenated index for sorting the data
 
+Skewed Workloads and Relieving Hot Spots
 
-
-
-
-
+Partitioning and Secondary Indexes
+Partitioning Secondary Indexes by Document
+Partitioning Secondary Indexes by Term
 
 
