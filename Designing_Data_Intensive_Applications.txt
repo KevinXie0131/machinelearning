@@ -90,6 +90,16 @@ Re-balancing Partitions
 Strategies for Re-balancing
 hash mod N (not do it) / Fixed number of partitions / Dynamic partitioning (pre-splitting) / Partitioning proportionally to nodes
 
+cascading failure / have a human in the loop
 
+Request Routing / service discovery / round-robin load balancer / routing tier / partition-aware load balancer / achieving consensus in a distributed system
+separate / external coordination service such as ZooKeeper to keep track of this cluster metadata
+Each node registers itself in ZooKeeper, and ZooKeeper maintains the authoritative mapping of partitions to nodes
+subscribe to this information in ZooKeeper.
+When a node is added or removed, ZooKeeper notifies the routing tier so that it can keep its routing information up to date
+use ZooKeeper to track partition assignment / for cluster management
+
+gossip protocol
+massively parallel processing (MPP)
 
 
