@@ -63,7 +63,7 @@ Cross-datacenter replication
 Detecting Concurrent Writes / Last write wins (discarding concurrent writes) / order is undefined / achieve eventual convergence
 The “happens-before” relationship and concurrency / B is causally dependent on A / causal dependencies between / get overwritten eventually
 Merging concurrently written values / Merging sibling values / deletion marker is known as tombstone
-Version vectors
+Version vectors (also called a vector clock)
 
 
 
