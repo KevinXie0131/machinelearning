@@ -115,13 +115,15 @@ concurrency control / race conditions
 isolation levels - read committed, snapshot isolation, and serializability
 large-scale system / advantages / limitations / trade-offs
 
-ACID (fault-tolerance) - Atomicity (abortability), Consistency, Isolation, Durability
+ACID (fault-tolerance) - Atomicity (abortability), Consistency, Isolation (serializability), Durability
 BASE - Basically Available, Soft state, Eventual consistency
 Atomicity: atomic refers to something that cannot be broken down into smaller parts / atomicity is not about concurrency / covered under isolation
            Atomicity simplifies this problem: if a transaction was aborted, the application can be sure that it didn't change anything, so it can safely be retried
-Consistency: consistency refers to an application-specific notion of the database being in a 'good state'
-Isolation:
+Consistency: consistency refers to an application-specific notion of the database being in a 'good state' / foreign key constraints / uniqueness constraints
+Isolation: means that concurrently executing transactions are isolated from each other / concurrency problems (race conditions) / run serially (one after another)
+           However, in practice, serializable isolation is rarely used, because it carries a performance penalty
+           Oracle 11g: 'serializable' -> snapshot isolation (weaker guarantee)
 Durability:
 
-
+Single-Object and Multi-Object Operations
 
