@@ -108,3 +108,16 @@ In Hash partitioning, it is common to create a fixed number of partitions in adv
  from one node to another when nodes are added or removed.
 Hash partitioning - compound key: using one part of the key to identify the partition and another part for the sort order
 ------------------------------------------------------------------------------------------------------------------------
+
+Transactions (group several reads and writes together into a logical unit. either the entire transaction succeeds (commit) or it fails (abort, rollback))
+safety guarantees / transactional guarantees / catastrophic failure /  fault-tolerance mechanisms
+concurrency control / race conditions
+isolation levels - read committed, snapshot isolation, and serializability
+large-scale system / advantages / limitations / trade-offs
+
+ACID (fault-tolerance) - Atomicity, Consistency, Isolation, Durability
+BASE - Basically Available, Soft state, Eventual consistency
+Atomicity: atomic refers to something that cannot be broken down into smaller parts / atomicity is not about concurrency / covered under isolation
+           Atomicity simplifies this problem: if a transaction was aborted, the application can be sure that it didn't change anything, so it can safely be retried
+
+
