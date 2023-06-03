@@ -107,7 +107,7 @@ In Key range partitioning, partitions are typically rebalanced dynamically by sp
 In Hash partitioning, it is common to create a fixed number of partitions in advance, to assign several partitions to each node, and to move entire partitions
  from one node to another when nodes are added or removed.
 Hash partitioning - compound key: using one part of the key to identify the partition and another part for the sort order
-------------------------------------------------------------------------------------------------------------------------
+
 
 Transactions (group several reads and writes together into a logical unit. either the entire transaction succeeds (commit) or it fails (abort, rollback))
 safety guarantees / transactional guarantees / catastrophic failure /  fault-tolerance mechanisms
@@ -126,4 +126,31 @@ Isolation: means that concurrently executing transactions are isolated from each
 Durability:
 
 Single-Object and Multi-Object Operations
+
+250
+------------------------------------------------------------------------------------------------------------------------
+
+Distributed Systems / replica failover / replication lag / currency control for transactions
+Faults / Partial Failures (non-deterministic / non-determinism) / deterministic (the same operation always produces the same result) / fully functional / unpredictably fail
+cloud computing / multi-tenant datacenters / commodity computers / elastic on-demand resource allocation
+faulty node / off‐line (batch) jobs
+rolling upgrade / timeout
+
+Detecting Faults
+load balancer (take it out of rotation)
+single-leader replication (if the leader fails, one of the followers needs to be promoted to be the new leader)
+
+Timeouts / suffered a temporary slowdown / load spike
+Unbounded Delays (there is no upper limit on the time it may take for a packet to arrive)
+
+Network congestion and queueing / queue them up / incoming data / network is functioning fine / is queued (buffered)
+variability / jitter of network delays / maximum capacity
+bounded delay (because there is no queueing, the maximum end-to-end latency of the network is fixed.)
+
+
+
+
+
+
+
 
