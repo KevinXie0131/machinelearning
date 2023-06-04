@@ -268,6 +268,22 @@ Consensus services such as ZooKeeper and etcd actually implement total order bro
 state machine replication / total order broadcast stronger than timestamp ordering
 In ZooKeeper, this sequence number is called zxid
 
+sequential consistency, also known as timeline consistency, a slightly weaker guarantee than linearizability
+atomic increment-and-get operation
+
+Distributed Transactions and Consensus / get several nodes to agree on something
+Leader election
+Atomic commit / maintain transaction atomicity / abort / roll back / undone / discarded
+
+two-phase commit (2PC) algorithm (the most common way of solving atomic commit)
+From single-node to distributed atomic commit: a single device makes the commit atomic. However, what if multiple nodes are involved in a transaction?
+Introduction to two-phase commit: Two-phase commit is an algorithm for achieving atomic transaction commit across multiple nodes
+                                  commit / abort process in 2PC is split into two phases
+
+Two-phase commit (2PC) and two-phase locking (2PL) are two very different things.
+2PC provides atomic commit in a distributed database, whereas 2PL provides serializable isolation.
+
+
 
 
 
