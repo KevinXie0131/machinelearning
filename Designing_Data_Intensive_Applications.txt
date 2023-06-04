@@ -190,15 +190,26 @@ promoted / demoted / in the order of increasing fencing tokens
 ZooKeeper is used as lock service / the transaction ID zxid or the node version cversion can be used as fencing token
 
 outdated / malfunctioning / malicious attackers are interfering with the network` / peer-to-peer networks
-input validation, sanitization, and output escaping / prevent SQL injection and cross-site scripting
+input validation, sanitization / sanitize any inputs from users, and output escaping / prevent SQL injection and cross-site scripting
 protect us from vulnerabilities, security compromises, and malicious attacks
 traditional mechanisms (authentication, access control, encryption, firewalls)
 
+Synchronous model: bounded network delay, bounded process pauses, and bounded clock error / not a realistic model
+Partially synchronous model: behaves like a synchronous system most of the time, but it sometimes exceeds the bounds for network delay, process pauses, and clock drift / realistic model
+Asynchronous model:
+Crash-stop faults:
+Crash-recovery faults: stable storage preserved across crashes, while the in-memory state is assumed to be lost
+Byzantine (arbitrary) faults:
 
+For modeling real systems, the partially synchronous model with crash-recovery faults is generally the most useful model
+send a packet over the network / be significantly out of sync with / jump forward or back in time
 
+However, timeouts can’t distinguish between network and node failures, and variable network delay sometimes causes a node to be falsely suspected of crashing.
+there is no global variable, no shared memory, no common knowledge or any other kind of shared state between the machines.
+Major decisions cannot be safely made by a single node, so we require protocols that enlist help from other nodes and try to get a quorum to agree
+------------------------------------------------------------------------------------------------------------------------
 
-
-
+Consistency and Consensus
 
 
 
