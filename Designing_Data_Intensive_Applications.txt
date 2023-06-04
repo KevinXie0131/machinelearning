@@ -169,3 +169,14 @@ when a database is distributed, a global, monotonically increasing transaction I
 timestamps (the uncertainty about clock accuracy)
 clock’s confidence interval as reported by the TrueTime API (deliberately waits for the length of the confidence interval before committing a read-write transaction,
                                                              so their confidence intervals do not overlap)
+
+Process Pauses / Java Virtual Machine) have garbage collector (GC)
+lease - a lock with a timeout /  periodically renew / expires
+
+Response time guarantees / hard real-time systems
+Limiting the impact of garbage collection
+
+
+
+
+
