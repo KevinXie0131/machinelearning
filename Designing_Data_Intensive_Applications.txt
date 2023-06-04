@@ -176,6 +176,28 @@ lease - a lock with a timeout /  periodically renew / expires
 Response time guarantees / hard real-time systems
 Limiting the impact of garbage collection
 
+Knowledge, Truth, and Lies
+A distributed systems are different from programs running on a single computer:
+    there is no shared memory
+    only message passing via an unreliable network with variable delays
+    the systems may suffer from partial failures
+    unreliable clocks
+    processing pauses
+
+system model (assumptions we are making about the behavior)
+quorum / voting / consensus algorithms / majority of nodes
+promoted / demoted / in the order of increasing fencing tokens
+ZooKeeper is used as lock service / the transaction ID zxid or the node version cversion can be used as fencing token
+
+outdated / malfunctioning / malicious attackers are interfering with the network` / peer-to-peer networks
+input validation, sanitization, and output escaping / prevent SQL injection and cross-site scripting
+protect us from vulnerabilities, security compromises, and malicious attacks
+traditional mechanisms (authentication, access control, encryption, firewalls)
+
+
+
+
+
 
 
 
