@@ -146,11 +146,26 @@ Unbounded Delays (there is no upper limit on the time it may take for a packet t
 Network congestion and queueing / queue them up / incoming data / network is functioning fine / is queued (buffered)
 variability / jitter of network delays / maximum capacity
 bounded delay (because there is no queueing, the maximum end-to-end latency of the network is fixed.)
+bursty traffic / bandwidth allocation / quality of service (QoS) / admission control (rate-limiting senders)
+dynamic resource partitioning / statically partitioned (reduced utilization) / multi-tenancy with dynamic resource partitioning provides better utilization (Variable delays)
 
+Unreliable Clocks
+cache entry expire / durations (the time interval between a request being sent and a response being received)
+Network Time Protocol (NTP)
 
+Monotonic clock (System.nanoTime() in Java) / Time-of-Day Clocks (System.currentTimeMillis() in Java)
+Clock Synchronization and Accuracy / Clock drift / occasional spikes
+Relying on Synchronized Clocks
+Timestamps for ordering events / last write wins (LWW) / lagging clock / fast clock
+Additional causality tracking mechanisms, such as version vectors, are needed in order to prevent violations of causality
+the definition of 'recent' depends on a local time-of-day clock, which may well be incorrect.
+logical clocks / physical clocks
 
+Clock readings have a confidence interval (Google's TrueTime API)
 
-
-
-
-
+Synchronized clocks for global snapshots
+On a single-node database, a simple counter is sufficient for generating monotonically increasing transaction ID
+when a database is distributed, a global, monotonically increasing transaction ID (across all partitions) is difficult to generate, because it requires coordination
+timestamps (the uncertainty about clock accuracy)
+clock’s confidence interval as reported by the TrueTime API (deliberately waits for the length of the confidence interval before committing a read-write transaction,
+                                                             so their confidence intervals do not overlap)
