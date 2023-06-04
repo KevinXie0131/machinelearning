@@ -282,8 +282,20 @@ Introduction to two-phase commit: Two-phase commit is an algorithm for achieving
 
 Two-phase commit (2PC) and two-phase locking (2PL) are two very different things.
 2PC provides atomic commit in a distributed database, whereas 2PL provides serializable isolation.
+2PC uses a new component, a coordinator (also known as transaction manager)
+participants / prepare request / commit request in phase 2 / abort request / A system of promises
+transaction ID is globally unique / checking for any conflicts or constraint violations / commit point
+state is called in doubt or uncertain
+Two-phase commit is called a blocking atomic commit protocol / nonblocking
 
+three-phase commit (3PC) has been proposed
+perfect failure detector
 
+criticized for causing operational problems, killing performance
+Database-internal distributed transactions / Heterogeneous distributed transactions
+
+Read Committed: locking / take a row-level exclusive lock on any rows they modify, to prevent dirty writes
+serializable isolation: two-phase locking would also have to take a shared lock on any rows read by the transaction
 
 
 
