@@ -210,6 +210,39 @@ Major decisions cannot be safely made by a single node, so we require protocols 
 ------------------------------------------------------------------------------------------------------------------------
 
 Consistency and Consensus
+tolerating faults / service functioning correctly / internal component is faulty
+atomicity / concurrently accessing
+consensus / fail over to another node / use consensus to elect a new leader / split brain
+
+Consistency Guarantees / eventual consistency (convergence) / high concurrency
+consistency models: systems with stronger guarantees may have worse performance or be less fault-tolerant than systems with weaker guarantees
+
+distributed consistency models / hierarchy of transaction isolation levels
+transaction isolation is primarily about avoiding race conditions due to concurrently executing transactions,
+whereas distributed consistency is mostly about coordinating the state of replicas in the face of delays and faults.
+
+linearizability (one of the strongest consistency models)
+linearizability (also known as atomic consistency, strong consistency, immediate consistency, or external consistency)
+linearizability is a recency guarantee
+database replica that is lagging / query returned a stale result is a violation of linearizability
+The basic idea behind linearizability is simple: to make a system appear as if there is only a single copy of the data, and all operations on it are atomic
+
+variable network delays / atomic compare-and-set (cas) operation can be used to check the value hasn't been concurrently changed by another client
+Linearizability Versus Serializability
+Serializability is an isolation property of transactions, where every transaction may read and write multiple objects / executed in some serial order
+Linearizability is a recency guarantee on reads and writes of a register (an individual object)
+strict serializability or strong one-copy serializability (strong-1SR)
+
+Coordination services like Apache ZooKeeper and etcd are often used to implement distributed locks and leader election
+The most common approach to making a system fault-tolerant is to use replication
+    Single-leader replication (potentially linearizable)
+    Consensus algorithms (linearizable)
+    Multi-leader replication (not linearizable)
+    Leaderless replication (probably not linearizable)
+
+
+
+
 
 
 
