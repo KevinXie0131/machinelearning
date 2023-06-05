@@ -125,7 +125,9 @@ Isolation: means that concurrently executing transactions are isolated from each
 Durability:
 
 Single-Object and Multi-Object Operations
-
+out of sync
+Atomicity can be implemented using a log for crash recovery
+isolation can be implemented using a lock on each object (allowing only one thread to access an object at any one time)
 250
 ------------------------------------------------------------------------------------------------------------------------
 
