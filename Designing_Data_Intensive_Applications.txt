@@ -155,18 +155,20 @@ Implementing read committed: using row-level locks
                              Only when the new value is committed do transactions switch over to reading the new value.
 
 Repeatable Read (Snapshot Isolation)
-This anomaly is called a non-repeatable read or read skew
+This anomaly is called a non-repeatable read or read skew / some situations, Backups and Analytic queries and integrity checks cannot tolerate such temporary inconsistency
 
 
-
-
-
-
-
+snapshot isolation: each transaction reads from a consistent snapshot of the database / frozen at a particular point in time
 snapshot isolation is a very useful feature in databases that need to support both small, fast read-write transactions and large, long-running read-only transactions (e.g., for backups or analytics).
     It allows read-only transactions to see the database in a consistent state at a particular point in time, without locking and interfering with read-write transactions.
 
-260
+Snapshot isolation is a popular feature: it is supported by PostgreSQL, MySQL with the InnoDB storage engine, Oracle, SQL Server
+
+Implementing snapshot isolation: readers never block writers, and writers never block readers.
+                                 multi-version concurrency control (MVCC) / maintains several versions of an object side by side
+                                 transaction IDs / Visibility rules for observing a consistent snapshot
+
+
 ------------------------------------------------------------------------------------------------------------------------
 
 Distributed Systems / replica failover / replication lag / currency control for transactions
