@@ -24,7 +24,7 @@ Leader failure: Failover
 2. Choosing a new leader / election / elected controller node / consensus
 3. Reconfiguring the system to use the new leader / Request Routing
 
-Discarding writes /  lagged behind / be disclosed to / split brain / resolving conflicts / temporary load spike / network glitch
+Discarding writes / lagged behind / be disclosed to / split brain / resolving conflicts / temporary load spike / network glitch
 
 Implementation of Replication Logs
 Statement-based replication / nondeterministic function / auto-incrementing column
@@ -35,7 +35,7 @@ Trigger-based replication / triggers & stored procedures
 Problems with Replication Lag / eventual consistency
 
 Reading Your Own Writes / stale replica / read-after-write consistency / read-your-writes consistency / logical timestamp
-Monotonic Reads / moving backward in time / little/greater lag / fresh/stale replica / anomaly
+Monotonic Reads / moving backward in time / little|greater lag / fresh|stale replica / anomaly
 Consistent Prefix Reads / replication lag anomalies concerns violation of causality / a sequence of writes happens in a certain order / written to the same partition
 
 Solutions for Replication Lag / transactions abandoned
@@ -43,7 +43,7 @@ Solutions for Replication Lag / transactions abandoned
 Multi-Leader Replication (master–master / active/active replication)) / across multiple datacenters /  single-leader based replication
 Performance / Tolerance of datacenter outages / Tolerance of network problems
 conflict resolution / auto-incrementing keys / triggers / integrity constraints
-Clients with offline operation /  synced with  Collaborative editing / Real-time collaborative editing
+Clients with offline operation /  synced with / Collaborative editing / Real-time collaborative editing
 Handling Write Conflicts / committed changes / released the lock / Conflict avoidance
 Converging toward a consistent state / unique ID (timestamp, long random number, UUID, hash) / last write wins (LWW)
 Custom conflict resolution logic / On write / On read
@@ -105,9 +105,8 @@ choosing a partitioning scheme
 
 In Key range partitioning, partitions are typically rebalanced dynamically by splitting the range into two sub-ranges when a partition gets too big.
 In Hash partitioning, it is common to create a fixed number of partitions in advance, to assign several partitions to each node, and to move entire partitions
- from one node to another when nodes are added or removed.
+    from one node to another when nodes are added or removed.
 Hash partitioning - compound key: using one part of the key to identify the partition and another part for the sort order
-
 
 Transactions (group several reads and writes together into a logical unit. either the entire transaction succeeds (commit) or it fails (abort, rollback))
 safety guarantees / transactional guarantees / catastrophic failure /  fault-tolerance mechanisms
