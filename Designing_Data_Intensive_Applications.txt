@@ -151,17 +151,23 @@ Read Committed: The most basic level of transaction isolation / default setting 
     no dirty reads: only see data that has been committed
     no dirty writes: only overwrite data that has been committed
 Implementing read committed: using row-level locks
-                             Read skew: While the transaction is ongoing, any other transactions that read the object are simply given the old value.
-                                        Only when the new value is committed do transactions switch over to reading the new value.
+                             While the transaction is ongoing, any other transactions that read the object are simply given the old value.
+                             Only when the new value is committed do transactions switch over to reading the new value.
 
 Repeatable Read (Snapshot Isolation)
+This anomaly is called a non-repeatable read or read skew
+
+
+
+
+
 
 
 snapshot isolation is a very useful feature in databases that need to support both small, fast read-write transactions and
     large, long-running read-only transactions (e.g., for backups or analytics).
     It allows read-only transactions to see the database in a consistent state at a particular point in time, without locking and interfering with read-write transactions.
 
-250
+260
 ------------------------------------------------------------------------------------------------------------------------
 
 Distributed Systems / replica failover / replication lag / currency control for transactions
