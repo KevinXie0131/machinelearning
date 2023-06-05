@@ -147,12 +147,14 @@ transaction isolation (letting you pretend that no concurrency is happening)
 serializable isolation means that the database guarantees that transactions have the same effect as if they ran serially (i.e., one at a time, without any concurrency)
 Serializable isolation has a performance cost
 
-Read Committed: The most basic level of transaction isolation
+Read Committed: The most basic level of transaction isolation / default setting in Oracle 11g
     no dirty reads: only see data that has been committed
     no dirty writes: only overwrite data that has been committed
+Implementing read committed: using row-level locks
+                             Read skew: While the transaction is ongoing, any other transactions that read the object are simply given the old value.
+                                        Only when the new value is committed do transactions switch over to reading the new value.
 
-
-
+Repeatable Read (Snapshot Isolation)
 
 
 snapshot isolation is a very useful feature in databases that need to support both small, fast read-write transactions and
