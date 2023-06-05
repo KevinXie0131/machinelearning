@@ -40,10 +40,10 @@ Consistent Prefix Reads / replication lag anomalies concerns violation of causal
 
 Solutions for Replication Lag / transactions abandoned
 
-Multi-Leader Replication (master–master / active/active replication)) / across multiple datacenters /  single-leader based replication
+Multi-Leader Replication (master–master / active/active replication)) / across multiple datacenters / single-leader based replication
 Performance / Tolerance of datacenter outages / Tolerance of network problems
 conflict resolution / auto-incrementing keys / triggers / integrity constraints
-Clients with offline operation /  synced with / Collaborative editing / Real-time collaborative editing
+Clients with offline operation / synced with / Collaborative editing / Real-time collaborative editing
 Handling Write Conflicts / committed changes / released the lock / Conflict avoidance
 Converging toward a consistent state / unique ID (timestamp, long random number, UUID, hash) / last write wins (LWW)
 Custom conflict resolution logic / On write / On read
@@ -109,7 +109,7 @@ In Hash partitioning, it is common to create a fixed number of partitions in adv
 Hash partitioning - compound key: using one part of the key to identify the partition and another part for the sort order
 
 Transactions (group several reads and writes together into a logical unit. either the entire transaction succeeds (commit) or it fails (abort, rollback))
-safety guarantees / transactional guarantees / catastrophic failure /  fault-tolerance mechanisms
+safety guarantees / transactional guarantees / catastrophic failure / fault-tolerance mechanisms
 concurrency control / race conditions
 isolation levels - read committed, snapshot isolation, and serializability
 large-scale system / advantages / limitations / trade-offs
@@ -203,7 +203,7 @@ Byzantine (arbitrary) faults:
 For modeling real systems, the partially synchronous model with crash-recovery faults is generally the most useful model
 send a packet over the network / be significantly out of sync with / jump forward or back in time
 
-However, timeouts can’t distinguish between network and node failures, and variable network delay sometimes causes a node to be falsely suspected of crashing.
+However, timeouts can't distinguish between network and node failures, and variable network delay sometimes causes a node to be falsely suspected of crashing.
 there is no global variable, no shared memory, no common knowledge or any other kind of shared state between the machines.
 Major decisions cannot be safely made by a single node, so we require protocols that enlist help from other nodes and try to get a quorum to agree
 ------------------------------------------------------------------------------------------------------------------------
@@ -321,7 +321,7 @@ ZooKeeper is used for Service discovery to find out which IP address you need to
 
 linearizability: makes a database behave like a variable in a single-threaded program / has the downside of being slow, especially in environments with large network delays
 causality:  weaker consistency model / can be concurrent, so the version history is like a timeline with branching and merging
-consensus: needs to somehow know that another node isn’t concurrently in the process
+consensus: needs to somehow know that another node isn't concurrently in the process
 
 This is what happens in a single-leader database:
     Linearizable compare-and-set registers
