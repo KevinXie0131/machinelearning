@@ -128,6 +128,23 @@ Single-Object and Multi-Object Operations
 out of sync
 Atomicity can be implemented using a log for crash recovery
 isolation can be implemented using a lock on each object (allowing only one thread to access an object at any one time)
+
+document databases lacking join functionality also encourage de-normalization
+error handling mechanism isn’t perfect:
+    If the transaction actually succeeded, but the network failed while the server tried to acknowledge the successful commit to the client, then retrying the transaction causes it to be performed twice
+    If the error is due to overload, retrying the transaction will make the problem worse, not better.
+    It is only worth retrying after transient errors (for example due to deadlock, isolation violation, temporary network interruptions, and failover);
+       after a permanent error (e.g., constraint violation) a retry would be pointless.
+
+Weak Isolation Levels:
+    Read Committed
+    Repeatable Read (Snapshot Isolation)
+Strong Isolation Levels:
+    Serializability: Two-Phase Locking (2PL)
+Serializable Snapshot Isolation (SSI)
+
+
+
 250
 ------------------------------------------------------------------------------------------------------------------------
 
