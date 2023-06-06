@@ -430,7 +430,7 @@ Total Order Broadcast (atomic broadcast - atomic messaging system that keeps all
 Reliable delivery / Totally ordered delivery (Messages are delivered to every node in the same order)
 Consensus services such as ZooKeeper and etcd actually implement total order broadcast
 state machine replication / total order broadcast stronger than timestamp ordering
-In ZooKeeper, this sequence number is called zxid
+In ZooKeeper, this sequence number is called zxid (ZooKeeper transaction id)
 
 sequential consistency, also known as timeline consistency, a slightly weaker guarantee than linearizability
 atomic increment-and-get operation
