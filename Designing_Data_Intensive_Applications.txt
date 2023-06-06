@@ -222,6 +222,24 @@ Serializability
         give each CPU core its own partition, which allows your transaction throughput to scale linearly with the number of CPU cores
         cross-partition transactions have additional coordination overhead
         Simple key-value data can often be partitioned easily / multiple secondary indexes require a lot of cross-partition coordination
+    Summary of serial execution:
+        Every transaction must be small and fast
+        active dataset can fit in memory
+        Write throughput must be low enough to be handled on a single CPU core
+        Cross-partition transactions are possible, but cross-partition coordination has overhead
+
+Two-Phase Locking (2PL)
+        as soon as anyone wants to write (modify or delete) an object, exclusive access is required
+        Reading an old version of the object is not acceptable under 2PL
+        In 2PL, writers block other writers and readers
+        2PL provides serializability, it protects against all the race conditions, including lost updates and write skew
+     Implementation of two-phase locking / in shared mode or in exclusive mode / acquired | released the lock
+        deadlock / automatically detects deadlocks between transactions and aborts one of them
+     Performance of two-phase locking
+        transaction throughput and response times of queries are significantly worse under two-phase locking than under weak isolation.
+        quite unstable latencies / due to the overhead of acquiring and releasing all those lock / due to reduced concurrency
+        transaction is aborted due to deadlock / wasted effort
+
 
 
 
