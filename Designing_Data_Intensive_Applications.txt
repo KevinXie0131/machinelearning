@@ -186,6 +186,16 @@ a variety of solutions have been developed:
           last write wins (LWW) conflict resolution method is prone to lost updates, but LWW is the default in many replicated databases.
 
 Write Skew and Phantoms
+    Write Skew (different transactions may update different objects concurrently) anomaly / causing an application bug
+        need a constraint that involves multiple objects
+        the second-best option in this case isprobably to explicitly lock the rows that the transaction depends on.
+    More examples of write skew:
+        Meeting room booking system / avoid double-booking (not safe under snapshot isolation) / need serializable isolation
+        Multiplayer game / use a unique constraint
+        Claiming a username / not safe under snapshot isolation / a unique constraint (the second transaction is aborted due to violating the constraint)
+        Preventing double-spending
+
+
 
 
 
