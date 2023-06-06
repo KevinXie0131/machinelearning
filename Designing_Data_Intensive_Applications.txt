@@ -195,6 +195,19 @@ Write Skew and Phantoms
         Claiming a username / not safe under snapshot isolation / a unique constraint (the second transaction is aborted due to violating the constraint)
         Preventing double-spending
     Phantoms causing write skew
+        phantom (a write in one transaction changes the result of a search query in another transaction)
+        Snapshot isolation avoids phantoms in read-only queries, but in read-write transactions, phantoms can lead to particularly tricky cases of write skew
+    Materializing conflicts (turns it into a lock conflict on a concrete set of rows that exist in the database) / A serializable isolation level is much preferable
+
+Serializability
+    Serializable isolation (the strongest isolation level)
+    It guarantees that even though transactions may execute in parallel, the end result is the same as if they had executed one at a time, serially, without any concurrency
+    the database prevents all possible race conditions.
+    Techniques to implement:
+        Literally executing transactions in a serial order
+        Two-phase locking (only viable option)
+        Optimistic concurrency control techniques such as serializable snapshot isolation
+
 
 
 
