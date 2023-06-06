@@ -240,9 +240,10 @@ Two-Phase Locking (2PL)
         quite unstable latencies / due to the overhead of acquiring and releasing all those lock / due to reduced concurrency
         transaction is aborted due to deadlock / wasted effort
 
+     Predicate locks (works similarly to the shared/exclusive lock / belongs to all objects that match some search condition)
+        exclusive lock  > shared lock
 
-
-
+     Index-range locks (next-key locking)
 
 ------------------------------------------------------------------------------------------------------------------------
 
