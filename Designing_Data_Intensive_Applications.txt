@@ -204,13 +204,14 @@ Serializability
     It guarantees that even though transactions may execute in parallel, the end result is the same as if they had executed one at a time, serially, without any concurrency
     the database prevents all possible race conditions.
     Techniques to implement:
-        Literally executing transactions in a serial order
+        Actual Serial Execution / Literally executing transactions in a serial order / execute only one transaction at a time, in serial order, on a single thread.
+            / RAM became cheap enough / keep the entire active dataset in memory / transactions are usually short / avoid the coordination overhead of locking
         Two-phase locking (only viable option)
         Optimistic concurrency control techniques such as serializable snapshot isolation
 
-
-
-
+    Encapsulating transactions in stored procedures (the entire transaction code to the database ahead of time)
+        a transaction is committed within the same HTTP request / a transaction does not span multiple requests / A new HTTP request starts a new transaction.
+        interactive style of transaction / disallow concurrency will lead to low throughput / process multiple transactions concurrently to get reasonable performance
 
 
 ------------------------------------------------------------------------------------------------------------------------
