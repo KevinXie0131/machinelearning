@@ -172,11 +172,18 @@ Snapshot isolation is called by different names. In Oracle it is called serializ
 Preventing Lost Updates (conflicts that can occur between concurrently writing transactions)
 read-modify-write cycle (requires reading the current value, calculating the new value, and writing back the updated value)
 a variety of solutions have been developed:
-    Atomic write operations:
-    Explicit locking:
-    Automatically detecting lost updates:
-    Compare-and-set:
-    Conflict resolution and replication:
+    Atomic write operations: implemented by taking an exclusive lock on the object when it is read so that no other transaction can read it until the update has been applied (cursor stability)
+                             Another option is to simply force all atomic operations to be executed on a single thread.
+    Explicit locking: explicitly lock objects that are going to be updated, then  perform a read-modify-write cycle / introduce a race condition
+    Automatically detecting lost updates: detects a lost update, abort the transaction and force it to retry its read-modify-write cycle / less error-prone
+    Compare-and-set: If the current value does not match what you previously read, the update has no effect, and the read-modify-write cycle must be retried.
+    Conflict resolution and replication: In replicated databases, preventing lost updates takes on another dimension.
+                                         Since they have copies of the data on multiple nodes, and the data can potentially be modified concurrently on different nodes,
+                                         some additional steps need to be taken to prevent lost updates.
+          Locks & compare-and-set operations assume a single up-to-date copy of the data / Atomic operations can work well in a replicated context
+          multi-leader / leaderless replication allow several writes to happen concurrently and replicate them asynchronously
+          allow concurrent writes to create several conflicting versions of a value (siblings), and use application code or special data structures to resolve and merge these versions later.
+          last write wins (LWW) conflict resolution method is prone to lost updates, but LWW is the default in many replicated databases.
 
 Write Skew and Phantoms
 
