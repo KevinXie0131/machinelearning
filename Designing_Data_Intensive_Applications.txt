@@ -62,7 +62,7 @@ Sloppy Quorums and Hinted Handoff
 Cross-datacenter replication
 
 Detecting Concurrent Writes / Last write wins (discarding concurrent writes) / order is undefined / achieve eventual convergence
-The “happens-before” relationship and concurrency / B is causally dependent on A / causal dependencies between / get overwritten eventually
+The 'happens-before' relationship and concurrency / B is causally dependent on A / causal dependencies between / get overwritten eventually
 Merging concurrently written values / Merging sibling values / deletion marker is known as tombstone
 Version vectors (also called a vector clock)
 ------------------------------------------------------------------------------------------------------------------------
@@ -107,6 +107,7 @@ In Key range partitioning, partitions are typically rebalanced dynamically by sp
 In Hash partitioning, it is common to create a fixed number of partitions in advance, to assign several partitions to each node, and to move entire partitions
     from one node to another when nodes are added or removed.
 Hash partitioning - compound key: using one part of the key to identify the partition and another part for the sort order
+------------------------------------------------------------------------------------------------------------------------
 
 Transactions (group several reads and writes together into a logical unit. either the entire transaction succeeds (commit) or it fails (abort, rollback))
 safety guarantees / transactional guarantees / catastrophic failure / fault-tolerance mechanisms
@@ -141,7 +142,7 @@ Weak (non-serializable) Isolation Levels:
     Repeatable Read (Snapshot Isolation)
 Strong Isolation Levels:
     Serializability: Two-Phase Locking (2PL)
-Serializable Snapshot Isolation (SSI)
+    Serializable Snapshot Isolation (SSI)
 
 transaction isolation (letting you pretend that no concurrency is happening)
 serializable isolation means that the database guarantees that transactions have the same effect as if they ran serially (i.e., one at a time, without any concurrency)
@@ -174,7 +175,7 @@ read-modify-write cycle (requires reading the current value, calculating the new
 a variety of solutions have been developed:
     Atomic write operations: implemented by taking an exclusive lock on the object when it is read so that no other transaction can read it until the update has been applied (cursor stability)
                              Another option is to simply force all atomic operations to be executed on a single thread.
-    Explicit locking: explicitly lock objects that are going to be updated, then  perform a read-modify-write cycle / introduce a race condition
+    Explicit locking: explicitly lock objects that are going to be updated, then perform a read-modify-write cycle / introduce a race condition
     Automatically detecting lost updates: detects a lost update, abort the transaction and force it to retry its read-modify-write cycle / less error-prone
     Compare-and-set: If the current value does not match what you previously read, the update has no effect, and the read-modify-write cycle must be retried.
     Conflict resolution and replication: In replicated databases, preventing lost updates takes on another dimension.
@@ -188,7 +189,7 @@ a variety of solutions have been developed:
 Write Skew and Phantoms
     Write Skew (different transactions may update different objects concurrently) anomaly / causing an application bug
         need a constraint that involves multiple objects
-        the second-best option in this case isprobably to explicitly lock the rows that the transaction depends on.
+        the second-best option in this case is probably to explicitly lock the rows that the transaction depends on.
     More examples of write skew:
         Meeting room booking system / avoid double-booking (not safe under snapshot isolation) / need serializable isolation
         Multiplayer game / use a unique constraint
@@ -213,7 +214,7 @@ Serializability
         a transaction is committed within the same HTTP request / a transaction does not span multiple requests / A new HTTP request starts a new transaction.
         interactive style of transaction / disallow concurrency will lead to low throughput / process multiple transactions concurrently to get reasonable performance
     Pros and cons of stored procedures:
-        languages haven’t kept up with developments
+        languages haven't kept up with developments
         Code running in a database is difficult to manage
         A database is often much more performance-sensitive than an application server
         in-memory data / No wait for I/O / avoid the overhead of concurrency control mechanisms / good throughput on a single thread
@@ -329,7 +330,7 @@ Synchronized clocks for global snapshots
 On a single-node database, a simple counter is sufficient for generating monotonically increasing transaction ID
 when a database is distributed, a global, monotonically increasing transaction ID (across all partitions) is difficult to generate, because it requires coordination
 timestamps (the uncertainty about clock accuracy)
-clock’s confidence interval as reported by the TrueTime API (deliberately waits for the length of the confidence interval before committing a read-write transaction,
+clock's confidence interval as reported by the TrueTime API (deliberately waits for the length of the confidence interval before committing a read-write transaction,
                                                              so their confidence intervals do not overlap)
 
 Process Pauses / Java Virtual Machine) have garbage collector (GC)
@@ -351,7 +352,7 @@ quorum / voting / consensus algorithms / majority of nodes
 promoted / demoted / in the order of increasing fencing tokens
 ZooKeeper is used as lock service / the transaction ID zxid or the node version cversion can be used as fencing token
 
-outdated / malfunctioning / malicious attackers are interfering with the network` / peer-to-peer networks
+outdated / malfunctioning / malicious attackers are interfering with the network / peer-to-peer networks
 input validation, sanitization / sanitize any inputs from users, and output escaping / prevent SQL injection and cross-site scripting
 protect us from vulnerabilities, security compromises, and malicious attacks
 traditional mechanisms (authentication, access control, encryption, firewalls)
