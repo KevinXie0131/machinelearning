@@ -169,6 +169,17 @@ Implementing snapshot isolation: readers never block writers, and writers never 
 
 Snapshot isolation is called by different names. In Oracle it is called serializable, and in PostgreSQL and MySQL it is called repeatable read
 
+Preventing Lost Updates (conflicts that can occur between concurrently writing transactions)
+read-modify-write cycle (requires reading the current value, calculating the new value, and writing back the updated value)
+a variety of solutions have been developed:
+    Atomic write operations:
+    Explicit locking:
+    Automatically detecting lost updates:
+    Compare-and-set:
+    Conflict resolution and replication:
+
+Write Skew and Phantoms
+
 
 
 
