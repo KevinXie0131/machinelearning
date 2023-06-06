@@ -251,10 +251,12 @@ Serializable Snapshot Isolation (SSI)
        Serial execution is, in a sense, pessimistic to the extreme
        serializable snapshot isolation (SSI) is an optimistic concurrency control technique / SSI is based on snapshot isolation
        On top of snapshot isolation, SSI adds an algorithm for detecting serialization conflicts among writes and determining which transactions to abort.
-   Decisions based on an outdated premise
-
+   Decisions based on an outdated premise (a fact that was true at the beginning of the transaction, but may no longer be true)
+       Detecting reads of a stale MVCC object version (uncommitted write occurred before the read)
+       Detecting writes that affect prior reads (the write occurs after the read)
    Detecting stale MVCC reads
-
+       multi-version concurrency control (MVCC)
+       checks whether any of the ignored writes have now been committed. If so, the transaction must be aborted.
    Detecting writes that affect prior reads
 
    Performance of serializable snapshot isolation
