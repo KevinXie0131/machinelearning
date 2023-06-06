@@ -426,7 +426,7 @@ When a node receives a request or response with a maximum counter value greater 
 
 version vectors can distinguish whether two operations are concurrent or whether one is causally dependent on the other, whereas Lamport timestamps always enforce a total ordering
 
-Total Order Broadcast (atomic broadcast) / a kind of consensus algorithms / Total ordering across all partitions is possible, but requires additional coordination
+Total Order Broadcast (atomic broadcast - atomic messaging system that keeps all nodes in sync) / a kind of consensus algorithms / Total ordering across all partitions is possible, but requires additional coordination
 Reliable delivery / Totally ordered delivery (Messages are delivered to every node in the same order)
 Consensus services such as ZooKeeper and etcd actually implement total order broadcast
 state machine replication / total order broadcast stronger than timestamp ordering
