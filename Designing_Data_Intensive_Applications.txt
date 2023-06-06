@@ -386,7 +386,8 @@ whereas distributed consistency is mostly about coordinating the state of replic
 
 linearizability (one of the strongest consistency models)
 linearizability (also known as atomic consistency, strong consistency, immediate consistency, or external consistency)
-linearizability is a recency guarantee
+linearizability is a recency guarantee (recency guarantee means that the value read must be the most recent or up-to-date value, and is not from a stale cache)
+
 database replica that is lagging / query returned a stale result is a violation of linearizability
 The basic idea behind linearizability is simple: to make a system appear as if there is only a single copy of the data, and all operations on it are atomic
 
