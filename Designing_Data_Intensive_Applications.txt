@@ -194,7 +194,7 @@ Write Skew and Phantoms
         Multiplayer game / use a unique constraint
         Claiming a username / not safe under snapshot isolation / a unique constraint (the second transaction is aborted due to violating the constraint)
         Preventing double-spending
-
+    Phantoms causing write skew
 
 
 
