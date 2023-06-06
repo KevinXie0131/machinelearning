@@ -284,8 +284,12 @@ Summary
 
     different approaches to implementing serializable transactions:
         Literally executing transactions in a serial order
+           If you can make each transaction very fast to execute, and the transaction throughput is low enough to process on a single CPU core, this is a simple and effective option.
         Two-phase locking
+           standard way of implementing serializability, but it is avoided due to performance characteristics
         Serializable snapshot isolation (SSI)
+           A fairly new & optimistic algorithm / allowing transactions to proceed without blocking.
+           When a transaction wants to commit, it is checked, and it is aborted if the execution was not serializable.
 ------------------------------------------------------------------------------------------------------------------------
 
 Distributed Systems / replica failover / replication lag / currency control for transactions
