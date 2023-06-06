@@ -258,8 +258,14 @@ Serializable Snapshot Isolation (SSI)
        multi-version concurrency control (MVCC)
        checks whether any of the ignored writes have now been committed. If so, the transaction must be aborted.
    Detecting writes that affect prior reads
-
+       When a transaction writes to the database, it must look in the indexes for any other transactions that have recently read the affected data.
    Performance of serializable snapshot isolation
+       trade-off is the granularity / bookkeeping overhead can become significant
+       the big advantage of serializable snapshot isolation is that one transaction doesn't need to block waiting for locks held by another transaction
+       (snapshot isolation, writers don’t block readers, and vice versa)
+       more predictable and less variable
+       read-only queries can run on a consistent snapshot without requiring any locks, which is very appealing for read-heavy workloads.
+       serializable snapshot isolation is not limited to the throughput of a single CPU core
 
 
 
