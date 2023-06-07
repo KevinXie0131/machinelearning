@@ -1,2 +1,4 @@
 expected read to write ratio
 requests per second
+
+线性一致性(Linearizability) --> 顺序一致性(Sequential consistency) --> 因果一致性(Casual consistency) --> 最终一致性(Eventual consistency)
