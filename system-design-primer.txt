@@ -27,6 +27,6 @@ reads can heavily outnumber writes
 
 SQL tuning / benchmark and profile / Set the NOT NULL constraint where applicable to improve search performance / Use good indices
 
-
+Popular items can skew the distribution, causing bottlenecks / Putting a cache in front of a database can help absorb uneven loads and spikes in traffic
 
 
