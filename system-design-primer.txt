@@ -16,3 +16,5 @@ two complementary patterns to support high availability:
         Master-master
 
 commodity machines
+
+read replicas / data federation / object storage
