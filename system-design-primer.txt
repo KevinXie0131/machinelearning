@@ -22,3 +22,11 @@ results in more cache hits due to improved cache locality
 write in parallel, increasing throughput
 
 Sharding / Common ways to shard a table of users is either through the user's last name initial or the user's geographic location / Re-balancing adds additional complexity
+De-normalization attempts to improve read performance at the expense of some write performance / Redundant copies of the data are written in multiple tables to avoid expensive joins
+reads can heavily outnumber writes
+
+SQL tuning / benchmark and profile / Set the NOT NULL constraint where applicable to improve search performance / Use good indices
+
+
+
+
