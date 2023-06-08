@@ -29,4 +29,19 @@ SQL tuning / benchmark and profile / Set the NOT NULL constraint where applicabl
 
 Popular items can skew the distribution, causing bottlenecks / Putting a cache in front of a database can help absorb uneven loads and spikes in traffic
 
+When to update the cache
+    Cache-aside
+    Write-through
+    Write-behind (write-back) / Add/update entry in cache. Asynchronously write entry to the data store, improving write performance
+    Refresh-ahead
+
+Cache-aside is also referred to as lazy loading. Only requested data is cached. / stale / time-to-live (TTL)
+cache invalidation
+
+
+
+
+
+
+
 
