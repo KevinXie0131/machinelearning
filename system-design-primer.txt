@@ -14,3 +14,5 @@ two complementary patterns to support high availability:
     replication
         Master-slave
         Master-master
+
+commodity machines
