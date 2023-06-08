@@ -36,7 +36,7 @@ When to update the cache
     Refresh-ahead
 
 Cache-aside is also referred to as lazy loading. Only requested data is cached. / stale / time-to-live (TTL)
-cache invalidation
+cache invalidation / the source of truth such as the database
 
 
 
