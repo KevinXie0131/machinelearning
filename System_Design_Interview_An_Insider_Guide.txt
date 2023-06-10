@@ -1,0 +1,2 @@
+Fallback (provides an alternative solution during a service request failure)
+circuit breaker
