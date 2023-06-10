@@ -38,10 +38,7 @@ When to update the cache
 Cache-aside is also referred to as lazy loading. Only requested data is cached. / stale / time-to-live (TTL)
 cache invalidation / the source of truth such as the database
 
-
-
-
-
-
-
-
+consensus algorithms in distributed systems / two key principles: 1) two phase commit, and 2) quorum majority vote.
+    - Paxos
+    - Raft
+    - ZAB (ZooKeeper Atomic BoardCast)
