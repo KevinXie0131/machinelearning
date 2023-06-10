@@ -1,2 +1,6 @@
 Fallback (provides an alternative solution during a service request failure)
 circuit breaker
+Sharding key / Partition kay
+    - Re-sharding data
+    - Celebrity problem
+    - Join and de-normalization
