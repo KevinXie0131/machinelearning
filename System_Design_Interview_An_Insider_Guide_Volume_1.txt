@@ -20,3 +20,4 @@ fanout service (Fan-out is the distribution of messages by a service or message 
 fanout worker
 
 authentication / rate limiting
+roll out the system / a recap of your design
