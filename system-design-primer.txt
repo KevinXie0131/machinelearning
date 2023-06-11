@@ -45,3 +45,4 @@ consensus algorithms in distributed systems / two key principles: 1) two phase c
     - Gossip protocol (eventually consistency)
 ------------------------------------------------------------------------------------------------------------------------
 
+cache hit / cache miss
