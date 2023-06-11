@@ -43,3 +43,5 @@ consensus algorithms in distributed systems / two key principles: 1) two phase c
     - Raft
     - ZAB (ZooKeeper Atomic BoardCast)
     - Gossip protocol (eventually consistency)
+------------------------------------------------------------------------------------------------------------------------
+
