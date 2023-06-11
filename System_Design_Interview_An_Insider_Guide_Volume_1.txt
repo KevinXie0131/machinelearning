@@ -14,3 +14,9 @@ support millions of users:
     • Scale your data tier by sharding
     • Split tiers into individual services
     • Monitor your system and use automation tools
+
+sorted by reverse chronological order
+fanout service (Fan-out is the distribution of messages by a service or message router to multiple users, often simultaneously)
+fanout worker
+
+authentication / rate limiting
