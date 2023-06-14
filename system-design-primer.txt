@@ -46,3 +46,15 @@ consensus algorithms in distributed systems / two key principles: 1) two phase c
 ------------------------------------------------------------------------------------------------------------------------
 
 cache hit / cache miss
+notifications don't need to be instant
+write to read ratio / Write-heavy
+back-of-the-envelope usage calculations
+
+
+
+
+
+
+
+
+
