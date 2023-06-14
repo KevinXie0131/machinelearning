@@ -51,10 +51,23 @@ write to read ratio / Write-heavy
 back-of-the-envelope usage calculations
 
 NOT NULL / AUTO INCREMENT / PRIMARY KEY / FOREIGN KEY / UNIQUE / DEFAULT / CHECK
-do this asynchronously with a queue / places a job on a Queue / Pulls from the Queue / Uses a Queue to asynchronously send out notifications
+do this asynchronously with a queue / places a job on a Queue such as RabbitMQ / Pulls from the Queue / Uses a Queue to asynchronously send out notifications
 storing the results as raw log files in the Object Store
 calculate aggregate monthly spending by category
 uses the Notification Service to let users know
+
+Master-Slave Replicas / SQL Read Replicas / SQL write master-slave failover / Master-slave replication
+tab delimited / Parse each log line
+address bottlenecks while evaluating alternatives and trade-offs / how to iteratively scale the initial design
+API server (application layer) / Web server (reverse proxy)
+
+Memory Cache such as Redis or Memcached
+Static content can be served from the Object Store such as Amazon S3 (Cloud Object Storage), which is cached on the CDN
+
+create a separate Analytics Database using a data warehousing solution such as Amazon Redshift (Cloud Data Warehouse) or Google BigQuery
+handling the unevenly distributed traffic and traffic spikes / the replicas are not bogged down with replicating writes
+
+
 
 
 
