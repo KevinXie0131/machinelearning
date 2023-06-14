@@ -50,9 +50,11 @@ notifications don't need to be instant
 write to read ratio / Write-heavy
 back-of-the-envelope usage calculations
 
-
-
-
+NOT NULL / AUTO INCREMENT / PRIMARY KEY / FOREIGN KEY / UNIQUE / DEFAULT / CHECK
+do this asynchronously with a queue / places a job on a Queue / Pulls from the Queue / Uses a Queue to asynchronously send out notifications
+storing the results as raw log files in the Object Store
+calculate aggregate monthly spending by category
+uses the Notification Service to let users know
 
 
 
