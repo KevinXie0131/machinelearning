@@ -48,7 +48,8 @@ two challenges in a distributed environment:
 gracefully recover from exceptions
 ------------------------------------------------------------------------------------------------------------------------
 
-
+Consistent hashing
+mitigate this problem
 
 
 
