@@ -48,7 +48,7 @@ two challenges in a distributed environment:
 gracefully recover from exceptions
 ------------------------------------------------------------------------------------------------------------------------
 
-Consistent hashing
+Consistent hashing (hash ring / virtual nodes or replicas)
 mitigate this problem
 
 
