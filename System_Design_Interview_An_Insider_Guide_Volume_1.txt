@@ -27,6 +27,7 @@ throttle rules / rate limiter middleware / malicious actors
 API gateway / IP whitelisting
 Algorithms for rate limiting
     • Token bucket
+        pre-defined capacity
     • Leaking bucket
     • Fixed window counter
     • Sliding window log
