@@ -91,11 +91,11 @@ the cache is at capacity
 a cached entry / time to live (TTL)
 ------------------------------------------------------------------------------------------------------------------------
 
-
-
-
-
-
+Store static content separately in an Object Store
+bottlenecks during peak hours / resulting in slow responses / downtime
+read-heavy vs write-heavy
+automatically spinning up and down servers / Add Autoscaling to provision capacity as needed
+unused instances / introduce complexity
 
 
 
