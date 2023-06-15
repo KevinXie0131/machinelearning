@@ -66,10 +66,17 @@ Static content can be served from the Object Store such as Amazon S3 (Cloud Obje
 
 create a separate Analytics Database using a data warehousing solution such as Amazon Redshift (Cloud Data Warehouse) or Google BigQuery
 handling the unevenly distributed traffic and traffic spikes / the replicas are not bogged down with replicating writes
+------------------------------------------------------------------------------------------------------------------------
 
+Default setting / set a timed expiration
+tracks analytics of pages / Monthly visit stats
+Traffic is not evenly distributed / 10:1 read to write ratio
 
+use a managed Object Store such as Amazon S3 or a NoSQL document store / use a NoSQL key-value store
+creates an index / enforce uniqueness / speed up lookups
+Take the MD5 hash of
+    -- MD5 is a widely used hashing function that produces a 128-bit hash value
+    -- MD5 is uniformly distributed
 
-
-
-
-
+Base 62 (an encoding method with 62 characters) encode the MD5 hash
+Base 64 is another popular encoding but provides issues for urls because of the additional + and / characters
