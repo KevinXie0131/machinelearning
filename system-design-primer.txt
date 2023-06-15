@@ -102,6 +102,8 @@ Fanning out a tweet to all of your followers
 more read heavy than write heavy
 store media such as photos or videos on an Object Store
 The high volume of writes would overwhelm
+bandwidth intensive, ensure there is enough bandwidth to sustain high throughput
+connection pooling
 ------------------------------------------------------------------------------------------------------------------------
 
 Handy conversion guide:
