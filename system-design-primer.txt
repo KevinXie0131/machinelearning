@@ -98,6 +98,11 @@ automatically spinning up and down servers / Add Autoscaling to provision capaci
 unused instances / introduce complexity
 
 Batch compute offline
+Fanning out a tweet to all of your followers
+more read heavy than write heavy
+store media such as photos or videos on an Object Store
+The high volume of writes would overwhelm
+------------------------------------------------------------------------------------------------------------------------
 
 Handy conversion guide:
    2.5 million seconds per month
