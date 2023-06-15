@@ -33,6 +33,23 @@ Algorithms for rate limiting
     • Sliding window log
     • Sliding window counter
 
+at one minute interval / allows a burst of traffic for short periods
+increments the counter by one / reaches the pre-defined threshold
+the available quota / remove all the outdated timestamps
+rounded up or down
+
+In-memory cache / supports time-based expiration strategy
+fetches the counter
+
+two challenges in a distributed environment:
+    • Race condition
+    • Synchronization issue
+
+gracefully recover from exceptions
+------------------------------------------------------------------------------------------------------------------------
+
+
+
 
 
 
