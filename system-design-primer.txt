@@ -83,3 +83,20 @@ Base 64 is another popular encoding but provides issues for urls because of the 
 
 Take the first 7 characters of the output /  possible values  / should be sufficient to handle our constraint of
 traffic for popular content should be handled by the Memory Cache
+------------------------------------------------------------------------------------------------------------------------
+
+Popular queries / expire/refresh
+use a least recently used (LRU) approach to expire older entries / Updates the cached entry's position to the front of the LRU list
+the cache is at capacity
+a cached entry / time to live (TTL)
+------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
