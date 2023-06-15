@@ -82,3 +82,4 @@ Base 62 (an encoding method with 62 characters) encode the MD5 hash
 Base 64 is another popular encoding but provides issues for urls because of the additional + and / characters
 
 Take the first 7 characters of the output /  possible values  / should be sufficient to handle our constraint of
+traffic for popular content should be handled by the Memory Cache
