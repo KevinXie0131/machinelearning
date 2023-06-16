@@ -221,6 +221,15 @@ Two types of fanout models:
        For celebrities or users who have many friends/followers, we let followers pull news content on-demand to avoid system overload
        Consistent hashing is a useful technique to mitigate the hotkey problem
 
+Graph databases are suited for managing friend relationship and friend recommendations
+
+Cache architecture / divide the cache tier into 5 layers
+   • News Feed: It stores IDs of news feeds.
+   • Content: It stores every post data. Popular content is stored in hot cache.
+   • Social Graph: It stores user relationship data.
+   • Action: It stores info about whether a user liked a post, replied a post, or took other actions on a post.
+   • Counters: It stores counters for like, reply, follower, following, etc.
+
 
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 12: Design A Chat System
