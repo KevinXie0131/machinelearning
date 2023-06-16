@@ -50,30 +50,34 @@ gracefully recover from exceptions
 
 Consistent hashing (hash ring / virtual nodes or replicas / redistributed.)
 mitigate this problem
-Distribute data across multiple servers evenly / Minimize data movement
 ------------------------------------------------------------------------------------------------------------------------
 
 Automatic scaling
 due to the space constraint
 stale data
 Data partition / Data replication / Write path / Read path
-Quorum consensus
 
-If W + R > N, strong consistency is guaranteed because there must be at least one overlapping node that has the latest data to ensure consistency.
-    N = The number of replicas
-    W = A write quorum of size W
-    R = A read quorum of size R
+Data partition
+    • Distribute data across multiple servers evenly.
+    • Minimize data movement when nodes are added or removed.
+
+Quorum consensus
+    Data replication can guarantee consistency for both read and write operations
+    If W + R > N, strong consistency is guaranteed because there must be at least one overlapping node that has the latest data to ensure consistency.
+        N = The number of replicas
+        W = A write quorum of size W
+        R = A read quorum of size R
 
 Consistency models:
     • Strong consistency (usually achieved by forcing a replica not to accept new reads/writes until every replica has agreed on current write)
     • Weak consistency
     • Eventual consistency (this is a specific form of weak consistency. Given enough time, all updates are propagated, and all replicas are consistent.)
 
-Dynamo and Cassandra adopt eventual consistency, which is our recommended consistency model for our key-value store.
+    Dynamo and Cassandra adopt eventual consistency, which is our recommended consistency model for our key-value store.
 
 Inconsistency resolution: versioning / vector locks
-detect conflicts and reconcile conflicts
-A vector clock is a [server, version] pair associated with a data item
+    detect conflicts and reconcile conflicts
+    A vector clock is a [server, version] pair associated with a data item
 
 Failure detection
     gossip protocol (decentralized failure detection methods) - node membership list / heartbeat counter
@@ -86,7 +90,6 @@ Handling permanent failures
     anti-entropy protocol
     A hash tree or Merkle tree is used for inconsistency detection and minimizing the amount of data transferred
 
-Handling data center outage
 
 
 
