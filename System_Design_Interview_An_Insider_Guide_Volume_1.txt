@@ -128,10 +128,17 @@ additional talking points:
    • Availability, consistency, and reliability
 ------------------------------------------------------------------------------------------------------------------------
 
+A crawler is used for many purposes:
+   • Search engine indexing
+   • Web archiving
+   • Web mining
+   • Web monitoring
 
-
-
-
+with duplicate content
+the following characteristics:
+   • Scalability
+   • Robustness
+   • Extensibility
 
 
 
