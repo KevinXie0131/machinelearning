@@ -75,9 +75,11 @@ Inconsistency resolution: versioning / vector locks
 detect conflicts and reconcile conflicts
 A vector clock is a [server, version] pair associated with a data item
 
+Failure detection
+    gossip protocol (decentralized failure detection methods) - node membership list / heartbeat counter
 
-
-
+Handling temporary failures
+    'sloppy quorum' is used to improve availability (chooses the first W healthy servers for writes and first R healthy servers for reads on the hash ring. Offline servers are ignored)
 
 
 
