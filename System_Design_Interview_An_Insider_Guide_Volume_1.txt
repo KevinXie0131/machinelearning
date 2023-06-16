@@ -157,25 +157,31 @@ Politeness - denial-of-service (DOS) attack
 Priority - measured by PageRank [10], website traffic, update frequency, etc.
 Freshness - A web crawler must periodically re-crawl downloaded pages to keep our data set fresh.
 
-Robots.txt
+Robots.txt called Robots Exclusion Protocol
+
+performance optimizations for HTML downloader
+    1. Distributed crawl
+    2. Cache DNS Resolver - updated periodically by cron jobs
+    3. Locality - Distribute crawl servers geographically
+    4. Short timeout
 
 ------------------------------------------------------------------------------------------------------------------------
-+++CChapter 10: Design A Notification System
++++Chapter 10: Design A Notification System
 
 ------------------------------------------------------------------------------------------------------------------------
-+++CChapter 11: Design A News Feed System
++++Chapter 11: Design A News Feed System
 
 ------------------------------------------------------------------------------------------------------------------------
-+++CChapter 12: Design A Chat System
++++Chapter 12: Design A Chat System
 
 ------------------------------------------------------------------------------------------------------------------------
-+++CChapter 13: Design A Search Autocomplete System
++++Chapter 13: Design A Search Autocomplete System
 
 ------------------------------------------------------------------------------------------------------------------------
-+++CChapter 14: Design Youtube
++++Chapter 14: Design Youtube
 
 ------------------------------------------------------------------------------------------------------------------------
-+++CChapter 15: Design Google Drive
++++Chapter 15: Design Google Drive
 
 
 
