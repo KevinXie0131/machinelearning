@@ -207,6 +207,21 @@ Notification setting (fine-grained control) / rate limiting / retry mechanism / 
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 11: Design A News Feed System
 
+sorted by reverse chronological order or any particular order / built by aggregating friends' posts in reverse chronological order
+DAU (Daily Active Users)
+
+Fanout service -> Message Queue -> Fanout Workers
+Two types of fanout models:
+    Fanout on write (also called push model) - news feed is pre-computed during write time
+                                               A new post is delivered to friends' cache immediately after it is published
+                                               hotkey problem
+    Fanout on read (also called pull model) - news feed is generated during read time
+                                              on-demand model
+    hybrid approach
+       For celebrities or users who have many friends/followers, we let followers pull news content on-demand to avoid system overload
+       Consistent hashing is a useful technique to mitigate the hotkey problem
+
+
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 12: Design A Chat System
 
