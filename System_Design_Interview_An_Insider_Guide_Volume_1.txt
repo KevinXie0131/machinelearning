@@ -91,7 +91,7 @@ Handling permanent failures
     A hash tree or Merkle tree is used for inconsistency detection and minimizing the amount of data transferred
 
 Bloom filter
-
+------------------------------------------------------------------------------------------------------------------------
 
 
 
