@@ -105,7 +105,18 @@ a few additional talking points:
     • High availability - mission-critical
 ------------------------------------------------------------------------------------------------------------------------
 
+REST-style APIs / restful API / HTTP redirection / URL redirecting
+301 Moved Permanently redirect status response code
 
+301 redirect vs 302 redirect
+    - 301 redirect: the browser caches the response, and subsequent requests for the same URL will not be sent to the URL shortening service
+    - 302 redirect: subsequent requests for the same URL will be sent to the URL shortening service first
+
+[0-9, a-z, A-Z], containing 10 + 26 + 26 = 62 possible characters.
+
+two types of hash functions for a URL shortener:
+    - Hash + collision resolution
+    - base 62 conversion
 
 
 
