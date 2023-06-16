@@ -185,7 +185,7 @@ relevant talking points:
 
 Three types of notification formats: mobile push notification / SMS message / Email
 soft real-time system / slight delay is acceptable
-able to opt-out
+able to opt-out / opt-in
 mobile device tokens
 
 iOS push notification - Apple Push Notification Service (APNS)
@@ -197,7 +197,12 @@ easily plugging or unplugging of a third-party service
 set up automatic horizontal scaling
 Introduce message queues to decouple the system components / Message queues serve as buffers when high volumes of notifications
 
+fetch metadata such as setting from the cache or database / Workers pull notification events from message queues
 
+• Reliability
+    persists notification data in a database and implements a retry mechanism
+
+Notification setting (fine-grained control) / rate limiting / retry mechanism / event tracking (Notification metrics. Analytics service implements events tracking) / authentication
 
 
 ------------------------------------------------------------------------------------------------------------------------
