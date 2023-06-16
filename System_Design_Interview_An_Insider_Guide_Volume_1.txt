@@ -183,6 +183,23 @@ relevant talking points:
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 10: Design A Notification System
 
+Three types of notification formats: mobile push notification / SMS message / Email
+soft real-time system / slight delay is acceptable
+able to opt-out
+mobile device tokens
+
+iOS push notification - Apple Push Notification Service (APNS)
+Android push notification - Firebase Cloud Messaging (FCM)
+SMS message - third party SMS services like Twilio, Nexmo
+Email - Sendgrid, Mailchimp
+
+easily plugging or unplugging of a third-party service
+set up automatic horizontal scaling
+Introduce message queues to decouple the system components / Message queues serve as buffers when high volumes of notifications
+
+
+
+
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 11: Design A News Feed System
 
