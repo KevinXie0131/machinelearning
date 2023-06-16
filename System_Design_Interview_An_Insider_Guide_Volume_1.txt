@@ -202,8 +202,7 @@ fetch metadata such as setting from the cache or database / Workers pull notific
 • Reliability
     persists notification data in a database and implements a retry mechanism
 
-Notification setting (fine-grained control) / rate limiting / retry mechanism / event tracking (Notification metrics. Analytics service implements events tracking) / authentication
-
+Notification setting (fine-grained control) / rate limiting / retry mechanism / event tracking (Notification metrics. Analytics service implements events tracking) / authentication (AppKey/appSecret pair)
 
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 11: Design A News Feed System
