@@ -93,10 +93,17 @@ Handling permanent failures
 Bloom filter
 ------------------------------------------------------------------------------------------------------------------------
 
+generate unique IDs in distributed systems
+    • Multi-master replication: database auto_increment feature
+    • Universally unique identifier (UUID)
+    • Ticket server: centralized auto_increment feature in a single database server (Ticket Server)
+    • Twitter snowflake approach
 
-
-
-
+a few additional talking points:
+    • Clock synchronization - Network Time Protocol
+    • Section length tuning
+    • High availability - mission-critical
+------------------------------------------------------------------------------------------------------------------------
 
 
 
