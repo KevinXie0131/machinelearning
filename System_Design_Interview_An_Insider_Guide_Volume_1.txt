@@ -115,8 +115,20 @@ REST-style APIs / restful API / HTTP redirection / URL redirecting
 [0-9, a-z, A-Z], containing 10 + 26 + 26 = 62 possible characters.
 
 two types of hash functions for a URL shortener:
-    - Hash + collision resolution
+    - Hash + collision resolution / bloom filters (a space-efficient probabilistic technique to test if an element is a member of a set.)
     - base 62 conversion
+         base 62 is a way of using 62 characters for encoding. The mappings are:
+         0-0, ..., 9-9, 10-a, 11-b, ..., 35-z, 36-A, ..., 61-Z, where ‘a’ stands for 10, ‘Z’ stands for 61, etc.
+
+
+
+
+
+
+
+
+
+
 
 
 
