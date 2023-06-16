@@ -141,6 +141,20 @@ the following characteristics:
    • Extensibility
 Peak QPS = 2 * QPS
 
+Seed URLs / URL Frontier / DNS Resolver / HTML Downloader / Content Parser / Content Seen? / Content Storage / URL Extractor / URL Filter / URL Seen? / URL Storage
+potential infinite loops
+
+Depth-first search (DFS) vs Breadth-first search (BFS)
+prioritize URLs according to their page ranks, web traffic, update frequency, etc.
+
+
+
+
+
+
+
+
+
 
 
 
