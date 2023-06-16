@@ -64,5 +64,16 @@ If W + R > N, strong consistency is guaranteed because there must be at least on
     W = A write quorum of size W
     R = A read quorum of size R
 
+Consistency models:
+    • Strong consistency
+    • Weak consistency
+    • Eventual consistency (this is a specific form of weak consistency. Given enough time, all updates are propagated, and all replicas are consistent.)
+
+
+
+
+
+
+
 
 
