@@ -120,8 +120,13 @@ two types of hash functions for a URL shortener:
          base 62 is a way of using 62 characters for encoding. The mappings are:
          0-0, ..., 9-9, 10-a, 11-b, ..., 35-z, 36-A, ..., 61-Z, where ‘a’ stands for 10, ‘Z’ stands for 61, etc.
 
-
-
+additional talking points:
+   • Rate limiter - malicious users / overwhelmingly large number of URL shortening requests
+   • Web server scaling - web tier is stateless
+   • Database scaling - Database replication and sharding
+   • Integrating an analytics solution
+   • Availability, consistency, and reliability
+------------------------------------------------------------------------------------------------------------------------
 
 
 
