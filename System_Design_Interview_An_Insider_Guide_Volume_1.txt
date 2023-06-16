@@ -80,7 +80,7 @@ Failure detection
 
 Handling temporary failures
     'sloppy quorum' is used to improve availability (chooses the first W healthy servers for writes and first R healthy servers for reads on the hash ring. Offline servers are ignored)
+    hinted handoff (Since s2 is unavailable, reads and writes will be handled by s3 temporarily. When s2 comes back online, s3 will hand the data back to s2)
 
-
-
+Handling permanent failures
 
