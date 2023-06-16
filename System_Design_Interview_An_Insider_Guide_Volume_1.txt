@@ -22,6 +22,7 @@ fanout worker
 authentication / rate limiting
 roll out the system / a recap of your design
 ------------------------------------------------------------------------------------------------------------------------
++++Chapter 4: Design A Rate Limiter
 
 throttle rules / rate limiter middleware / malicious actors
 API gateway / IP whitelisting
@@ -47,10 +48,12 @@ two challenges in a distributed environment:
 
 gracefully recover from exceptions
 ------------------------------------------------------------------------------------------------------------------------
++++Chapter 5: Design Consistent Hashing
 
 Consistent hashing (hash ring / virtual nodes or replicas / redistributed.)
 mitigate this problem
 ------------------------------------------------------------------------------------------------------------------------
++++Chapter 6: Design A Key-value Store
 
 Automatic scaling
 due to the space constraint
@@ -92,6 +95,7 @@ Handling permanent failures
 
 Bloom filter
 ------------------------------------------------------------------------------------------------------------------------
++++Chapter 7: Design A Unique Id Generator In Distributed Systems
 
 generate unique IDs in distributed systems
     • Multi-master replication: database auto_increment feature
@@ -104,6 +108,7 @@ a few additional talking points:
     • Section length tuning
     • High availability - mission-critical
 ------------------------------------------------------------------------------------------------------------------------
++++Chapter 8: Design A Url Shortener
 
 REST-style APIs / restful API / HTTP redirection / URL redirecting
 301 Moved Permanently redirect status response code
@@ -127,6 +132,7 @@ additional talking points:
    • Integrating an analytics solution
    • Availability, consistency, and reliability
 ------------------------------------------------------------------------------------------------------------------------
++++Chapter 9: Design A Web Crawler
 
 A crawler is used for many purposes:
    • Search engine indexing
@@ -147,9 +153,11 @@ potential infinite loops
 Depth-first search (DFS) vs Breadth-first search (BFS)
 prioritize URLs according to their page ranks, web traffic, update frequency, etc.
 
+Politeness - denial-of-service (DOS) attack
+Priority - measured by PageRank [10], website traffic, update frequency, etc.
+Freshness - A web crawler must periodically re-crawl downloaded pages to keep our data set fresh.
 
-
-
+Robots.txt
 
 
 
