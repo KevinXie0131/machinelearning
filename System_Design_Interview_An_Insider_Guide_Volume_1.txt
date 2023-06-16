@@ -230,9 +230,25 @@ Cache architecture / divide the cache tier into 5 layers
    • Action: It stores info about whether a user liked a post, replied a post, or took other actions on a post.
    • Counters: It stores counters for like, reply, follower, following, etc.
 
+Scaling the database:
+    • Vertical scaling vs Horizontal scaling
+    • SQL vs NoSQL
+    • Master-slave replication
+    • Read replicas
+    • Consistency models
+    • Database sharding
+Other talking points:
+    • Keep web tier stateless
+    • Cache data as much as you can
+    • Support multiple data centers
+    • Lose couple components with message queues
+    • Monitor key metrics. For instance, QPS during peak hours and latency while users refreshing their news feed are interesting to monitor
 
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 12: Design A Chat System
+
+
+
 
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 13: Design A Search Autocomplete System
