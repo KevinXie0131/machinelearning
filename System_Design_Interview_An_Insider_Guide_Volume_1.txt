@@ -165,6 +165,21 @@ performance optimizations for HTML downloader
     3. Locality - Distribute crawl servers geographically
     4. Short timeout
 
+Robustness - handle exceptions gracefully without crashing the system
+Extensibility - can be extended by plugging in new modules
+
+1. Redundant content - Hashes or checksums help to detect duplication
+2. Spider traps - infinite loop
+3. Data noise - advertisements, code snippets, spam URLs, etc.
+
+relevant talking points:
+   • Server-side rendering - generate links on the fly / retrieve dynamically generated links / server-side rendering (also called dynamic rendering) first before parsing a page
+   • Filter out unwanted pages
+   • Database replication and sharding - improve the data layer availability, scalability, and reliability.
+   • Horizontal scaling - The key is to keep servers stateless
+   • Availability, consistency, and reliability
+   • Analytics - data is key ingredient for fine-tuning
+
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 10: Design A Notification System
 
