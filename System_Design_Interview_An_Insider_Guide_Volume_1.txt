@@ -139,7 +139,7 @@ the following characteristics:
    • Scalability
    • Robustness
    • Extensibility
-
+Peak QPS = 2 * QPS
 
 
 
