@@ -208,7 +208,7 @@ Notification setting (fine-grained control) / rate limiting / retry mechanism / 
 +++Chapter 11: Design A News Feed System
 
 sorted by reverse chronological order or any particular order / built by aggregating friends' posts in reverse chronological order
-DAU (Daily Active Users)
+DAU (Daily Active Users) / friends|followers
 
 Fanout service -> Message Queue -> Fanout Workers
 Two types of fanout models:
@@ -225,6 +225,7 @@ Graph databases are suited for managing friend relationship and friend recommend
 
 Cache architecture / divide the cache tier into 5 layers
    • News Feed: It stores IDs of news feeds.
+                only IDs are stored / think of the news feed cache as a <post_id, user_id>
    • Content: It stores every post data. Popular content is stored in hot cache.
    • Social Graph: It stores user relationship data.
    • Action: It stores info about whether a user liked a post, replied a post, or took other actions on a post.
