@@ -83,4 +83,20 @@ Handling temporary failures
     hinted handoff (Since s2 is unavailable, reads and writes will be handled by s3 temporarily. When s2 comes back online, s3 will hand the data back to s2)
 
 Handling permanent failures
+    anti-entropy protocol
+    A hash tree or Merkle tree is used for inconsistency detection and minimizing the amount of data transferred
+
+Handling data center outage
+
+
+
+
+
+
+
+
+
+
+
+
 
