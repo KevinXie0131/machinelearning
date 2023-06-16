@@ -71,7 +71,12 @@ Consistency models:
 
 Dynamo and Cassandra adopt eventual consistency, which is our recommended consistency model for our key-value store.
 
-Inconsistency resolution: versioning
+Inconsistency resolution: versioning / vector locks
+detect conflicts and reconcile conflicts
+A vector clock is a [server, version] pair associated with a data item
+
+
+
 
 
 
