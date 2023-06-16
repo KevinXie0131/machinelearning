@@ -50,13 +50,19 @@ gracefully recover from exceptions
 
 Consistent hashing (hash ring / virtual nodes or replicas / redistributed.)
 mitigate this problem
+Distribute data across multiple servers evenly / Minimize data movement
 ------------------------------------------------------------------------------------------------------------------------
 
+Automatic scaling
+due to the space constraint
+stale data
+Data partition / Data replication / Write path / Read path
+Quorum consensus
 
-
-
-
-
+If W + R > N, strong consistency is guaranteed because there must be at least one overlapping node that has the latest data to ensure consistency.
+    N = The number of replicas
+    W = A write quorum of size W
+    R = A read quorum of size R
 
 
 
