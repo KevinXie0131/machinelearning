@@ -304,6 +304,37 @@ additional talking points:
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 13: Design A Search Autocomplete System
 
+autocomplete / typeahead / search-as-you-type / incremental search
+also called 'design top k' or 'design top k most searched queries'
+
+• Data gathering service: It gathers user input queries and aggregates them in real-time.
+• Query service: Given a search query or prefix, return 5 most frequently searched terms.
+
+• Trie data structure (prefix tree)
+   • A trie is a tree-like data structure.
+   • The root represents an empty string.
+   • Each node stores a character and has 26 children, one for each possible character. To save space, we do not draw empty links.
+   • Each tree node represents a single word or a prefix string.
+
+   two optimizations:
+      1. Limit the max length of a prefix
+      2. Cache top search queries at each node
+
+• Data gathering service
+   • Users may enter billions of queries per day. Updating the trie on every query significantly slows down the query service.
+   • Top suggestions may not change much once the trie is built. Thus, it is unnecessary to update the trie frequently.
+   - Analytics Logs / Aggregators / Aggregated Data / Workers(servers that perform asynchronous jobs at regular intervals) / Trie Cache(weekly snapshot of the DB) / Trie DB(Key-value store)
+
+• Query service
+   - does not refresh the whole web page
+   - Browser caching
+   - Data sampling
+• Trie operations
+   - Create
+   - Update: Update the trie weekly
+   - Delete: filter layer
+• Scale the storage
+
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 14: Design Youtube
 
