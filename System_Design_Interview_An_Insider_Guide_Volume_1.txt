@@ -276,13 +276,30 @@ Data models:
     Message table for 1 on 1 chat: primary key is message_id,
     Message table for group chat: The composite primary key is (channel_id, message_id) / Channel = group
                                   channel_id is the partition key because all queries in a group chat operate in a channel
-    Message ID: IDs must be unique
+    Message ID: IDs must be unique / NoSQL databases usually do not provide 'auto_increment' / use a global 64-bit sequence number generator like Snowflake
                 IDs should be sortable by time, meaning new rows have higher IDs than old ones
 
+Service discovery: to recommend the best chat server for a client based on the criteria like geographical location, server capacity, etc
+                   Apache Zookeeper (registers all the available chat servers and picks the best chat server)
+Message flows
+    1 on 1 chat flow
+    Message synchronization across multiple devices: cur_max_message_id, which keeps track of the latest message ID on the device
+    Small group chat flow: message sync queue
 
+Online presence
+    User login
+    User logout
+    User disconnection: heartbeat mechanism
+    Online status fanout: publish-subscribe model
 
-
-
+additional talking points:
+    • Extend the chat app to support media files such as photos and videos / Compression, cloud storage, and thumbnails
+    • End-to-end encryption
+    • Caching messages on the client-side is effective to reduce the data transfer between the client and server.
+    • Improve load time / cache users' data, channels, etc. for better load time
+    • Error handling
+        • The chat server error (service discovery (Zookeeper) will provide a new chat server)
+        • Message resent mechanism (Retry and queueing)
 
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 13: Design A Search Autocomplete System
