@@ -248,6 +248,17 @@ Other talking points:
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 12: Design A Chat System
 
+A startup app or massive scale / support attachment / 1 on 1 chat / group chat / Is end-to-end encryption required
+relay the message to the recipients / hold the messages for that recipient on the server
+HTTP protocol: keep-alive header allows a client to maintain a persistent connection with the chat service / reduces the number of TCP handshakes
+
+techniques are used to simulate a server-initiated connection:
+    - Polling: client periodically asks the server if there are messages available
+    - Long polling: client holds the connection open until there are actually new messages available or a timeout threshold has been reached
+    - WebSocket(ws): sending asynchronous updates from server to client
+
+Stateful Service: The service is stateful because each client maintains a persistent network connection to a chat server
+concurrent connections / concurrent users
 
 
 
