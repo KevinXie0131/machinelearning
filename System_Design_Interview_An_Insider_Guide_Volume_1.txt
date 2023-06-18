@@ -334,7 +334,15 @@ also called 'design top k' or 'design top k most searched queries'
    - Update: Update the trie weekly
    - Delete: filter layer
 • Scale the storage
+   - a naive way to shard is based on the first character. But this creates uneven distribution
+   - analyze historical data distribution pattern and apply smarter sharding logic
 
+follow up questions:
+   - support multiple languages: store Unicode characters in trie nodes
+   - support the trending (real-time) search queries
+      • Reduce the working data set by sharding.
+      • Change the ranking model and assign more weight to recent search queries.
+      • Data may come as streams, so we do not have access to all the data at once.
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 14: Design Youtube
 
