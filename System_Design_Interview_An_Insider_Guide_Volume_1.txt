@@ -255,10 +255,15 @@ HTTP protocol: keep-alive header allows a client to maintain a persistent connec
 techniques are used to simulate a server-initiated connection:
     - Polling: client periodically asks the server if there are messages available
     - Long polling: client holds the connection open until there are actually new messages available or a timeout threshold has been reached
-    - WebSocket(ws): sending asynchronous updates from server to client
+    - WebSocket(ws): sending asynchronous updates from server to client (HTTP handshake / upgraded / bi-directional / persistent / use port 80 or 443)
 
-Stateful Service: The service is stateful because each client maintains a persistent network connection to a chat server
+Stateless Services: manage the login, signup, user profile, etc
+Stateful Service: chat service / The service is stateful because each client maintains a persistent network connection to a chat server
+                  service discovery coordinates closely with the chat service
+Third-party integration: push notification
+
 concurrent connections / concurrent users
+a very rough figure
 
 
 
