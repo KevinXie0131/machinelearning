@@ -265,6 +265,23 @@ Third-party integration: push notification
 concurrent connections / concurrent users
 a very rough figure
 
+Two types of data:
+    The first: generic data, such as user profile, setting, user friends list.
+               These data are stored in robust and reliable relational databases.
+    The second is unique to chat systems: chat history data / read/write pattern / The amount of data is enormous /
+                                          The read to write ratio is about 1:1 / not usually look up for old chats /
+                                          key-value stores
+
+Data models:
+    Message table for 1 on 1 chat: primary key is message_id,
+    Message table for group chat: The composite primary key is (channel_id, message_id) / Channel = group
+                                  channel_id is the partition key because all queries in a group chat operate in a channel
+    Message ID: IDs must be unique
+                IDs should be sortable by time, meaning new rows have higher IDs than old ones
+
+
+
+
 
 
 ------------------------------------------------------------------------------------------------------------------------
