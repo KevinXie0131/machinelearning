@@ -31,7 +31,11 @@ Option 1: Two-dimensional search: not efficient
 Option 2: Evenly divided grid: the distribution of business is not even / need more granular grids for dense areas and large grids in sparse areas
 Option 3: Geohash: reduce two-dimensional longitude and latitude data into one-dimensional string ofa letters and digits / has 12 precisions (also called levels)
                    only interested in geohashes with lengths between 4 and 6 / edge cases with how the geohash boundary is handled
+                   the longer a shared prefix is between two geohashes, the closer they are
+                   a common solution is to fetch not nly within the current grid but also from its neighbors
 
+Option 4: Quadtree: (a tree data structure in which each internal node has exactly four children)
+                   In memory data structure, not database solution
 
 
 
