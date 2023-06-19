@@ -346,9 +346,28 @@ follow up questions:
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 14: Design Youtube
 
+cloud services / video streaming
+Amazon's CDN CloudFront
+Video metadata / It is sharded and replicated to meet performance and high availability requirements
+blob storage - A Binary Large Object (BLOB) is a collection of binary data stored as a single entity in a database management system
+Video transcoding / video encoding
+bandwidth capabilities / higher|lower resolution
 
+video streaming flow / streaming protocol
+edge server (A CDN edge server is a strategically placed server that provides users with cached versions of static content from origin servers)
 
+Directed acyclic graph (DAG) model which defines tasks in stages so they can be executed sequentially or in parallel
+thumbnail images
 
+Speed optimization: parallelism everywhere
+message queues make the system more loosely coupled
+
+CDN ensures fast video delivery on a global scale
+long-tail distribution
+on-demand / content popularity / user access pattern
+large-scale system / a highly fault-tolerant system / handle errors gracefully and recover from them fast
+   • Recoverable error: retry
+   • Non-recoverable error: proper error code
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 15: Design Google Drive
 
