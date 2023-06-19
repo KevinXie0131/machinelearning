@@ -35,7 +35,20 @@ Option 3: Geohash: reduce two-dimensional longitude and latitude data into one-d
                    a common solution is to fetch not nly within the current grid but also from its neighbors
 
 Option 4: Quadtree: (a tree data structure in which each internal node has exactly four children)
-                   In memory data structure, not database solution
+                   In memory data structure, not database solution. It doesn't take too much memory and easily fit in one server
+                   incrementally rebuild the quadtree, a small subset of servers at a time, across the entire cluster
+                   roll out a new release / Blue/green deployment
+                   mitigated by setting up a business agreement / update the cache using a nightly job
+                   update it on the fly
+
+Option 4: Google S2: a library for spherical geometry / in-memory solution / maps a sphere to 1D index based on Hilbert curve
+
+compound key of (geohash, business_id)
+have a series of replicas to help with the read load
+a key-value store like Redis
+no locking mechanism is needed
+fetch fully hydrated business information
+
 
 
 
