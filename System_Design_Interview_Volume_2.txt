@@ -49,11 +49,28 @@ a key-value store like Redis
 no locking mechanism is needed
 fetch fully hydrated business information
 
-
-
-
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 18: Nearby Friends
+
+reasonable assumption / constraints and assumptions
+inactive friends
+privacy and data laws
+occasional data loss
+location refresh interval
+load more upon request
+
+stateful and bi-directional WebSocket services: each client maintains a persistent WebSocket connection to one of these servers
+spread out load evenly
+Restful API servers: stateless HTTP servers
+
+Redis location cache: store the most recent location data for active user / Time to Live (TTL)
+Redis pub/sub server: lightweight message bus / channels, also called topics
+broadcast the update to all the subscribers
+Redis provides super-fast read/write operations. It supports TTL used to auto-purge inactive users from the cache.
+
+can be horizontal scaled / shard by user id
+
+
 
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 19: Google Maps
