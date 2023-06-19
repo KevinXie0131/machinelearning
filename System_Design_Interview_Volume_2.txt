@@ -1,5 +1,40 @@
 +++Chapter 17: Proximity Service
 
+search radius / expand the search
+Functional requirements / Non-functional requirements
+latitude and longitude pair
+
+LBS: location based service
+user privacy / comply with data privacy laws
+the spike in traffic during peak hours
+
+API design / Data model (schema design) / High-level design / deep dive into
+search results are paginated
+reviews / star rating
+a new endpoint call to fetch the detailed information
+
+Google Places API: a service that accepts HTTP requests for location data through a variety of methods
+read/write ratio / read volume / write volume / infrequent operations
+
+Geospatial indexing is a technique used in databases to efficiently store and retrieve data based on their geographic location
+Geohash is a unique identifier of a specific region on the Earth. For a given location on earth, the Geohash algorithm converts its latitude and longitude into a string.
+
+Database cluster can be used for primary-secondary setup
+due to replication delay
+off-peak hours
+different regions and availability zones
+
+geospatial databse such as GeoHash in Redis or PostgreSQL with PostGIS extension
+Redis geospatial indexes let you store coordinates and search for them. This data structure is useful for finding nearby points within a given radius or bounding box.
+
+Option 1: Two-dimensional search: not efficient
+Option 2: Evenly divided grid: the distribution of business is not even / need more granular grids for dense areas and large grids in sparse areas
+Option 3: Geohash: reduce two-dimensional longitude and latitude data into one-dimensional string ofa letters and digits / has 12 precisions (also called levels)
+                   only interested in geohashes with lengths between 4 and 6 / edge cases with how the geohash boundary is handled
+
+
+
+
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 18: Nearby Friends
 
