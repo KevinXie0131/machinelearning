@@ -371,10 +371,33 @@ large-scale system / a highly fault-tolerant system / handle errors gracefully a
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 15: Design Google Drive
 
+a file storage and synchronization service
+storage server outage
+use Amazon S3(Amazon Simple Storage Service - object storage service) for storage
 
+Metadata database
+replicated in two separate geographical regions
 
+Sync conflicts: the first version that gets processed wins, and the version that gets processed later receives a conflict
+                presents both copies of the same file
+                has the option to merge both files or override one version with the other
 
+API servers: user authentication / managing user profile / updating file metadata
+Metadata cache: Some of the metadata are cached for fast retrieval
+Notification service: It is a publisher/subscriber system
 
+Memory caches adopt an eventual consistency model by default, which means different replicas might have different data.
 
+In SQL relational databases, ACID is natively supported. However, NoSQL databases do not support ACID properties by default.
+ACID properties must be programmatically incorporated in synchronization logic.
 
+downloads all the new blocks to reconstruct the file
+Notification service
+    • Long polling
+    • WebSocket: WebSocket provides a persistent connection between the client and the server. Communication is bi-directional.
 
+opt for long polling for the following two reasons:
+    • Communication for notification service is not bi-directional.
+    • WebSocket is suited for real-time bi-directional communication such as a chat app.
+
+Cold data / Cold storage like Amazon S3 glacier
