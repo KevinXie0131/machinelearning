@@ -401,3 +401,6 @@ opt for long polling for the following two reasons:
     • WebSocket is suited for real-time bi-directional communication such as a chat app.
 
 Cold data / Cold storage like Amazon S3 glacier
+
+chunking, compression, and encryption logic are implemented in a centralized place: block servers.
+presence service: online/offline functionality/logic
