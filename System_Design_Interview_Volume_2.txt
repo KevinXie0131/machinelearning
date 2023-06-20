@@ -196,6 +196,10 @@ Push vs Pull (most choose pull model)
 
 consumer re-balancing / partition dispatch plan / heartbeat
 
+State Storage stores:
+   - The mapping between partitions and consumers
+   - The last consumed offsets of consumer groups for reach partition
+
 
 
 
