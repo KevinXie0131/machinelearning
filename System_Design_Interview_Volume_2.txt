@@ -145,10 +145,56 @@ Apache Kafka Message Delivery Semantics:
 
 a traditional distributed message queue doesn't retain a message once it has ben successfully delivered to a consumer
 a traditional distributed message queue doesn't guarantee delivery orders
+a traditional distributed message queue provides on-disk overflow capacity
 
 Messages are measured in the range of KBs
 target throughput / end-to-end latency
+support a sudden surge in message volume
+several orders of magnitude smaller than
 
+producer / consumer / produce / consume / subscribe
+message queue is server, and producer/consumer are clients in server/client model
+
+Messaging models:
+   - Point-to-point: consumed by only one consumer / There is no data retention in this model
+   - Publish-subscribe: implemented by topics
+
+Topics: the categories used to organize messages / each topic has a unique name
+Partitions (sharding): a small subset of the messages for a topic
+Offset: the position of a message in the partition
+Brokers: the servers which hold the partitions
+Consumer group: the consumers form a Consumer group for a partition / a set of consumers consume messages from topics together
+
+pull data from these partitions of message queue cluster
+a constraint: a single partition can only be consumed by one consumer in the same group
+
+Coordination service: Apache Zookeeper / etcd are used to elect a a controller
+send message in batches/ persist messages in even larger batches
+
+Data storage:
+   - Option 1: database: database doesn't support read-heavy and write heavy access patterns at a large scale
+   - Option 2: Write-ahead-log (WAL). WAL is just a plain file where new entries are appended to an append-only log
+               WAL has a pure sequential read/write access pattern. The disk performance of sequential access is good
+
+messages are in transit
+cyclic redundancy check (CRC)
+routing layer: all messages sent to the routing layer are routed to the correct broker
+leader/follower replicas: fault-tolerance
+
+Buffer
+   - fewer network hops mean lower latency
+   - Batching buffers messages in memory and sends out larger batches in a single request. This increases throughput
+The size of batch is a trade-off between throughput and latency
+
+Push vs Pull (most choose pull model)
+    push model:
+        pros: low latency
+        cons: consumers could be overwhelmed
+    pull model
+        pros: consumers control the consumption rate / can simply scale out the consumers / more suitable for aggressive batch processing
+        cons: If there is no message, keeping pulling is wasting resources.
+
+consumer re-balancing / partition dispatch plan / heartbeat
 
 
 
