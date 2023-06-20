@@ -94,6 +94,31 @@ Redis Pub/Sub implements a real-time messaging system, where publishers, publish
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 19: Google Maps
 
+OpenStreetMap
+Geocoding is the process of converting addresses to geographic coordicates
+Geohashing is an encoding system that encodes a geographic area into a shoet string of letters and digits
+
+Dijkstra's or A* pathfinding algorithms
+nodes(intersections) and edges(roads)
+
+rough estimation / server throughput / GPS are batched
+analyze user behavior to enable personalization / leverage the location data in near real-time
+sent in batch to the server at a lower frequency
+
+communication protocol: HTTP with the keep-alive option
+CDN fetches a copy from the origin server, caches it locally and returns it to the user
+CDN returns a cached copy without contacting the origin server
+
+keep mobile data usage low / client-side caching
+a fast lookup mechanism
+
+cloud storage, Amazon S3
+prioritize availability over consistency
+partition kay
+
+Kafka: message queue. A unified low-latency, high-throughput data streaming platform designed for real-time data feeds
+
+
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 20: Distributed Message Queue
 
