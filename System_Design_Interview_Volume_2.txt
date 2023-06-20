@@ -129,6 +129,27 @@ Benefits of message queues:
     - Increased availability: if part of system goes offline, the other continue to interact with queue
     - Better performance: make asynchronous communication easy. Don't need to wait for each other (add to a queue without waiting for response / consume messages whenever they are available)
 
+Apache Kafka (distributed event store and stream-processing platform) / Apache RocketMQ / RabbitMQ / Apache Pulsar / Apache ActiveMQ / ZeroMQ
+
+Kafka and Pulsar are not message queues, but event streaming platform
+performant enough
+
+design a distributed message queue with additional features, such as long data retention, repeated comsumption of messages, etc., which are typically only available on event streaming platforms
+basic functionality of message queue: producers send messages to a queue, and consumers consume messages from it
+other considerations include performance, message delivery semantics (at-most-once, at-least-once, exactly-once), data detention, etc.
+
+Apache Kafka Message Delivery Semantics:
+    - At-Most-Once: a message is delivered either one time only or not at all
+    - At-Least-Once: a message can be delivered one or more times, but will never be lost.
+    - Exactly-Once: a  message will always be delivered only one time.
+
+a traditional distributed message queue doesn't retain a message once it has ben successfully delivered to a consumer
+a traditional distributed message queue doesn't guarantee delivery orders
+
+Messages are measured in the range of KBs
+target throughput / end-to-end latency
+
+
 
 
 
