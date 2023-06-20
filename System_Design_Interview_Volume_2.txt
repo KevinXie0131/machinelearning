@@ -80,6 +80,10 @@ service discovery: Zookeeper & etcd (A distributed, reliable key-value store for
 service discovery is a small key-value store to hold configuration data
 
 consistent hashing / hash ring
+over-provisioned / operational overhead and risks
+performance hotspots
+the incremental load should not overwhelm any single one
+
 
 
 ------------------------------------------------------------------------------------------------------------------------
