@@ -67,9 +67,19 @@ Redis location cache: store the most recent location data for active user / Time
 Redis pub/sub server: lightweight message bus / channels, also called topics
 broadcast the update to all the subscribers
 Redis provides super-fast read/write operations. It supports TTL used to auto-purge inactive users from the cache.
+Redis servers are easily shard based on user id
+Redis pub/sub server is used as a routing layer to direct messages
 
 can be horizontal scaled / shard by user id
+increase the scale
+inactivity timeout period
+minimize downtime
+conservative estimation
 
+service discovery: Zookeeper & etcd (A distributed, reliable key-value store for the most critical data of a distributed system)
+service discovery is a small key-value store to hold configuration data
+
+consistent hashing / hash ring
 
 
 ------------------------------------------------------------------------------------------------------------------------
