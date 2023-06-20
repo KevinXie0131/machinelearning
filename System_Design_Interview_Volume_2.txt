@@ -118,7 +118,6 @@ partition kay
 
 Kafka: message queue. A unified low-latency, high-throughput data streaming platform designed for real-time data feeds
 
-
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 20: Distributed Message Queue
 
