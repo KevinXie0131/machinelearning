@@ -71,7 +71,7 @@ Redis servers are easily shard based on user id
 Redis pub/sub server is used as a routing layer to direct messages
 
 can be horizontal scaled / shard by user id
-increase the scale
+at a lower scale / increase the scale
 inactivity timeout period
 minimize downtime
 conservative estimation
@@ -84,7 +84,12 @@ over-provisioned / operational overhead and risks
 performance hotspots
 the incremental load should not overwhelm any single one
 
+nearby random person: a pool of pub/sub by geohash
 
+WebSocket: real-time communication between clients and the servers
+Redis: fast read and write of location data
+Redis Pub/Sub: routing layer to direct location updates from one user to all the online friends
+Redis Pub/Sub implements a real-time messaging system, where publishers, publish to a channel/topic and several clients can subscribe to that channel/topic.
 
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 19: Google Maps
