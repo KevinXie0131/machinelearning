@@ -117,9 +117,21 @@ prioritize availability over consistency
 partition kay
 
 Kafka: message queue. A unified low-latency, high-throughput data streaming platform designed for real-time data feeds
-
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 20: Distributed Message Queue
+
+systems are broken up into small and independent building blocks with well-defined interfaces between them
+Message queues provide communication and coordic=nation for those building blocks
+
+Benefits of message queues:
+    - Decoupling: eliminate tight coupling
+    - Improved scalability: more consumers are added to handle the increased traffic during peak hours
+    - Increased availability: if part of system goes offline, the other continue to interact with queue
+    - Better performance: make asynchronous communication easy. Don't need to wait for each other (add to a queue without waiting for response / consume messages whenever they are available)
+
+
+
+
 
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 21: Metrics Monitoring
