@@ -139,9 +139,9 @@ basic functionality of message queue: producers send messages to a queue, and co
 other considerations include performance, message delivery semantics (at-most-once, at-least-once, exactly-once), data detention, etc.
 
 Apache Kafka Message Delivery Semantics:
-    - At-Most-Once: a message is delivered either one time only or not at all
-    - At-Least-Once: a message can be delivered one or more times, but will never be lost.
-    - Exactly-Once: a  message will always be delivered only one time.
+    - At-Most-Once: a message is delivered either one time only or not at all / suitable for monitoring metrics / ack = 0
+    - At-Least-Once: a message can be delivered one or more times, but will never be lost. / result in duplicates / suitable for client side which has deduplication / ack = 1 or ack = all
+    - Exactly-Once: a  message will always be delivered only one time. / suitable for financial related user cases (payment, accounting and trading) / downstream service doesn't support idempotency
 
 a traditional distributed message queue doesn't retain a message once it has ben successfully delivered to a consumer
 a traditional distributed message queue doesn't guarantee delivery orders
@@ -199,13 +199,37 @@ consumer re-balancing / partition dispatch plan / heartbeat
 State Storage stores:
    - The mapping between partitions and consumers
    - The last consumed offsets of consumer groups for reach partition
+   access pattern for consumer state:
+      - Frequent read/write operations but the volume is not high
+      - Data is updated frequently and is rarely deletd
+      - Random read/write operations
+      - Data consistency is important
+   A key-value store like Zookeeper is a good choice
 
+Metadata storage stores the configuration and properties of topics, including a number of partitions, retention period, and distribution of replicas
+Zookeeper is a good choice for storing metadata (high consistency requirement)
+
+Zookeeper offers a hierarchical kay-value store and used to provide a distributed configuration service, synchronization service, and naming registry
+Zookeeper helps with the leader election of broker cluster
+
+Replication is the solution to achieve high availability
+replica distribution plan
+In-sync replicas (ISR) / committed offset / fully caught up with the leader / lag time / trade-off between performance and durability
+acknowledge setting:
+    ACK = all: producer get acknowledge after all ISRs received message / the strongest message durability
+    ACK = 1: producer get acknowledge once the leader persists message / The latency is improved by not waiting for data synchronization / occasional data loss is acceptable
+    ACK = 0: producer keeps sending message without waiting for any acknowledge / lowest latency at the cost of potential data loss / good for collecting metrics or logging data since data volume is high but data loss is acceptable
+
+data mirroring copies data across data centers
+server crashes / failure recovery of the brokers / tolerate failure of the node
+replicas should not be in the same node
+decommissioned partition
 
 
 
 
 ------------------------------------------------------------------------------------------------------------------------
-+++Chapter 21: Metrics Monitoring
++++Chapter 21: Metrics Monitoring and Alerting System
 
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 22: Ad Click Event Aggregation
