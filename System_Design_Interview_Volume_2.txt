@@ -225,9 +225,18 @@ server crashes / failure recovery of the brokers / tolerate failure of the node
 replicas should not be in the same node
 decommissioned partition
 
+Message filtering: consumer fetches the full set of messages and filters out unnecessary messages
+                   attach a tag to metadata of each message and broker can filter message in that dimension
 
+RocketMQ support delayed messages with specific levels of time precision
+Scheduled message is similar with delayed message
 
-
+Protocol: Advanced Message Queueing Protocol (AMQP) / Kafka Protocol
+    - Cover all activities such as production, consumption and heartbeat
+    - Effectively transport data with large volumes
+    - Verify the integrity and correctness of the data
+Retry consumption: send failed messages to dedicated retry topic
+Historical data archive: time-based or capacity-based log retention mechanism / use HDFS or object storage to store historical data
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 21: Metrics Monitoring and Alerting System
 
