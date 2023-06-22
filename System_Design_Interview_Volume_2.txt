@@ -312,19 +312,25 @@ Query API design: run query against the aggregation service
     API 2: Return top N most clicked ad_ids in the last M minutes
 
 Data model:
-   Raw data: Data is scattered on different application servers
-   Aggregated data: add additional field call filed_id / Records are grouped by filed_id
+   Raw data: Data is scattered on different application servers / backup data
+   Aggregated (derived) data: add additional field call filed_id / Records are grouped by filed_id / active data
 
+unbounded data stream / aggregated result
+Asynchronous processing: adopt a message queue, Kafka to decouple producers and consumers / producers and consumers can scaled independently
 
+the second message queue like Kafka to achieve end-to-end exactly-once semantics (atomic commit)
 
+Aggregation service: MapReduce framework is a good solution to aggregate ad click events / Directed acyclic graph (DAG)
+map > aggregate -> reduce -> top 10 aggregation
 
+data filtering: star schema / the filtering fields are called dimensions
 
-
+Streaming vs Batching
 
 
 
 ------------------------------------------------------------------------------------------------------------------------
-+++Chapter 23: Hotel Reservation
++++Chapter 23: Hotel Reservation System
 
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 24: Distributed Email Service
