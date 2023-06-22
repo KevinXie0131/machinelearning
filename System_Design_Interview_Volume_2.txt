@@ -240,8 +240,67 @@ Historical data archive: time-based or capacity-based log retention mechanism / 
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 21: Metrics Monitoring and Alerting System
 
+Datadog / InfluxDB / New Relic / Nagios / Prometheus / Munin / Grafana / Graphite / OpenTSDB
+
+in-house system / 1-year retention
+reduce the resolution of the data for long-term storage / roll them up to 1-min resolution / raw form of data
+distributed system tracing
+Log monitoring: Elasticsearch, Logstash, Kibana (ELK) stack
+
+Data collection
+Data transmission
+Data storage
+Alerting: detect anomalies
+Visualization
+
+Data model: Metrics data recorded a a time series that contains a set of values with associated timestamps
+the line protocol: common input format for monitoring software
+collected at high frequency
+read volume could be bursty / spiky
+
+time-series database: OpenTSDB / MetricsDB / Timestream /  InfluxDB / Prometheus
+in-memory cache / on-disk storage
+
+feature of time-series database is efficient aggregation and analysis of a large amount of time-series data by labels, also known as tags in some databases
+
+Metrics data / Metrics source
+Metrics collector:
+    Pull vs Push model:
+        Pull model: pull metrics values from running applications periodically
+                    Service Discovery (etcd, Zookeeper): Metrics collector needs to know the complete list of service endpoints to pull data from
+                                                         configuration metadata of service endpoints from service discovery: pulling interval, IP addresses, timeout and retry parameters
+                                                         metrics collector pulls metrics data via a pre-defined HTTP endpoint
+                                                         metrics collector polls from endpoint changes periodically
+                    A pool of metrics collector: One potential approach is to designate each collector to a range in a consistent hash ring
+        Push model: collection agent installed on every server monitored
+                    collection agent is a long-running software to collect metrics from the services running on the server and pushed those metrics periodically to the metrics collector
+                    Aggregation: reduce the volume of data sent to the metrics collector
+
+
+Scale metrics transmission (ingestion) pipeline
+    metrics collector send metrics data to queueing system like Kafka, then consumers or straming processing services
+    such as Apache Storm, Flink, and Spark process the push data to the time-series database
+
+Scale Kafka
+    - Partition metrics data by metrc names, so consumers can aggregate data by metrics names
+    - Further partition metrics data with tags/labels
+
+Aggregations:
+    Collection agent: only support simple aggregation logic, like aggregate a counter
+    Ingestion pipeline: stream processing engines like Flink / only calculated result is written to database / downside is that we no longer store raw data
+    Query side: query speed might be slow / For a well-chosen time-series database, there is no need to add own caching
+
+Data encoding and compression can significantly reduce the size of the data, like Double-delta Encoding
+Down-sampling is the processing of converting high0resolution data to low-resolution to reduce overall disk usage
+Cold storage is the storage of inactive data that is rarely used
+
+Build vs Buy / available off-the-shelf alerting systems
+Visualization system: Grafana
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 22: Ad Click Event Aggregation
+
+
+
 
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 23: Hotel Reservation
