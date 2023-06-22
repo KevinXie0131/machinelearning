@@ -299,6 +299,27 @@ Visualization system: Grafana
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 22: Ad Click Event Aggregation
 
+One core benefit of online advertising is its measurably, as quantified by real-time data
+digital advertising has a core process called Real-Time Bidding(RTB) / the speed of RTB is less than 1 second
+
+Publisher -> Supply Side Platform -> Ad Exchange <- Demand Side Platform <- Advertiser
+
+Data accuracy / click-through rate (CTR) / conversion rate (CVR) / targeted audience group
+parameters should be configurable /  end-to-end latency should be a few minutes
+
+Query API design: run query against the aggregation service
+    API 1: Aggregate the number of clicks of ad_id in the lat M minutes
+    API 2: Return top N most clicked ad_ids in the last M minutes
+
+Data model:
+   Raw data: Data is scattered on different application servers
+   Aggregated data: add additional field call filed_id / Records are grouped by filed_id
+
+
+
+
+
+
 
 
 
