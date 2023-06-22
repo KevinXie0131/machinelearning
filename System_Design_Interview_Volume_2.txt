@@ -325,7 +325,33 @@ map > aggregate -> reduce -> top 10 aggregation
 
 data filtering: star schema / the filtering fields are called dimensions
 
-Streaming vs Batching
+Streaming (near real-time system / Flink / infinite stream) vs Batching (offline system / MapReduce / bounded input with finite size)
+lambda architecture: In addition to the batch layer and speed layers, Lambda architecture also includes a data serving layer for responding to user queries.
+kappa architecture
+
+Aggregation window / 4 types of window functions:
+    - tumbling/fixed window: time is partitioned into same-length, non-overlapping chunks
+    - hopping window: a windows slides across the data stream, according to a specific interval / get the top N most clicked ads during the last M minutes
+    - sliding window
+    - session window
+
+data deduplication: malicious intent is handled by ad fraud/rish control components / server outage / upstream service hasn't received acknowledge, stream event might be sent again
+A distributed transaction is a transaction that works across several nodes
+To achieve exactly-once in Kafka, offset can be save in HDFS/S3 after acknowledge is back from downstream
+
+during off-peak hours to minimize the impact / pre-allocate enough partitions in advance
+topic physical sharding: Slicing data to different topics can help increase system throughput. With fewer consumers for a single topic,
+                         the time to re-balance consumer groups is reduced. However, it introduces extra complexity and maintenance costs
+
+How to increase the throughput of the aggregation service:
+    Option 1: Allocate events with different ad_ids to different threads
+    Option 2: Deploy aggregation service nodes on resource providers like Apache Hadoop YARN
+
+Hotspot issue: mitigated by allocating more aggregation nodes to process popular ads
+
+Fault-tolerant: save the 'System status' like upstream offset to a snapshot and recover from the latest saved status
+Failover process: if one aggregation service node fails, we bring up a new node and recover data from the latest snapshot
+Reconcile with / Reconciliation: compare different sets of data in order to ensure data integrity / a batch job
 
 
 
