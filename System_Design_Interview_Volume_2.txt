@@ -370,7 +370,10 @@ the relationship between different entities is stable
 Reservation status: pending / paid / refunded / canceled / rejected
 
 standard room / king-size room / queen-size room
+design is modeled with microservice architecture / high-level design diagram
 
+Public API Gateway: rate limiting / authentication / configured to direct | route requests to specific service based on endpoints
+Internal APIs: authorized staff / further protected by VPN
 
 
 
