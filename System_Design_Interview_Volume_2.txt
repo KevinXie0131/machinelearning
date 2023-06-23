@@ -367,7 +367,7 @@ relational database works well with ready-heady and write lee frequently workflo
 NoSQL databases are generally optimized for writes aand relational database works well with ready-heavy workflow
 
 the relationship between different entities is stable
-
+Reservation status: pending / paid / refunded / canceled / rejected
 
 
 
