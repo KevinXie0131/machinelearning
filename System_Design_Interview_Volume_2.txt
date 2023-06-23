@@ -352,11 +352,10 @@ Hotspot issue: mitigated by allocating more aggregation nodes to process popular
 Fault-tolerant: save the 'System status' like upstream offset to a snapshot and recover from the latest saved status
 Failover process: if one aggregation service node fails, we bring up a new node and recover data from the latest snapshot
 Reconcile with / Reconciliation: compare different sets of data in order to ensure data integrity / a batch job
-
-
-
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 23: Hotel Reservation System
+
+
 
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 24: Distributed Email Service
