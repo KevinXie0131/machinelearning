@@ -369,7 +369,7 @@ NoSQL databases are generally optimized for writes aand relational database work
 the relationship between different entities is stable
 Reservation status: pending / paid / refunded / canceled / rejected
 
-
+standard room / king-size room / queen-size room
 
 
 
