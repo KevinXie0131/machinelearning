@@ -355,6 +355,25 @@ Reconcile with / Reconciliation: compare different sets of data in order to ensu
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 23: Hotel Reservation System
 
+the scale of the system / overbooking / within the scope / out of the scope
+average transaction per second (TPS)
+QPD distribution / reach the final step / drop off the flow / walk backwards along the funnel
+
+not technically challenging
+used as idempotency key to prevent double booking
+a few oder of magnitudes higher than
+
+relational database works well with ready-heady and write lee frequently workflows
+NoSQL databases are generally optimized for writes aand relational database works well with ready-heavy workflow
+
+the relationship between different entities is stable
+
+
+
+
+
+
+
 
 
 ------------------------------------------------------------------------------------------------------------------------
