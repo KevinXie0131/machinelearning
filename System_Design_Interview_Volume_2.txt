@@ -409,9 +409,9 @@ concurrency issue:
 
 Database sharding: to split data into multiple databases so that each of them only contains a portion of data
 Inventory Caching: Redis is a good choice because TTL and Least Recently Used (LRU) cache eviction policy help us male optimal use of memory / as a precaution / the source of true for the inventory data
-The vloumn of read operations is an order of magnitude higher than write operations
+The volume of read operations is an order of magnitude higher than write operations
 
-
+How to maintain consistency between cache and database
 
 
 
