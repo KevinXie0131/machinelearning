@@ -420,13 +420,10 @@ Data consistency among services: In microservice architecture, each service has 
                                  there is only one happy path, and many failure case could cause data inconsistency
     - Two-phase commit (2PC)
         guarantee atomic transaction commit across multiple nodes / blocking protocol / not performant
-    - SAGA
+    - SAGA design pattern
+        a way to manage data consistency across microservices in distributed transaction scenarios
         a sequence of local transactions
         consist of multiple steps and rely on eventual consistency
-
-
-
-
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 24: Distributed Email Service
 
