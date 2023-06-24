@@ -412,7 +412,17 @@ Inventory Caching: Redis is a good choice because TTL and Least Recently Used (L
 The volume of read operations is an order of magnitude higher than write operations
 
 How to maintain consistency between cache and database
+    - propagated to the cache asynchronously
+    - Change Data Capture (CDC) / Debezium
+    - final inventory validation check / some else just booked the last room
 
+Data consistency among services: In microservice architecture, each service has its own database. one logically atomic operation can span multiple services
+                                 there is only one happy path, and many failure case could cause data inconsistency
+    - Two-phase commit (2PC)
+        guarantee atomic transaction commit across multiple nodes / blocking protocol / not performant
+    - SAGA
+        a sequence of local transactions
+        consist of multiple steps and rely on eventual consistency
 
 
 
