@@ -196,8 +196,7 @@ Write Skew and Phantoms
         Multiplayer game / use a unique constraint
         Claiming a username / not safe under snapshot isolation / a unique constraint (the second transaction is aborted due to violating the constraint)
         Preventing double-spending
-    Phantoms causing write skew
-        phantom (a write in one transaction changes the result of a search query in another transaction)
+    Phantoms causing write skew       phantom (a write in one transaction changes the result of a search query in another transaction)
         Snapshot isolation avoids phantoms in read-only queries, but in read-write transactions, phantoms can lead to particularly tricky cases of write skew
     Materializing conflicts (turns it into a lock conflict on a concrete set of rows that exist in the database) / A serializable isolation level is much preferable
 
@@ -504,3 +503,55 @@ This is what happens in a single-leader database, three ways of handling that si
 
 ZooKeeper play an important role in providing an 'outsourced' consensus, failure detection, and membership service
 leaderless and multi-leader replication systems typically do not use global consensus / cope without linearizability / branching and merging version histories.
+------------------------------------------------------------------------------------------------------------------------
+The Lamport timestamp algorithm is a simple logical clock algorithm used to determine the order of events in a distributed computer system.
+
+Total order broadcast: If m1 is delivered before m2 on one node, then m1 must be delivered before m2 on all nodes
+                       All nodes must deliver messages in the same order. This includes a node's deliveries to itself!
+
+Gossip protocols: Useful when broadcasting to a large number of nodes.
+                  Eventually reaches all nodes (with high probability).
+
+Eventual consistency
+    Linearizability advantages:
+        - Makes a distributed system behave as if it were non-distributed
+        - Simple for applications to use
+    Downsides:
+        - Performance cost: lots of messages and waiting for responses
+        - Scalability limits: leader can be a bottleneck
+        - Availability problems: if you can't contact a quorum of nodes, you can't process any operations
+    Eventual consistency: a weaker model than linearizability. Different trade-off choices.
+------------------------------------------------------------------------------------------------------------------------
+Conict-free Replicated Data Types (CRDTs)
+    - Operation-based
+    - State-based
+
+Operation-based CRDTs
+    Reliable broadcast may deliver updates in any order
+    Recall strong eventual consistency:
+        - Eventual delivery: every update made to one non-faulty replica is eventually processed by every non-faulty replica.
+        - Convergence: any two replicas that have processed the same set of updates are in the same state
+    CRDT algorithm implements this:
+        - Reliable broadcast ensures every operation is eventually delivered to every (non-crashed) replica
+        - Applying an operation is commutative: order of delivery doesn't matter
+
+State-based CRDTs
+    Merge operator must satisfy: Commutative / Associative / Idempotent
+    State-based versus operation-based:
+        - Op-based CRDT typically has smaller messages
+        - State-based CRDT can tolerate message loss/duplication
+    Not necessarily uses broadcast:
+        - Can also merge concurrent updates to replicas e.g. in quorum replication, anti-entropy, .
+------------------------------------------------------------------------------------------------------------------------
+
+Google's Spanner
+    A database system with millions of nodes, petabytes of data, distributed across datacenters worldwide
+    Consistency properties:
+        - Serializable transaction isolation
+        - Linearizable reads and writes
+        - Many shards, each holding a subset of the data; atomic commit of transactions across shards
+Many standard techniques:
+        - State machine replication (Paxos) within a shard
+        - Two-phase locking for serializability
+        - Two-phase commit for cross-shard atomicity
+The interesting bit: read-only transactions require no locks!
