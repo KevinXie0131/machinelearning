@@ -28,7 +28,8 @@ Discarding writes / lagged behind / be disclosed to / split brain / resolving co
 
 Implementation of Replication Logs
 Statement-based replication / nondeterministic function / auto-incrementing column
-Write-ahead log (WAL) shipping
+Write-ahead log (WAL) shipping: A write ahead log is an append-only auxiliary disk-resident structure used for crash and transaction recovery.
+                                The changes are first recorded in the log, which must be written to stable storage, before the changes are written to the database.
 Logical (row-based) log replication
 Trigger-based replication / triggers & stored procedures
 
@@ -131,7 +132,7 @@ Atomicity can be implemented using a log for crash recovery
 isolation can be implemented using a lock on each object (allowing only one thread to access an object at any one time)
 
 document databases lacking join functionality also encourage de-normalization
-error handling mechanism isn’t perfect:
+error handling mechanism isn't perfect:
     If the transaction actually succeeded, but the network failed while the server tried to acknowledge the successful commit to the client, then retrying the transaction causes it to be performed twice
     If the error is due to overload, retrying the transaction will make the problem worse, not better.
     It is only worth retrying after transient errors (for example due to deadlock, isolation violation, temporary network interruptions, and failover);
