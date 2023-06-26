@@ -199,7 +199,8 @@ Write Skew and Phantoms
         Multiplayer game / use a unique constraint
         Claiming a username / not safe under snapshot isolation / a unique constraint (the second transaction is aborted due to violating the constraint)
         Preventing double-spending
-    Phantoms causing write skew       phantom (a write in one transaction changes the result of a search query in another transaction)
+    Phantoms causing write skew
+        phantom (a write in one transaction changes the result of a search query in another transaction)
         Snapshot isolation avoids phantoms in read-only queries, but in read-write transactions, phantoms can lead to particularly tricky cases of write skew
     Materializing conflicts (turns it into a lock conflict on a concrete set of rows that exist in the database) / A serializable isolation level is much preferable
 
