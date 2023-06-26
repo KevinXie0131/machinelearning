@@ -201,7 +201,7 @@ State Storage stores:
    - The last consumed offsets of consumer groups for reach partition
    access pattern for consumer state:
       - Frequent read/write operations but the volume is not high
-      - Data is updated frequently and is rarely deletd
+      - Data is updated frequently and is rarely delete
       - Random read/write operations
       - Data consistency is important
    A key-value store like Zookeeper is a good choice
@@ -291,7 +291,7 @@ Aggregations:
     Query side: query speed might be slow / For a well-chosen time-series database, there is no need to add own caching
 
 Data encoding and compression can significantly reduce the size of the data, like Double-delta Encoding
-Down-sampling is the processing of converting high0resolution data to low-resolution to reduce overall disk usage
+Down-sampling is the processing of converting high-resolution data to low-resolution to reduce overall disk usage
 Cold storage is the storage of inactive data that is rarely used
 
 Build vs Buy / available off-the-shelf alerting systems
