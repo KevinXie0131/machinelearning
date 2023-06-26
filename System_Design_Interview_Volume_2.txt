@@ -95,8 +95,8 @@ Redis Pub/Sub implements a real-time messaging system, where publishers, publish
 +++Chapter 19: Google Maps
 
 OpenStreetMap
-Geocoding is the process of converting addresses to geographic coordicates
-Geohashing is an encoding system that encodes a geographic area into a shoet string of letters and digits
+Geocoding is the process of converting addresses to geographic coordinates
+Geohashing is an encoding system that encodes a geographic area into a short string of letters and digits
 
 Dijkstra's or A* pathfinding algorithms
 nodes(intersections) and edges(roads)
