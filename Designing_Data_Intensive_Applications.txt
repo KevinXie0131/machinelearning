@@ -101,7 +101,9 @@ subscribe to this information in ZooKeeper.
 When a node is added or removed, ZooKeeper notifies the routing tier so that it can keep its routing information up to date
 use ZooKeeper to track partition assignment / for cluster management
 
-gossip protocol
+gossip protocol:
+    A gossip protocol or epidemic protocol is a procedure or process of computer peer-to-peer communication that is based on the way epidemics spread.
+    Some distributed systems use peer-to-peer gossip to ensure that data is disseminated to all members of a group.
 massively parallel processing (MPP) / join, filtering, grouping, aggregation operations
 choosing a partitioning scheme
 
