@@ -121,7 +121,7 @@ Kafka: message queue. A unified low-latency, high-throughput data streaming plat
 +++Chapter 20: Distributed Message Queue
 
 systems are broken up into small and independent building blocks with well-defined interfaces between them
-Message queues provide communication and coordic=nation for those building blocks
+Message queues provide communication and coordination for those building blocks
 
 Benefits of message queues:
     - Decoupling: eliminate tight coupling
@@ -134,7 +134,7 @@ Apache Kafka (distributed event store and stream-processing platform) / Apache R
 Kafka and Pulsar are not message queues, but event streaming platform
 performant enough
 
-design a distributed message queue with additional features, such as long data retention, repeated comsumption of messages, etc., which are typically only available on event streaming platforms
+design a distributed message queue with additional features, such as long data retention, repeated consumption of messages, etc., which are typically only available on event streaming platforms
 basic functionality of message queue: producers send messages to a queue, and consumers consume messages from it
 other considerations include performance, message delivery semantics (at-most-once, at-least-once, exactly-once), data detention, etc.
 
@@ -278,11 +278,11 @@ Metrics collector:
 
 
 Scale metrics transmission (ingestion) pipeline
-    metrics collector send metrics data to queueing system like Kafka, then consumers or straming processing services
+    metrics collector send metrics data to queueing system like Kafka, then consumers or streaming processing services
     such as Apache Storm, Flink, and Spark process the push data to the time-series database
 
 Scale Kafka
-    - Partition metrics data by metrc names, so consumers can aggregate data by metrics names
+    - Partition metrics data by metric names, so consumers can aggregate data by metrics names
     - Further partition metrics data with tags/labels
 
 Aggregations:
@@ -364,7 +364,7 @@ used as idempotency key to prevent double booking
 a few oder of magnitudes higher than
 
 relational database works well with ready-heady and write lee frequently workflows
-NoSQL databases are generally optimized for writes aand relational database works well with ready-heavy workflow
+NoSQL databases are generally optimized for writes and relational database works well with ready-heavy workflow
 
 the relationship between different entities is stable
 Reservation status: pending / paid / refunded / canceled / rejected
@@ -426,6 +426,10 @@ Data consistency among services: In microservice architecture, each service has 
         consist of multiple steps and rely on eventual consistency
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 24: Distributed Email Service
+
+
+
+
 
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 25: S3-like Object Storage
