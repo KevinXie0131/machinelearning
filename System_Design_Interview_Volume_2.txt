@@ -335,7 +335,7 @@ Aggregation window / 4 types of window functions:
     - sliding window
     - session window
 
-data deduplication: malicious intent is handled by ad fraud/rish control components / server outage / upstream service hasn't received acknowledge, stream event might be sent again
+data deduplication: malicious intent is handled by ad fraud/risk control components / server outage / upstream service hasn't received acknowledge, stream event might be sent again
 A distributed transaction is a transaction that works across several nodes
 To achieve exactly-once in Kafka, offset can be save in HDFS/S3 after acknowledge is back from downstream
 
