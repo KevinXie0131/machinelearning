@@ -526,7 +526,7 @@ Eventual consistency
         - Availability problems: if you can't contact a quorum of nodes, you can't process any operations
     Eventual consistency: a weaker model than linearizability. Different trade-off choices.
 ------------------------------------------------------------------------------------------------------------------------
-Conict-free Replicated Data Types (CRDTs)
+Conflict-free Replicated Data Types (CRDTs)
     - Operation-based
     - State-based
 
@@ -545,7 +545,7 @@ State-based CRDTs
         - Op-based CRDT typically has smaller messages
         - State-based CRDT can tolerate message loss/duplication
     Not necessarily uses broadcast:
-        - Can also merge concurrent updates to replicas e.g. in quorum replication, anti-entropy, .
+        - Can also merge concurrent updates to replicas e.g. in quorum replication, anti-entropy.
 ------------------------------------------------------------------------------------------------------------------------
 
 Google's Spanner
