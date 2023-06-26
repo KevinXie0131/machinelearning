@@ -363,7 +363,7 @@ not technically challenging
 used as idempotency key to prevent double booking
 a few oder of magnitudes higher than
 
-relational database works well with ready-heady and write lee frequently workflows
+relational database works well with ready-heady and write less frequently workflows
 NoSQL databases are generally optimized for writes and relational database works well with ready-heavy workflow
 
 the relationship between different entities is stable
