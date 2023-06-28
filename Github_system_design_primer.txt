@@ -141,7 +141,10 @@ Guava RateLimiter
     - SmoothBursty
     - SmoothWarmingUp: has a warm-up period after teh startup. It gradually increases the distribution rate to the configured value.
 
-
+Cache Problems
+    - Cache Penetration
+    - Cache Breakdown
+    - Cache Avalanche
 
 
 
