@@ -132,3 +132,23 @@ Stop cascading failures. Fallbacks and graceful degradation. Fail fast and rapid
 
 Fallback: Use a different mechanism to achieve the same result.
 Fallback Mechanism: If a CDN fails, you should be able to detect it and start sending requests for resources from the original web server.
+------------------------------------------------------------------------------------------------------------------------
+Throttling Algorithms
+    - token bucket algorithm
+    - leaky bucket algorithm
+
+Guava RateLimiter
+    - SmoothBursty
+    - SmoothWarmingUp: has a warm-up period after teh startup. It gradually increases the distribution rate to the configured value.
+
+
+
+
+
+
+
+
+
+
+
+
