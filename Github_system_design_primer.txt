@@ -117,3 +117,10 @@ This is helpful where the errors may be transient (like a momentary network glit
 
 A materialized view is a pre-computed data set derived from a query specification (the SELECT in the view definition) and stored for later use.
 Because the data is pre-computed, querying a materialized view is faster than executing a query against the base table of the view.
+
+Rate limiting is a technique to limit network traffic to prevent users from exhausting system resources.
+Rate limiting makes it harder for malicious actors to overburden the system and cause attacks like Denial of Service (DoS).
+
+The Circuit Breaker design pattern is used to stop the request and response process if a service is not working.
+A circuit breaker acts as a proxy for operations that might fail. The proxy should monitor the number of recent failures that have occurred,
+and use this information to decide whether to allow the operation to proceed, or simply return an exception immediately.
