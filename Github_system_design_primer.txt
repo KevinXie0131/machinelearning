@@ -111,3 +111,9 @@ Handy conversion guide:
    1 request per second = 2.5 million requests per month
    40 requests per second = 100 million requests per month
    400 requests per second = 1 billion requests per month
+
+Spring Retry provides an ability to automatically re-invoke a failed operation.
+This is helpful where the errors may be transient (like a momentary network glitch).
+
+A materialized view is a pre-computed data set derived from a query specification (the SELECT in the view definition) and stored for later use.
+Because the data is pre-computed, querying a materialized view is faster than executing a query against the base table of the view.
