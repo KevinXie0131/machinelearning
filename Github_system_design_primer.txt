@@ -176,6 +176,7 @@ Zab is a crash-recovery atomic broadcast algorithm we designed for the ZooKeeper
         > 性能比较高，生成的数据是有序的，对排序业务有利
         > 但是单机存在性能瓶颈, 无法满足高并发的业务需求, 所以可以采用集群的方式来实现, 增加了系统的配置复杂性
     - 雪花算法 Snowflake
+        > Snowflake IDs, or snowflakes, are a form of unique identifier used in distributed computing.
         > 64-bit: 在Java中SnowFlake算法生成的ID就是long来存储的
         > 由于long基本类型在Java中是带符号的，最高位是符号位，正数是0，负数是1，所以id一般是正数，最高位是0
         > 第1位占用1bit，其值始终是0，可看做是符号位不使用。
