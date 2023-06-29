@@ -188,5 +188,37 @@ Zab is a crash-recovery atomic broadcast algorithm we designed for the ZooKeeper
         > 但是雪花算法强依赖机器时钟，如果机器上时钟回拨，会导致发号重复或者服务会处于不可用状态。如果恰巧回退前生成过一些ID，而时间回退后，生成的ID就有可能重复。
           官方对于此并没有给出解决方案，而是简单的抛错处理，这样会造成在时间被追回之前的这段时间服务不可用
 
+布隆过滤器(Bloom Filter)
+    - 优点: 占用空间小，查询快
+    - 缺点: 有误判，删除困难
+    - 应用场景
+        > 网页爬虫对URL的去重: 避免爬取相同的URL地址
+        > 缓存击穿: 将已存在的缓存放到布隆中，当黑客访问不存在的缓存时迅速返回避免缓存及DB挂掉
+        > Key-Value系统: 在很多Key-Value系统中也使用了布隆过滤器来加快查询过程
+    - guava: com.google.common.hash.BloomFilter
+    - 误报率: 出现了False Positive的情况, 但Bloom Filter不会出现False Negative的情况
 
+摘要算法: A message digest algorithm or a hash function, is a procedure that maps input data of an arbitrary length to an output of fixed length
+    - 消息摘要算法的主要特征是加密过程不需要密钥，并且经过加密的数据无法被解密
+    - 只有输入相同的明文数据经过相同的消息摘要算法才能得到相同的密文
+    - 消息摘要算法主要应用在“数字签名”领域，作为对明文的摘要算法
+    - 著名的摘要算法有RSA公司的MD5算法和SHA-1算法及其大量的变体
+    - 特点
+        > 无论输入的消息有多长，计算出来的消息摘要的长度总是固定的
+        > 消息摘要看起来是“伪随机的”。也就是说对相同的信息求摘要结果相同
+        > 消息轻微改变生成的摘要变化会很大
+        > 只能进行正向的信息摘要，而无法从摘要中恢复出任何的消息，甚至根本就找不到任何与原信息相关的信息
+    - 应用
+        > 消息摘要算法最常用的场景就是数字签名以及数据(密码)加密了
+        > 一般平时做项目用的比较多的就是使用MD5对用户密码进行加密
+    - MD5
+        > JDK提供java.security.MessageDigest类实现MD5算法
+        > used hash function producing a 128-bit hash value
+    - SHA1
+        > JDK提供java.security.MessageDigest类实现SHA1算法
+        > produces a 160-bit (20-byte) hash value known as a message digest – typically rendered as 40 hexadecimal digits
 
+Symmetric algorithm: DES / Data Encryption Standard
+   - 因为DES使用56位密钥，以现代计算能力，24小时内即可被破解。虽然如此，在某些简单应用中，我们还是可以使用DES加密算法
+   - JDK javax.crypto
+Asymmetric algorithm: RSA (Public-key cryptography)
