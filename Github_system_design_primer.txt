@@ -137,7 +137,7 @@ Circuit Breaker status:
    - open
    - close
    - trip
-   -half-open
+   - half-open
 Circuit Breaker -> Fallback
 Hystrix: a library designed to control the interactions between these distributed services providing greater tolerance of latency and failure.
 ------------------------------------------------------------------------------------------------------------------------
@@ -154,7 +154,8 @@ Cache Problems
     - Cache Breakdown
     - Cache Avalanche
 
-
+Bulkhead: Bulkhead pattern is a type of application design that is tolerant of failure.
+          In a bulkhead architecture, elements of an application are isolated into pools so that if one fails, the others will continue to function.
 
 
 
