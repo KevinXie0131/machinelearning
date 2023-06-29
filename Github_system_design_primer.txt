@@ -132,6 +132,12 @@ Stop cascading failures. Fallbacks and graceful degradation. Fail fast and rapid
 
 Fallback: Use a different mechanism to achieve the same result.
 Fallback Mechanism: If a CDN fails, you should be able to detect it and start sending requests for resources from the original web server.
+
+Circuit Breaker status:
+   - open
+   - close
+   - trip
+   -half-open
 Circuit Breaker -> Fallback
 Hystrix: a library designed to control the interactions between these distributed services providing greater tolerance of latency and failure.
 ------------------------------------------------------------------------------------------------------------------------
