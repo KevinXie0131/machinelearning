@@ -157,10 +157,31 @@ Cache Problems
 Bulkhead: Bulkhead pattern is a type of application design that is tolerant of failure.
           In a bulkhead architecture, elements of an application are isolated into pools so that if one fails, the others will continue to function.
 
+Paxos (分布式一致性算法, 即一个分布式系统中的各个进程如何就某个值(决议)达成一致) is a family of protocols for solving consensus in a network of unreliable or fallible processors
+Multi-Paxos: Multi-paxos is an optimization on using Paxos for consecutive rounds, where you can skip one of the phases if you assume a stable leader.
+Raft is a consensus algorithm designed as an alternative to the Paxos family of algorithms. A distributed SQL database uses the Raft consensus algorithm for both leader election and data replication.
+Zab is a crash-recovery atomic broadcast algorithm we designed for the ZooKeeper coordination service. It uses a quorum of followers to act as its distributed memory, resilient to crash failures.
 
-
-
-
+全局唯一ID实现方案
+    - UUID
+        > 不易于存储：UUID太长, 16字节128位, 通常以36长度的字符串表示, 很多场景不适用
+        > 信息不安全：基于MAC地址生成UUID的算法可能会造成MAC地址泄露, 暴露使用者的位置
+        > 对MySQL索引不利：如果作为数据库主键, 在InnoDB引擎下, UUID的无序性可能会引起数据位置频繁变动, 严重影响性能, 可以查阅Mysql索引原理B+树的知识
+    - 数据库生成
+        > 强依赖DB, 当DB异常时整个系统不可用。虽然配置主从复制可以尽可能的增加可用性, 但是数据一致性在特殊情况下难以保证。主从切换时的不一致可能会导致重复发号
+        > ID发号性能瓶颈限制在单台MySQL的读写性能
+    - 使用redis实现
+        > INCR和INCRBY这样的自增原子命令
+        > Redis自身的单线程的特点所以能保证生成的ID肯定是唯一有序的
+        > 性能比较高，生成的数据是有序的，对排序业务有利
+        > 但是单机存在性能瓶颈, 无法满足高并发的业务需求, 所以可以采用集群的方式来实现, 增加了系统的配置复杂性
+    - 雪花算法 Snowflake
+        > 64-bit: 在Java中SnowFlake算法生成的ID就是long来存储的
+        > 第1位占用1bit，其值始终是0，可看做是符号位不使用。
+        > 第2位开始的41位是时间戳，41-bit位可表示2^41个数，每个数代表毫秒，那么雪花算法可用的时间年限是(1L<<41)/(1000L360024*365)=69 年的时间。
+        > 中间的10-bit位可表示机器数，即2^10 = 1024台机器，但是一般情况下我们不会部署这么台机器。如果我们对IDC（互联网数据中心）有需求，还可以将10-bit分5-bit给IDC，分5-bit给工作机器。这样就可以表示32个IDC，每个IDC下可以有32台机器，具体的划分可以根据自身需求定义。
+        > 最后12-bit位是自增序列，可表示2^12 = 4096个数。
+        > 这样的划分之后相当于在一毫秒一个数据中心的一台机器上可产生4096个有序的不重复的ID。但是我们IDC和机器数肯定不止一个，所以毫秒内能生成的有序ID数是翻倍的。
 
 
 
