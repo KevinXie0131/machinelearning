@@ -282,6 +282,32 @@ Distributed Locks 分布式锁
 
 Seata: Simple Extensible Autonomous Transaction Architecture / A distributed transaction solution with high performance and ease of use for microservices architecture.
 ------------------------------------------------------------------------------------------------------------------------
+分布式缓存(Distributed cache)：指的是与应用分离的缓存组件或服务，其最大的优点是自身就是一个独立的应用，与本地应用隔离，多个应用可直接的共享缓存
+
+memcached缓存
+    - 客户端做路由的原理非常简单，应用服务器在每次存取某key的value时，通过某种算法把key映射到某台memcached服务器nodeA上，因此这个key所有操作都在nodeA上
+    - memcached客户端采用一致性hash算法作为路由策略
+    - memcached仅支持基础的key-value键值对类型数据存储
+    - 对于key-value信息，最好不要超过1m的大小
+    - 同时信息长度最好相对是比较均衡稳定的，这样能够保障最大限度的使用内存
+    - memcached采用的LRU清理策略，合理甚至过期时间，提高命中率
+
+Redis缓存
+    - Redis是一款内存高速缓存数据库。Redis全称为：Remote Dictionary Server（远程数据服务），使用C语言编写
+    - Redis是一个key-value存储系统（键值存储系统），支持丰富的数据类型，如：String, list,set, zset, hash
+    - 基于内存，可持久化
+    - Redis使用单线程的I/O复用模型
+    - Redis一共支持四种持久化方式
+       > 定时快照方式(snapshot)
+       > 基于语句追加文件的方式(aof)
+          每条会使Redis内存数据发生改变的命令都会追加到一个log文件中，也就是说这个log文件就是Redis的持久化数据
+          aof的方式的主要缺点是追加log文件可能导致体积过大，当系统重启恢复数据时如果是aof的方式则加载数据会非常慢
+
+最大缓存设置多大: 我会建议把缓存容量设置为总数据量的15%到30%，兼顾访问性能和内存空间开销。
+
+
+
+
 
 
 
