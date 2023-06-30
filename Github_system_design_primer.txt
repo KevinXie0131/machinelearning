@@ -161,7 +161,7 @@ Paxos (分布式一致性算法, 即一个分布式系统中的各个进程如�
 Multi-Paxos: Multi-paxos is an optimization on using Paxos for consecutive rounds, where you can skip one of the phases if you assume a stable leader.
 Raft is a consensus algorithm designed as an alternative to the Paxos family of algorithms. A distributed SQL database uses the Raft consensus algorithm for both leader election and data replication.
 Zab is a crash-recovery atomic broadcast algorithm we designed for the ZooKeeper coordination service. It uses a quorum of followers to act as its distributed memory, resilient to crash failures.
-
+------------------------------------------------------------------------------------------------------------------------
 全局唯一ID实现方案
     - UUID
         > 不易于存储：UUID太长, 16字节128位, 通常以36长度的字符串表示, 很多场景不适用
@@ -187,7 +187,7 @@ Zab is a crash-recovery atomic broadcast algorithm we designed for the ZooKeeper
         > SnowFlake的优点是，整体上按照时间自增排序，并且整个分布式系统内不会产生ID碰撞(由数据中心ID和机器ID作区分)，并且效率较高，经测试，SnowFlake每秒能够产生26万ID左右
         > 但是雪花算法强依赖机器时钟，如果机器上时钟回拨，会导致发号重复或者服务会处于不可用状态。如果恰巧回退前生成过一些ID，而时间回退后，生成的ID就有可能重复。
           官方对于此并没有给出解决方案，而是简单的抛错处理，这样会造成在时间被追回之前的这段时间服务不可用
-
+------------------------------------------------------------------------------------------------------------------------
 布隆过滤器(Bloom Filter)
     - 优点: 占用空间小，查询快
     - 缺点: 有误判，删除困难
@@ -197,7 +197,7 @@ Zab is a crash-recovery atomic broadcast algorithm we designed for the ZooKeeper
         > Key-Value系统: 在很多Key-Value系统中也使用了布隆过滤器来加快查询过程
     - guava: com.google.common.hash.BloomFilter
     - 误报率: 出现了False Positive的情况, 但Bloom Filter不会出现False Negative的情况
-
+------------------------------------------------------------------------------------------------------------------------
 摘要算法: A message digest algorithm or a hash function, is a procedure that maps input data of an arbitrary length to an output of fixed length
     - 消息摘要算法的主要特征是加密过程不需要密钥，并且经过加密的数据无法被解密
     - 只有输入相同的明文数据经过相同的消息摘要算法才能得到相同的密文
@@ -217,8 +217,37 @@ Zab is a crash-recovery atomic broadcast algorithm we designed for the ZooKeeper
     - SHA1
         > JDK提供java.security.MessageDigest类实现SHA1算法
         > produces a 160-bit (20-byte) hash value known as a message digest – typically rendered as 40 hexadecimal digits
-
+------------------------------------------------------------------------------------------------------------------------
 Symmetric algorithm: DES / Data Encryption Standard
    - 因为DES使用56位密钥，以现代计算能力，24小时内即可被破解。虽然如此，在某些简单应用中，我们还是可以使用DES加密算法
    - JDK javax.crypto
 Asymmetric algorithm: RSA (Public-key cryptography)
+------------------------------------------------------------------------------------------------------------------------
+Distributed Locks 分布式锁
+    Distributed locks are a very useful primitive in many environments where different processes must operate with shared resources in a mutually exclusive way.
+    - 线程锁：主要用来给方法、代码块加锁。当某个方法或代码使用锁，在同一时刻仅有一个线程执行该方法或该代码段。线程锁只在同一JVM中有效果，因为线程锁的实现在根本上是依靠线程之间共享内存实现的，比如synchronized是共享对象头，显示锁Lock是共享某个变量（state）。
+    - 进程锁：为了控制同一操作系统中多个进程访问某个共享资源，因为进程具有独立性，各个进程无法访问其他进程的资源，因此无法通过synchronized等线程锁实现进程锁。
+    - 分布式锁：当多个进程不在同一个系统中(比如分布式系统中控制共享资源访问)，用分布式锁控制多个进程对资源的访问。
+    - 实现方案:
+        基于数据库实现分布式锁
+            > 基于数据库表（锁表，很少使用）
+                最简单的方式可能就是直接创建一张锁表，然后通过操作该表中的数据来实现了。当我们想要获得锁的时候，就可以在该表中增加一条记录，想要释放锁的时候就删除这条记录。
+            > 乐观锁(基于版本号)
+                使用版本号实现乐观锁: 可以在数据初始化时指定一个版本号，每次对数据的更新操作都对版本号执行+1操作。并判断当前版本号是不是该数据的最新的版本号
+            > 悲观锁(基于排它锁)
+        基于 redis 实现分布式锁:
+            > 单个Redis实例：setnx(key,当前时间+过期时间) + Lua
+            > Redis集群模式：Redlock
+        基于 zookeeper实现分布式锁
+            > 临时有序节点来实现的分布式锁,Curator
+                顺序节点
+                获得最小号得锁
+                节点监听机制
+        基于 Consul 实现分布式锁
+------------------------------------------------------------------------------------------------------------------------
+事务是一个程序执行单元，里面的所有操作要么全部执行成功，要么全部执行失败。
+而分布式事务是指事务的参与者、支持事务的服务器、资源服务器以及事务管理器分别位于不同的分布式系统的不同节点之上
+
+
+
+
