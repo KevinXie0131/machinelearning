@@ -214,9 +214,12 @@ Zab is a crash-recovery atomic broadcast algorithm we designed for the ZooKeeper
     - MD5
         > JDK提供java.security.MessageDigest类实现MD5算法
         > used hash function producing a 128-bit hash value
-    - SHA1
+    - SHA1 (Secure Hash Algorithm 1)
         > JDK提供java.security.MessageDigest类实现SHA1算法
         > produces a 160-bit (20-byte) hash value known as a message digest – typically rendered as 40 hexadecimal digits
+    - SHA-2 (Secure Hash Algorithm 2)
+        > SHA-256 is another name for SHA-2 and comes with a ton of bit-length variables stemming from the SHA-2 algorithm
+        > SHA-256 generates an almost-unique 256-bit (32-byte) signature for a text
 ------------------------------------------------------------------------------------------------------------------------
 Symmetric algorithm: DES / Data Encryption Standard
    - 因为DES使用56位密钥，以现代计算能力，24小时内即可被破解。虽然如此，在某些简单应用中，我们还是可以使用DES加密算法
