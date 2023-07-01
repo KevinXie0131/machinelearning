@@ -483,7 +483,6 @@ Consistent hashing is a common implementation of such as lookup function
 SQLite is a C-language library that implements a small, fast, self-contained, high-reliability, full-featured, file nased SQL database engine
 
 use the hash of (bucket_name, object_name) as sharding key
-
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 26: Real-time Gaming Leaderboard
 
