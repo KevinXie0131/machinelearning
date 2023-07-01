@@ -427,8 +427,44 @@ Data consistency among services: In microservice architecture, each service has 
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 24: Distributed Email Service
 
+anti-span anti-virus
+SMTP (Simple Mail Transfer Protocol) and is a protocol for sending emails.
+POP (Post Office Protocol Version 3) is a simple protocol that only allows downloading messages from your Inbox to your local computer.
+IMAP (Internet Message Access Protocol) is much more advanced and allows the user to see all the folders on the mail server.
+should not degrade with
 
+MIME (Multipurpose Internet Mail Extensions): an Internet standard that extends the format of email messages to support text in character sets other than ASCII,
+                                              as well as attachments of audio, video, images, and application programs
 
+public-facing request/response services
+stateful servers that maintain persistent connections
+Establish WebSocket connection
+inverted index to support fast full-text searches
+Real-time servers are WebSocket servers that allow clients to received new emails in real-time
+
+relational databases are optimized for small chunks of data entries / search queries over unstructured BLOB data type are not efficient / not good fits
+single-digit of MB / create incremental backups
+
+Partition key: distribute data across nodes evenly
+Clustering key: sorting data within a partition
+composite partition key <user_id, folder_id> is used
+email_id's data type is TIMEUUID, and it is clustering key used to sort emails in chronological order
+
+NoSQL database normally only supports queries on partition and cluster keys
+one way to get around this limitation is to fetch the entire folder and perform filtering in application
+This problem is commonly solved with de-normalization in NoSQL. denormalize into two tables, read_emails & unread_emails
+
+Email threading based on the JWZ algorithm
+
+Option 1: Elasticsearch
+    - perform reindexing / reindexing can be done with offline jobs
+    - Elasticsearch is a good option as it is easy to integrate and doesn't require significant engineering effort
+    - Kafka is used to decouple services that trigger reindexing from services that actually perform reindexing
+Option 2: Custom search solution
+    - the main bottleneck of index server is usually disk I/O
+    - the process of building index is write-heavy
+    - Log-Structured Merge-Tree (LSM)
+    - LSM trees are core data structure behind databases such as BigTable, Cassandra and RocksDB
 
 
 ------------------------------------------------------------------------------------------------------------------------
