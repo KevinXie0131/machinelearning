@@ -325,3 +325,98 @@ Redis有两种发布/订阅模式：
 
 最大缓存设置多大: 我会建议把缓存容量设置为总数据量的15%到30%，兼顾访问性能和内存空间开销。
 ------------------------------------------------------------------------------------------------------------------------
+remains operational under normal conditions
+high reliability contributes to high availability
+Two standard measures of its efficiency:
+    - response time (or latency)
+    - throughput (or bandwidth)
+
+network topology / network load / its variation / the possible heterogeneity of the software and hardware components involved in data processing and routing
+Serviceability or manageability is the simplicity and speed with which a system can be repaired or maintained
+
+Load Balancing Algorithms
+    - Least Connection Method
+    - Least Response Time Method
+    - Least Bandwidth Method
+    - Round Robin Method
+    - Weighted Round Robin Method
+    - IP Hash
+------------------------------------------------------------------------------------------------------------------------
+The load balancer can be a single point of failure -> Redundant Load Balancers
+Cache Invalidation
+    - Write-through cache: Under this scheme, data is written into the cache and the corresponding database at the same time
+                           write through minimizes the risk of data loss
+                           But has the disadvantage of higher latency for write operations
+    - Write-around cache: data is written directly to permanent storage, bypassing the cache
+    - Write-back cache: Under this scheme, data is written to cache alone and completion is immediately confirmed to the client
+
+Cache eviction policies
+    - First In First Out (FIFO)
+    - Last In First Out (LIFO)
+    - Least Recently Used (LRU)
+    - Most Recently Used (MRU)
+    - Least Frequently Used (LFU)
+    - Random Replacement (RR)
+------------------------------------------------------------------------------------------------------------------------
+Partitioning Methods
+    - Horizontal partitioning: In this scheme, we put different rows into different tables
+                               range based sharding
+                               But the partitioning scheme will lead to unbalanced servers
+    - Vertical Partitioning: In this scheme, we divide our data to store tables related to a specific feature in their own server
+    - Directory Based Partitioning: A loosely coupled approach to work around issues mentioned in the above schemes is to create
+                                    a lookup service which knows your current partitioning scheme and abstracts it away from the DB access code
+
+Partitioning Criteria
+    - Key or Hash-based partitioning: changing the hash function which would require redistribution of data and downtime for the service.
+                                      A workaround for this problem is to use Consistent Hashing
+    - List partitioning
+    - Round-robin partitioning: With 'n' partitions, the 'i' tuple is assigned to partition (i mod n)
+    - Composite partitioning: Under this scheme, we combine any of the above partitioning schemes to devise a new scheme.
+                              For example, first applying a list partitioning scheme and then a hash based partitioning.
+                              Consistent hashing could be considered a composite of hash and list partitioning
+                              where the hash reduces the key space to a size that can be listed.
+
+Common Problems of Sharding
+    - Joins and De-normalization: joins will not be performance efficient
+                                  A common workaround for this problem is to denormalize the database
+                                  But the service now has to deal with all the perils of de-normalization such as data inconsistency
+    - Referential integrity: trying to enforce data integrity constraints such as foreign keys in a sharded database can be extremely difficult
+                             have to enforce it in application code
+    - Re-balancing: The data distribution is not uniform
+                    There is a lot of load on a shard
+------------------------------------------------------------------------------------------------------------------------
+Indexes can be created using one or more columns of a database table,
+An index can dramatically speed up data retrieval but may itself be large due to the additional keys, which slow down data insertion & update
+adding unnecessary indexes on tables should be avoided and indexes that are no longer used should be removed.
+------------------------------------------------------------------------------------------------------------------------
+Redundancy and Replication
+
+create duplicate or redundant copies of the file to solve this problem of losing data
+the system can failover to the other one
+Replication means sharing information to ensure consistency between redundant resources
+------------------------------------------------------------------------------------------------------------------------
+SQL vs. NoSQL
+
+Relational databases are structured and have predefined schemas
+Non-relational databases are unstructured, distributed, and have a dynamic schema
+
+the most common types of NoSQL:
+    - Key-Value Stores
+    - Document Databases
+    - Wide-Column Databases
+    - Graph Databases
+
+In a NoSQL database, queries are focused on a collection of documents. Sometimes it is also called UnQL (Unstructured Query Language).
+NoSQL databases are horizontally scalable / Any cheap commodity hardware or cloud instances can host NoSQL databases
+A lot of NoSQL technologies also distribute data across servers automatically
+
+Reasons to use SQL database:
+    - We need to ensure ACID compliance
+    - Your data is structured and unchanging
+Reasons to use NoSQL database
+    - Storing large volumes of data that often have little to no structure
+    - Making the most of cloud computing and storage
+    - Rapid development
+
+
+
