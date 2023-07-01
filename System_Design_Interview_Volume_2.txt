@@ -468,6 +468,22 @@ Option 2: Custom search solution
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 25: S3-like Object Storage
 
+hierarchical directory structure
+
+Object storage: targets relatively cold data / mainly used for archival and backup / in a flat structure / data access is normally provided via Restful API
+AWS S3 / Google object storage / Azure blob storage
+
+IAM: Identity and access management
+
+This is a critical service, so we suggest building a cluster of 5 or 7 replacement service nodes with Paxos or Raft consensus protocol
+the consensus protocol ensures that as long as more than half of the nodes are healthy, the service as a whole continues to work
+
+Consistent hashing is a common implementation of such as lookup function
+
+SQLite is a C-language library that implements a small, fast, self-contained, high-reliability, full-featured, file nased SQL database engine
+
+use the hash of (bucket_name, object_name) as sharding key
+
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 26: Real-time Gaming Leaderboard
 
