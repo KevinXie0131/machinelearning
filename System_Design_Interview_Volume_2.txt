@@ -465,8 +465,6 @@ Option 2: Custom search solution
     - the process of building index is write-heavy
     - Log-Structured Merge-Tree (LSM)
     - LSM trees are core data structure behind databases such as BigTable, Cassandra and RocksDB
-
-
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 25: S3-like Object Storage
 
