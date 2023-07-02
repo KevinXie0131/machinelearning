@@ -417,6 +417,26 @@ Reasons to use NoSQL database
     - Storing large volumes of data that often have little to no structure
     - Making the most of cloud computing and storage
     - Rapid development
-
-
-
+------------------------------------------------------------------------------------------------------------------------
+Consistent hashing
+   - the real data is essentially randomly distributed and thus may not be uniform. It may make the keys on caches unbalanced.
+virtual replicas
+   - Instead of mapping each cache to a single point on the ring, we map it to multiple points on the ring, i.e. replicas.
+     This way, each cache is associated with multiple portions of the ring.
+------------------------------------------------------------------------------------------------------------------------
+Ajax Polling
+   - the client repeatedly polls (or requests) a server for data, and waits for the server to respond with data
+   - The problem with Polling is that the client has to keep asking the server for any new data.
+     As a result, a lot of responses are empty, creating HTTP overhead.
+HTTP Long-Polling
+   - a variation of the traditional polling technique that allows the server to push information to a client whenever the data is available
+   - the server may not respond immediately. That’s why this technique is sometimes referred to as a 'Hanging GET'
+   - Each Long-Poll request has a timeout. The client has to reconnect periodically after the connection is closed due to timeouts
+WebSockets
+   - WebSocket provides Full duplex communication channels over a single TCP connection
+   - two-way (bi-directional) ongoing conversation
+   - provides a persistent connection to start sending data at any time
+   - WebSocket handshake
+Server-Sent Events
+   - Under SSEs the client establishes a persistent and long-term connection with the server
+   - SSEs are best when we need real-time traffic from the server to the client or if the server is generating data in a loop and will be sending multiple events to the client.
