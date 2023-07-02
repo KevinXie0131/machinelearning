@@ -486,6 +486,50 @@ use the hash of (bucket_name, object_name) as sharding key
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 26: Real-time Gaming Leaderboard
 
+call the server explicitly
+without any client intervention
+
+ROWNUM: ROWNUM numbers the records in a result set (sql)
+
+A relational database is not designed to handle the high load of read queries this implementation would require
+One optimization is to add index and limit the number of pages to scan with LIMIT clause
+
+Redis solution
+Redis has a specific data type called sorted sets that are ideal for solving leaderboard system design problems
+Each member of sorted set is associated with a score, and this score is used to rank the sorted set in ascending order
+
+Sorted sets are more performant since each element is automatically positioned in the right order during inert or updates.
+The complexity of add or find operation in sorted set is logarithmic: O(log(n))
+
+ZADD: insert into set if it doesnt exist / O(log(n))
+ZINCRBY: increment by the specific increment / O(log(n))
+ZRANGE/ZREVRANGE: fetch a range sorted by score /  O(log(n) + m)
+ZRANK/ZRERANK: fetch the position of any user sorting in ascending/descending order in logarithmic time
+
+This is well within the performance envelope of a single Redis server
+Redis supports persistence
+
+If this becomes too inefficient in the long term, we can leverage a user profile cache to store users' details fo the top 10 players
+spin up a server instance
+
+Data sharding:
+   - fixed partitions: break up the data by range (preferred)
+   - hash partitions: hash slot / CRC16(key)%16384
+                      an update would simply change the score of the user in the corresponding shard
+                      Retrieving the top 10 players on the leaderboard is more complicated
+                      Scatter/Gather: Gather the top 10 players from each shard and have the application sort the data
+                      Those queries can be parallelized to reduce latecy
+
+NoSQL has the following properties:
+   - Optimized for writes
+   - Efficiently sort items within the same partition by score
+
+AWS DynamoDB: Global Secondary Index
+                 - Partition Key (PK): game_name#{year-month}
+                 - Sort Key: score
+
+There is a trade-off between load on partitions and read complexity
+relatie ranking (say 90th percentile)
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 27: Payment System
 
