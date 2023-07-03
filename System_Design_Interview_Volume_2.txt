@@ -568,11 +568,9 @@ exactly-once delivery
                        the same idempotency key is detected, only one request is processed and received '429 Too Many Requests' status code
                        use unique key constraint to support idempotency
 
-
-
-
-
-
+replication lag cause inconsistent data between primary database and replicas. two options to solve:
+    - Serve both reads and writes from primary database only. replicas to ensure data reliability, not serve any traffic
+    - Ensure all replicas are always in-sync. Use consensus algorithms such as Paxos and Raft. Or use consensus-based distributed databases such as YugabyteDB or CockroachDB
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 28: Digital Wallet
 
