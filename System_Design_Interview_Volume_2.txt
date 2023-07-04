@@ -634,8 +634,11 @@ High-performance event sourcing
        > Once a snapshot is saved, the state machine doesn't have to restart from the very begnning
 
 Reliable high-performance event sourcing
-
-
+   - consensus
+       > no data lost
+       > the relative order of data within a log file remains the same across nodes
+       > consensus-based replication is a good fit
+       > use Raft consensus algorithm as an example (leader / follower / candidate)
 
 
 
