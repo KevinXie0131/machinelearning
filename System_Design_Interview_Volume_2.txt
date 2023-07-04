@@ -638,9 +638,14 @@ Reliable high-performance event sourcing
        > no data lost
        > the relative order of data within a log file remains the same across nodes
        > consensus-based replication is a good fit
-       > use Raft consensus algorithm as an example (leader / follower / candidate)
+       > use Raft consensus algorithm as an example (leader / follower / candidate) / sync data between nodes
 
-
-
+Distributed event sourcing
+   Pull vs Push
+       - Pull: not real-time and may overload wallet service if polling frequency is set too high
+               the naive pull model can be improved by adding a reverse proxy between external user and event sourcing node (still not real-time, but simplifies the client logic)
+       - Push: read-only state machine pushes execution status back to reverse proxy (real-time response)
+   Distributed transaction
+       - TC/C or Saga
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 28: Stock Exchange
