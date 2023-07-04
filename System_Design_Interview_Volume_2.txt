@@ -610,7 +610,7 @@ Distributed transactions
            Orchestration: a single coordination instructs all services (preferred)
 
 Event sourcing
-   - audit capability
+   - audit capability / conduct data audit easily
    - command / event / state/ state machine
    - Kafka is used as command queue
    - Reproducibility: the most important advantage that event sourcing has over other architectures
@@ -630,8 +630,8 @@ High-performance event sourcing
        > RocksDB is chosen because it uses a log-structure merge-tree (LSM) that is optimized for write operations
    - snapshot
        > snapshot is an immutable view of historical state
-       > snapshot is a giant binary file and a common solution is to save it in an object storage silution, such as HDFS
-       > Once a snapshot is saved, the state machine doesn't have to restart from the very begnning
+       > snapshot is a giant binary file and a common solution is to save it in an object storage solution, such as HDFS
+       > Once a snapshot is saved, the state machine doesn't have to restart from the very beginning
 
 Reliable high-performance event sourcing
    - consensus
@@ -639,6 +639,7 @@ Reliable high-performance event sourcing
        > the relative order of data within a log file remains the same across nodes
        > consensus-based replication is a good fit
        > use Raft consensus algorithm as an example (leader / follower / candidate) / sync data between nodes
+       > to increase system reliability, we use Raft consensus algorithm to replicate even lust onto multiple nodes
 
 Distributed event sourcing
    Pull vs Push
@@ -646,6 +647,6 @@ Distributed event sourcing
                the naive pull model can be improved by adding a reverse proxy between external user and event sourcing node (still not real-time, but simplifies the client logic)
        - Push: read-only state machine pushes execution status back to reverse proxy (real-time response)
    Distributed transaction
-       - TC/C or Saga
+       - TC/C or Saga protocol ise used to coordinate Command executions across multiple node groups
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 28: Stock Exchange
