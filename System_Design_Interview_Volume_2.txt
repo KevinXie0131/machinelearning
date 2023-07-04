@@ -574,5 +574,70 @@ replication lag cause inconsistent data between primary database and replicas. t
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 28: Digital Wallet
 
+cross-wallet balance transfer operation
+availability requirement is 99.99%
+deduct $1 from the account
+
+a relational database running on a typical data center node can support a few thousand transactions per second
+Three high level designs:
+   - Simple in-memory solution
+   - Database-based distributed transaction solution
+   - Event sourcing solution with reproducibility
+
+In-memory sharding solution
+   - Redis. But one Redis node is not enough to handle 1 million TPS. We need to set up a cluster of Redis nodes and evenly distribute user accounts among them (partitioning or sharding)
+   - Zookeeper as highly-available configuration storage solution. The number of partitions and addresses of all Redis nodes are stored in a centralized place. Zookeeper is used to maintain the sharding information
+   - Stateless wallet service uses sharding information to locate Redis nodes and updates account balances accordingly
+
+Distributed transactions
+    - Database sharding
+        > replace Redis node with a transactional relational database node. Make updates to two different storage nodes atomic
+    - Database transaction: two-phase commit
+        > a transaction may involve multiple processes on multiple nodes
+        > two-phase commit (2PC)
+        > the coordinator is the wallet service
+        > X/Open XA standard that coordinates heterogeneous databases to achieve 2PC
+        > 2PC is not performant and can be a single point of failure
+    - Distributed transaction: Try-Confirm/Cancel (TC/C)
+        >  Try-Confirm & Try-Cancel (undo: using a reverse operation to offset the previous transaction result when an error occurs)
+        > two phases in 2PC are wrapped in the same transaction, but in TC/C each phase is a separate transaction
+    - Distributed transaction: Saga
+       > Saga is the de-facto standard in microservice architecture
+       > linear order execution
+       > compensating transactions: roll back from the current operation to the first operation in reverse order
+       > two ways to coordinate the operations:
+           Choreography: subscribing to other service's events. fully decentralized coordination (fully asynchronous / has to maintain internal state machine / hard to manage)
+           Orchestration: a single coordination instructs all services (preferred)
+
+Event sourcing
+   - audit capability
+   - command / event / state/ state machine
+   - Kafka is used as command queue
+   - Reproducibility: the most important advantage that event sourcing has over other architectures
+                      reconstruct historical balance states by replaying the events from the very beginning
+   - Command-query responsibility segregation (CQRS)
+       > all valid business records are saved in an immutable Event queue which could be used for correctness verification
+       > audit trail to reconcile the financial records
+
+High-performance event sourcing
+   - File-based command and event list
+       > event list uses an append-only data structure
+       > Appending is a sequential write operation that is generally very fast
+       > cache recent commands and events in memory
+   - File-based state
+       > SQLite that is a file-based local relational database
+       > RocksDB that is a local file-based ley-value store
+       > RocksDB is chosen because it uses a log-structure merge-tree (LSM) that is optimized for write operations
+   - snapshot
+       > snapshot is an immutable view of historical state
+       > snapshot is a giant binary file and a common solution is to save it in an object storage silution, such as HDFS
+       > Once a snapshot is saved, the state machine doesn't have to restart from the very begnning
+
+Reliable high-performance event sourcing
+
+
+
+
+
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 28: Stock Exchange
