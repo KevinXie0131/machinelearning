@@ -490,6 +490,17 @@ call the server explicitly
 without any client intervention
 
 ROWNUM: ROWNUM numbers the records in a result set (sql)
+The ROW_NUMBER() is a window function that assigns a sequential integer to each row within the partition of a result set.
+
+select t.[Email], t.[LocationId], t.rownum from ( SELECT  ROW_NUMBER() OVER (order by [LocationId] ) as rownum , [RequestId]
+      ,[Email]
+      ,[LocationId]
+  FROM [EEV1_ProSYNC].[dbo].[Extract_Request]) t where t.rownum < 10
+
+select t.[Email], t.[LocationId], t.rownum from ( SELECT  ROW_NUMBER() OVER (partition by [LocationId] order by [Email] ) as rownum , [RequestId]
+    ,[Email]
+    ,[LocationId]
+FROM [EEV1_ProSYNC].[dbo].[Extract_Request]) t where t.rownum < 10
 
 A relational database is not designed to handle the high load of read queries this implementation would require
 One optimization is to add index and limit the number of pages to scan with LIMIT clause
@@ -518,7 +529,7 @@ Data sharding:
                       an update would simply change the score of the user in the corresponding shard
                       Retrieving the top 10 players on the leaderboard is more complicated
                       Scatter/Gather: Gather the top 10 players from each shard and have the application sort the data
-                      Those queries can be parallelized to reduce latecy
+                      Those queries can be parallelized to reduce latency
 
 NoSQL has the following properties:
    - Optimized for writes
@@ -529,7 +540,7 @@ AWS DynamoDB: Global Secondary Index
                  - Sort Key: score
 
 There is a trade-off between load on partitions and read complexity
-relatie ranking (say 90th percentile)
+relative ranking (say 90th percentile)
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 27: Payment System
 
