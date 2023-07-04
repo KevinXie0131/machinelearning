@@ -610,7 +610,7 @@ Distributed transactions
         > X/Open XA standard that coordinates heterogeneous databases to achieve 2PC
         > 2PC is not performant and can be a single point of failure
     - Distributed transaction: Try-Confirm/Cancel (TC/C)
-        >  Try-Confirm & Try-Cancel (undo: using a reverse operation to offset the previous transaction result when an error occurs)
+        > Try-Confirm & Try-Cancel (undo: using a reverse operation to offset the previous transaction result when an error occurs)
         > two phases in 2PC are wrapped in the same transaction, but in TC/C each phase is a separate transaction
     - Distributed transaction: Saga
        > Saga is the de-facto standard in microservice architecture
