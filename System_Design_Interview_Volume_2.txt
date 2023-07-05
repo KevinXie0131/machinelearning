@@ -661,3 +661,35 @@ Distributed event sourcing
        - TC/C or Saga protocol ise used to coordinate Command executions across multiple node groups
 ------------------------------------------------------------------------------------------------------------------------
 +++Chapter 28: Stock Exchange
+
+the order need to be withheld to prevent overspending
+legal compliance
+prevent distributed denial-of-service (DDos)
+
+Broker: Charles Schwab, Robinhood, Etrade, Fidelity
+Limit order / Market order / Institutional client / Market data levels / Candlestick chart
+the best bid price / ask price / the filled order
+
+write the consolidated records to the database
+
+Trading flow:
+   - matching engineer (cross engineer): order book / symbol / in a deterministic order / the same sequence of executions (fills)
+   - sequencer: key component to make matching engineer deterministic / sequencer ID
+                The incoming orders and outgoing executions are stampled with sequence IDs for 3 reasons:
+                    > Timeliness and fairness
+                    > fast recovery / replay
+                    > exactly-once guarantee
+   - order manager: Event sourcing is the perfect design for an order manager
+   - client gateway: Auth / Validation / Rate Limit/ Normalization / FIXT Support
+                     the main considerations are latency / transaction volume / security requirements
+Market data flow
+Reporting flow
+   - trading history/ tax reporting / compliance reporting / settlement
+
+
+
+
+
+
+
+
