@@ -675,7 +675,7 @@ write the consolidated records to the database
 Trading flow:
    - matching engineer (cross engineer): order book / symbol / in a deterministic order / the same sequence of executions (fills)
    - sequencer: key component to make matching engineer deterministic / sequencer ID
-                The incoming orders and outgoing executions are stampled with sequence IDs for 3 reasons:
+                The incoming orders and outgoing executions are stamped with sequence IDs for 3 reasons:
                     > Timeliness and fairness
                     > fast recovery / replay
                     > exactly-once guarantee
@@ -686,10 +686,28 @@ Market data flow
 Reporting flow
    - trading history/ tax reporting / compliance reporting / settlement
 
+constant lookup time / query / iterate through
+achieve O(1) time complexity by using doubly-linked list
+a good measure for the level of stability is the 99th percentile latency
+the round trip network latency
+add up to single-digit milliseconds / tens of milliseconds
+reduce | eliminate network and disk access latency / eliminate the network hops by putting everything on the same server
+low 99th percentile latency
 
+CPU pinning / mmap: a POXIS-compliant UNIT system called name mmap(2) that maps a file into the memory of a process
 
+in event sourcing, instating of storing the current states, it keeps an immutable log og all state-changing events
+These events are the golden source of truth
 
+redundant instance / backup instance
+hot-warm design / we could use reliable UDP to efficiently broadcast the event messages to all warm servers
+fault tolerance: tackle it by replicating core data to data centers in multiple cities
+it mitigates the risk of a natural disaster such as an earthquake or a large-scale power outage
+decide to failover to the backup instance / choose leader among backup instances / recovery time / operate under degraded conditions
 
+Recovery Time Objective (RTO) is the maximum acceptable amount of time for restoring a network or application and regaining access to data after an unplanned disruption.
+Recovery point objective (RPO) is the maximum acceptable amount of data loss after an unplanned data-loss incident, expressed as an amount of time/ loss tolerance
 
-
+split vote: multiple followers become candidates at the same time
+categorize services based on priority and define a degradation strategy to maintain a minimum service level
 
