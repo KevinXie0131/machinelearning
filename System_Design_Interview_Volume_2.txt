@@ -711,3 +711,20 @@ Recovery point objective (RPO) is the maximum acceptable amount of data loss aft
 split vote: multiple followers become candidates at the same time
 categorize services based on priority and define a degradation strategy to maintain a minimum service level
 
+In Java, safe points are often the cause. The HotSpot JVM Stop-the-world garbage collection is a well-known example
+ring buffer / circular buffer
+
+3 types of data transportation protocols over the internet:
+    - Unicast
+    - Broadcast
+    - Multicast
+
+co-location: put servers in the same data center
+
+Techniques to combat DDOS:
+   - isolate public services and data from private services
+     have multiple read-only copies to isolate problems
+   - use a caching layer to store data that is infrequently updated. most queries won't hit database
+   - hidden URLs against DDOS attacks. attacker can easily generate many different requests by changing the query string
+   - an effective safe-list / block-list mechanism is needed. network gateway products
+   - rate limiting
