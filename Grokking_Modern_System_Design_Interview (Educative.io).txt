@@ -30,7 +30,7 @@ Fault tolerance techniques:
 
 Application servers primarily provide dynamic content, whereas web servers mostly serve static content to the client, which is mostly a web browser.
 
-
-
-
-
+commodity servers
+a coarse-grained estimation / reasonable upper bounds
+incoming data / outgoing data
+bandwidth is measured in bits per second
