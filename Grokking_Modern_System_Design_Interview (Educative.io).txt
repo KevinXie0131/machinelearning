@@ -20,5 +20,17 @@ Consistency Models:
 ACID: Atomicity, Consistency, Isolation, and Durability
 CAP theorem: Consistency, Availability, and Partition Tolerance
 
+Failure Models:
+Fail-stop (Easy to deal with) -> Crash -> Omission failures -> Temporal failures -> Byzantine failures  (Hard to deal with)
+
+Fault tolerance techniques:
+    Replication: One of the most widely-used techniques is replication-based fault tolerance
+    Checkpointing: a technique that saves the system’s state in stable storage when the system state is consistent
+                   When a failure occurs in the system, we can get the last computed data from the previous checkpoint and start working from there.
+
+Application servers primarily provide dynamic content, whereas web servers mostly serve static content to the client, which is mostly a web browser.
+
+
+
 
 
