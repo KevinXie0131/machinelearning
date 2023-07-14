@@ -1,0 +1,24 @@
+building blocks
+by some order of magnitude / increases by a factor of ten or more / linearly scale with increasing demands
+use off-the-shelf components
+strict consistency / strict consistency / durability target / privacy and regulatory requirements
+handle ten times more load / be bogged down
+
+Remote procedure calls (RPCs): an interprocess communication protocol / RPC spans the transport and application layers
+The responsibilities of RPC runtime also include retransmission, acknowledgment, and encryption
+The RPC method is similar to calling a local procedure, except that the called procedure is usually executed in a different process and on a different computer.
+
+Consistency Models:
+    Eventual consistency (Weakest consistency) -> Causal consistency -> Sequential consistency -> Strict consistency / linearizability (Strongest consistency)
+
+1. Eventual consistency ensures high availability
+2. Causal consistency works by categorizing operations into dependent operations (causally-related operations) and independent operations / cause-and-effect relationship
+3. Sequential consistency preserves the ordering specified by each client's program.
+4. Strict consistency is the strongest consistency model. synchronous replication is one of the ingredients for achieving strong consistency, though it in itself is not sufficient. We might need consensus algorithms such as Paxos and Raft to achieve strong consistency.
+   Linearizability affects the system's availability, which is why it's not always used. Applications with strong consistency requirements use techniques like quorum-based replication to increase the system's availability.
+
+ACID: Atomicity, Consistency, Isolation, and Durability
+CAP theorem: Consistency, Availability, and Partition Tolerance
+
+
+
