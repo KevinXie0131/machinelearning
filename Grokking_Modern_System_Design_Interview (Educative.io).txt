@@ -55,6 +55,8 @@ NoSQL:
                          XML, JSON, BSON / composed of a hierarchical tree data structure
     - Graph database: Neo4J, OrientDB, and InfiniteGraph
     - Columnar database: Cassandra, HBase, Hypertable, and Amazon SimpleDB
+                         store data in columns instead of rows
+                         efficient for a large number of aggregation and data analytics queries
 
 Drawbacks of NoSQL databases:
     - Lack of standardization
