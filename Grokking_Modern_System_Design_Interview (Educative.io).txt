@@ -64,3 +64,35 @@ Drawbacks of NoSQL databases:
       We won’t have strong data integrity, like primary and referential integrities in a relational database
       Data might not be strongly consistent but slowly converging using a weak model like eventual consistency
 
+Replication:
+   - Synchronous replication
+   - Asynchronous replication
+Data replication models:
+   - Single leader or primary-secondary replication
+         Primary-secondary replication methods
+             > Statement-based replication
+             > Write-ahead log (WAL) shipping
+             > Logical (row-based) log replication
+   - Multi-leader replication
+         Handle conflicts
+             > Conflict avoidance
+             > Last-write-wins
+             > Custom logic
+   - Peer-to-peer or leaderless replication
+        Quorums
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
