@@ -34,3 +34,31 @@ commodity servers
 a coarse-grained estimation / reasonable upper bounds
 incoming data / outgoing data
 bandwidth is measured in bits per second
+
+To mitigate this issue, each cached record comes with an expiration time called time-to-live (TTL)
+
+Algorithms of load balancers
+    - Round-robin scheduling: a repeating sequential manner
+    - Weighted round-robin
+    - Least connections
+    - Least response time
+    - IP hash
+    - URL hash
+
+anomalies (like dirty reads, dirty writes, read skew, lost updates, write skew, and phantom reads)
+semi-structured and unstructured data / document databases are structureless
+
+NoSQL:
+    - Key-value database: Amazon DynamoDB, Redis, and Memcached DB
+                          Primary key = Partition key + Sort key
+    - Document database: MongoDB and Google Cloud Firestore
+                         XML, JSON, BSON / composed of a hierarchical tree data structure
+    - Graph database: Neo4J, OrientDB, and InfiniteGraph
+    - Columnar database: Cassandra, HBase, Hypertable, and Amazon SimpleDB
+
+Drawbacks of NoSQL databases:
+    - Lack of standardization
+    - Consistency
+      We won’t have strong data integrity, like primary and referential integrities in a relational database
+      Data might not be strongly consistent but slowly converging using a weak model like eventual consistency
+
