@@ -136,8 +136,66 @@ disadvantages of a distributed database:
 hotspots
 ------------------------------------------------------------------------------------------------------------------------
 
+hardware failures and network congestion
 
+Content consistency in CDN:
+   - Periodic polling: time-to-refresh (TTR)
+   - Time-to-live (TTL)
+   - Leases: lease denotes the time interval for which the origin server agrees to notify the proxy server if there’s any change in the data
+             lease renewal / expiration of the lease /  lease duration (adaptive lease)
+------------------------------------------------------------------------------------------------------------------------
+Sequencer / globally unique IDs
+we need a unique ID generator that acts as a primary key in a distributed setting—for example, a horizontally-sharded table.
 
+First solution: UUID: 128-bit number
+                    Cons: Using 128-bit numbers as primary keys makes the primary-key indexing slower, which results in slow inserts.
+                          A workaround might be to interpret an ID as a hex string instead of a number.
+                          might not be monotonically increasing
+                          can’t claim UUID to be deterministically unique / a chance of duplication
+Second solution: using a database: auto-increment feature / modify the conventional auto-increment feature that increments by one to m
+
+                           difficult to scale for multiple data centers
+Third solution: using a range handler
+                    Pros: scalable, available, and yields user IDs that have no duplicates.
+                          maintain this range in 64 bits, which is numeric.
+                    Cons: lose a significant range when a server dies
+
+two types of physical clocks available in a computer:
+    - the time-of-day clock
+       > lower resolution in comparison to monotonic counters
+       > Network Time Protocol (NTP) can move the clock forward or backward, so it's not always monotonic.
+       > It may or may not incorporate leap seconds
+    - monotonic counters
+       > usually have higher resolution than time-of-day clocks
+       > should be used for the duration between two events rather than for the time.
+       > These aren't meaningful across different nodes.
+       > NTP might adjust it without violating monotonicity.
+       > NTP can only speed up or slow down the counter rate of change by up to 0.05%.
+
+Physical clocks drift over time due to many reasons: Temperature differences / The equipment's age / Manufacturing defects / Virtualized clocks
+physical clocks are unreliable. For such clocks, the error can be 17 seconds per day. In a distributed environment, the clocks won’t remain synced.
+no matter how often we synchronize these clocks with each other or other clocks with accurate measurement methods, there will always be skew between the various clocks involved in a distributed system.
+
+The Network Time Protocol (NTP) is a networking protocol for clock synchronization between computer systems over packet-switched, variable-latency data networks.
+NTP intends to synchronize all participating computers within a few milliseconds of Coordinated Universal Time (UTC). It mitigates the effects of variable network latency.
+
+4th solution: Use UNIX time stamps
+    - Pros: simple, scalable, and easy to implement. It also enables multiple servers to handle concurrent requests
+    - Cons: For two concurrent events, the same time stamp is returned and the same ID can be assigned to them. This way, the IDs are no longer unique.
+5th solution: Twitter Snowflake
+    - Pros: Twitter Snowflake uses the time stamp as the first component. Therefore, they’re time sortable. The ID generator is highly available as well.
+    - Cons: IDs generated in a dead period are a problem.
+            Another weak point of this system is its reliance on time
+6th solution: Using logical clocks (Lamport and vector clocks) that need monotonically increasing identifiers for events.
+    - Lamport clocks
+        >  Cons: can't simply compare two clock values on any server to infer happened-before relationship
+    - Vector clocks
+        > Pros: maintain causal history—that is, all information about the happened-before relationships of events
+7th solution: TrueTime API: Google’s TrueTime API in Spanner / reports an interval of time
+                            Google deploys a GPS receiver or atomic clock in each data center, and clocks are synchronized within about 7 ms
+    - Pros: We're able to generate a globally unique 64-bit identifier. The causality of events is maintained. The approach is scalable and highly available.
+    - Cons: If two intervals overlap, then we’re unsure in what order A and B occurred.
+            Spanner is expensive because it ensures high database consistency
 ------------------------------------------------------------------------------------------------------------------------
 RESHADED Approach for System Design
 Requirements / Estimation / Storage schema (optional) / High-level design / API design / Detailed design / Evaluation / Distinctive component/feature
