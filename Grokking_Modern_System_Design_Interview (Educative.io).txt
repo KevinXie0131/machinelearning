@@ -76,10 +76,11 @@ Data replication models:
    - Multi-leader replication
          Handle conflicts
              > Conflict avoidance
-             > Last-write-wins
+             > Last-write-wins:  clock synchronization / clock skew
              > Custom logic
    - Peer-to-peer or leaderless replication
-        Quorums
+        Quorums: w+r>n
+
 
 
 
