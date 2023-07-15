@@ -7,7 +7,7 @@ handle ten times more load / be bogged down
 Remote procedure calls (RPCs): an interprocess communication protocol / RPC spans the transport and application layers
 The responsibilities of RPC runtime also include retransmission, acknowledgment, and encryption
 The RPC method is similar to calling a local procedure, except that the called procedure is usually executed in a different process and on a different computer.
-
+------------------------------------------------------------------------------------------------------------------------
 Consistency Models:
     Eventual consistency (Weakest consistency) -> Causal consistency -> Sequential consistency -> Strict consistency / linearizability (Strongest consistency)
 
@@ -19,7 +19,7 @@ Consistency Models:
 
 ACID: Atomicity, Consistency, Isolation, and Durability
 CAP theorem: Consistency, Availability, and Partition Tolerance
-
+------------------------------------------------------------------------------------------------------------------------
 Failure Models:
 Fail-stop (Easy to deal with) -> Crash -> Omission failures -> Temporal failures -> Byzantine failures  (Hard to deal with)
 
@@ -29,7 +29,7 @@ Fault tolerance techniques:
                    When a failure occurs in the system, we can get the last computed data from the previous checkpoint and start working from there.
 
 Application servers primarily provide dynamic content, whereas web servers mostly serve static content to the client, which is mostly a web browser.
-
+------------------------------------------------------------------------------------------------------------------------
 commodity servers
 a coarse-grained estimation / reasonable upper bounds
 incoming data / outgoing data
@@ -44,7 +44,7 @@ Algorithms of load balancers
     - Least response time
     - IP hash
     - URL hash
-
+------------------------------------------------------------------------------------------------------------------------
 anomalies (like dirty reads, dirty writes, read skew, lost updates, write skew, and phantom reads)
 semi-structured and unstructured data / document databases are structureless
 
@@ -81,13 +81,67 @@ Data replication models:
    - Peer-to-peer or leaderless replication
         Quorums: w+r>n
 
+Data partitioning (or sharding)
+   - Vertical sharding
+        > used to increase the speed of data retrieval from a table consisting of columns with very wide text or a binary large object (blob)
+   - Horizontal sharding
+        > divide a table into multiple tables by splitting data row-wise
+        > suitable to automate even under dynamic conditions
+            - Key-range based sharding: The data routing logic uses the partition key at the application tier to map queries specified for a database shard
+                Advantages:
+                    > range-query-based scheme is easy to implement.
+                    > Range queries can be performed using the partitioning keys, and those can be kept in partitions in sorted order.
+                Disadvantages:
+                    > Range queries can't be performed using keys other than the partitioning key.
+                    > If keys aren't selected properly, some nodes may have to store more data due to an uneven distribution of the traffic.
+            - Hash based sharding
+                Advantages:
+                    > Keys are uniformly distributed across the nodes.
+                Disadvantages:
+                    > We can't perform range queries with this technique. Keys will be spread over all partitions.
+Consistent hashing
+   - Advantages:
+      > It's easy to scale horizontally.
+      > It increases the throughput and improves the latency of the application.
+   - Disadvantages:
+      > Randomly assigning nodes in the ring may cause non-uniform distribution.
+Re-balance the partitions
+   - Avoid hash mod n
+   - Fixed number of partitions:
+      > create a higher number of partitions than the nodes
+      > very important to choose the right number of partitions
+      > used in Elasticsearch, Riak
+   - Dynamic partitioning
+      > when the size of a partition reaches the threshold, it’s split equally into two partitions
+      > used in HBase and MongoD
+   - Partition proportionally to nodes
+      > the number of partitions is proportionate to the number of nodes, which means every node has fixed partitions
+      > used by Cassandra and Ketama
+Partitioning and secondary indexes
+   Secondary indexes are the records that aren't identified by primary keys but are just a way of searching for some value.
+      - Partition secondary indexes by document: local index
+      - Partition secondary indexes by the term: global index
+Request routing
+   service discovery
+
+ZooKeeper: a separate management server
+Whenever there’s a change in the partitioning, or a node is added or removed, ZooKeeper gets updated and notifies the routing tier about the change.
+HBase, Kafka and SolrCloud use ZooKeeper
+
+disadvantages of a distributed database:
+    - data is required from multiple sites, which takes more time than expected
+    - operations such as joins need to reconstruct complete relations by carefully fetching data
+    - difficult to maintain consistency of data across sites
+    - Updates and backups in distributed databases take time to synchronize data
+hotspots
+------------------------------------------------------------------------------------------------------------------------
 
 
 
-
-
-
-
+------------------------------------------------------------------------------------------------------------------------
+RESHADED Approach for System Design
+Requirements / Estimation / Storage schema (optional) / High-level design / API design / Detailed design / Evaluation / Distinctive component/feature
+------------------------------------------------------------------------------------------------------------------------
 
 
 
