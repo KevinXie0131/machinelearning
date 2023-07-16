@@ -206,10 +206,13 @@ drawbacks of  monitoring tool
 
 Pull-based approach avoids overloading the network traffic by fetching the data itself.
 
+Restrain the log size:
+   - sampling: use a sampler service that only logs a smaller set of messages from a larger chunk / selectively pick a representative data set
+   - categorization: production logs are set to print messages with the severity of WARNING, ERROR and FATAL/CRITICAL
 
-
-
-
+Logging is an I/O-intensive operation
+Cold storages are low-cost storages where archived data is kept.
+Correctly ordering the log in a chronological (or causal) order simplifies log analyses.
 ------------------------------------------------------------------------------------------------------------------------
 RESHADED Approach for System Design
 Requirements / Estimation / Storage schema (optional) / High-level design / API design / Detailed design / Evaluation / Distinctive component/feature
