@@ -197,6 +197,20 @@ NTP intends to synchronize all participating computers within a few milliseconds
     - Cons: If two intervals overlap, then we’re unsure in what order A and B occurred.
             Spanner is expensive because it ensures high database consistency
 ------------------------------------------------------------------------------------------------------------------------
+throughput (megabits per second) and latency (round-trip time)
+We embed logging or monitoring code in our applications, called Code Instrumentation, to collect information of interest
+
+drawbacks of  monitoring tool
+   - sends its metrics to the monitoring system, resulting in a heavy traffic load on the infrastructure
+   - We must also install daemons on each of these targets to send metrics to the monitoring server, which requires additional work.
+
+Pull-based approach avoids overloading the network traffic by fetching the data itself.
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------
 RESHADED Approach for System Design
 Requirements / Estimation / Storage schema (optional) / High-level design / API design / Detailed design / Evaluation / Distinctive component/feature
 ------------------------------------------------------------------------------------------------------------------------
