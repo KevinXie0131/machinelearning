@@ -207,8 +207,19 @@ To handle inconsistency, we need to maintain causality between the events:
     - Another approach is by using vector clocks.
       A vector clock is a list of (node, counter) pairs. There's a single vector clock for every version of an object.
       If two objects have different vector clocks, we're able to tell whether they're causally related or not.
+      > This process of resolving conflicts is comparable to how it’s done in Git
 
+network partitions or multiple server failures
+Clock Truncation strategy to store a timestamp with each (node, counter) pair to show when the data item was last updated by the node.
+                             Vector clock pairs are purged when the number of (node, counter) pairs exceeds a predetermined threshold
+                             Because the descendant linkages can't be precisely calculated, this truncation approach can lead to a lack of efficiency in reconciliation.
 
+configurable service / coordinator
+Two ways for a client to select a node:
+    - route the request to a generic load balancer.
+    - use a partition-aware client library that routes requests directly to the appropriate coordinator nodes.
+
+use a consistency protocol similar to those used in quorum systems (r + w > n)
 
 ------------------------------------------------------------------------------------------------------------------------
 throughput (megabits per second) and latency (round-trip time)
