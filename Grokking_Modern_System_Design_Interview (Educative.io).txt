@@ -197,6 +197,20 @@ NTP intends to synchronize all participating computers within a few milliseconds
     - Cons: If two intervals overlap, then we’re unsure in what order A and B occurred.
             Spanner is expensive because it ensures high database consistency
 ------------------------------------------------------------------------------------------------------------------------
+Data versioning
+
+version history / requires a reconciliation effort
+
+To handle inconsistency, we need to maintain causality between the events:
+    - using the timestamps and update all conflicting values with the value of the latest request
+      But time isn’t reliable in a distributed system, so we can’t use it as a deciding factor
+    - Another approach is by using vector clocks.
+      A vector clock is a list of (node, counter) pairs. There's a single vector clock for every version of an object.
+      If two objects have different vector clocks, we're able to tell whether they're causally related or not.
+
+
+
+------------------------------------------------------------------------------------------------------------------------
 throughput (megabits per second) and latency (round-trip time)
 We embed logging or monitoring code in our applications, called Code Instrumentation, to collect information of interest
 
