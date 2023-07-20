@@ -233,6 +233,14 @@ Promote membership in the ring to detect failures
     - Planned commissioning and decommissioning of nodes results in membership changes.
     - A gossip-based protocol also maintains an eventually consistent view of membership.
 ------------------------------------------------------------------------------------------------------------------------
+Blob store is a storage solution for unstructured data.
+blob (binary large object)
+write once, read many (WORM)
+Google Cloud Storage / Amazon S3 or Amazon Simple Storage Service / Facebook's Tectonic Filesystem
+blob store is a read-intensive store
+
+
+------------------------------------------------------------------------------------------------------------------------
 throughput (megabits per second) and latency (round-trip time)
 We embed logging or monitoring code in our applications, called Code Instrumentation, to collect information of interest
 
