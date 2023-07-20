@@ -238,8 +238,13 @@ blob (binary large object)
 write once, read many (WORM)
 Google Cloud Storage / Amazon S3 or Amazon Simple Storage Service / Facebook's Tectonic Filesystem
 blob store is a read-intensive store
+access privileges
+a backup or shadow server in place of a manager node
+checkpointing: take snapshots of the data at different time intervals
 
-
+These are the two levels of replication:
+    - Synchronous replication within a storage cluster.
+    - Asynchronous replication across data centers and regions.
 ------------------------------------------------------------------------------------------------------------------------
 throughput (megabits per second) and latency (round-trip time)
 We embed logging or monitoring code in our applications, called Code Instrumentation, to collect information of interest
