@@ -25,7 +25,7 @@ Fail-stop (Easy to deal with) -> Crash -> Omission failures -> Temporal failures
 
 Fault tolerance techniques:
     Replication: One of the most widely-used techniques is replication-based fault tolerance
-    Checkpointing: a technique that saves the system’s state in stable storage when the system state is consistent
+    Checkpointing: a technique that saves the system's state in stable storage when the system state is consistent
                    When a failure occurs in the system, we can get the last computed data from the previous checkpoint and start working from there.
 
 Application servers primarily provide dynamic content, whereas web servers mostly serve static content to the client, which is mostly a web browser.
@@ -61,7 +61,7 @@ NoSQL:
 Drawbacks of NoSQL databases:
     - Lack of standardization
     - Consistency
-      We won’t have strong data integrity, like primary and referential integrities in a relational database
+      We won't have strong data integrity, like primary and referential integrity in a relational database
       Data might not be strongly consistent but slowly converging using a weak model like eventual consistency
 
 Replication:
@@ -76,10 +76,10 @@ Data replication models:
    - Multi-leader replication
          Handle conflicts
              > Conflict avoidance
-             > Last-write-wins:  clock synchronization / clock skew
+             > Last-write-wins: clock synchronization / clock skew
              > Custom logic
    - Peer-to-peer or leaderless replication
-        Quorums: w+r>n
+        Quorums: w + r > n
 
 Data partitioning (or sharding)
    - Vertical sharding
@@ -125,7 +125,7 @@ Request routing
    service discovery
 
 ZooKeeper: a separate management server
-Whenever there’s a change in the partitioning, or a node is added or removed, ZooKeeper gets updated and notifies the routing tier about the change.
+Whenever there's a change in the partitioning, or a node is added or removed, ZooKeeper gets updated and notifies the routing tier about the change.
 HBase, Kafka and SolrCloud use ZooKeeper
 
 disadvantages of a distributed database:
@@ -135,7 +135,6 @@ disadvantages of a distributed database:
     - Updates and backups in distributed databases take time to synchronize data
 hotspots
 ------------------------------------------------------------------------------------------------------------------------
-
 hardware failures and network congestion
 
 Content consistency in CDN:
@@ -151,10 +150,9 @@ First solution: UUID: 128-bit number
                     Cons: Using 128-bit numbers as primary keys makes the primary-key indexing slower, which results in slow inserts.
                           A workaround might be to interpret an ID as a hex string instead of a number.
                           might not be monotonically increasing
-                          can’t claim UUID to be deterministically unique / a chance of duplication
+                          can't claim UUID to be deterministically unique / a chance of duplication
 Second solution: using a database: auto-increment feature / modify the conventional auto-increment feature that increments by one to m
-
-                           difficult to scale for multiple data centers
+                                   difficult to scale for multiple data centers
 Third solution: using a range handler
                     Pros: scalable, available, and yields user IDs that have no duplicates.
                           maintain this range in 64 bits, which is numeric.
@@ -173,7 +171,7 @@ two types of physical clocks available in a computer:
        > NTP can only speed up or slow down the counter rate of change by up to 0.05%.
 
 Physical clocks drift over time due to many reasons: Temperature differences / The equipment's age / Manufacturing defects / Virtualized clocks
-physical clocks are unreliable. For such clocks, the error can be 17 seconds per day. In a distributed environment, the clocks won’t remain synced.
+physical clocks are unreliable. For such clocks, the error can be 17 seconds per day. In a distributed environment, the clocks won't remain synced.
 no matter how often we synchronize these clocks with each other or other clocks with accurate measurement methods, there will always be skew between the various clocks involved in a distributed system.
 
 The Network Time Protocol (NTP) is a networking protocol for clock synchronization between computer systems over packet-switched, variable-latency data networks.
@@ -220,6 +218,14 @@ Two ways for a client to select a node:
     - use a partition-aware client library that routes requests directly to the appropriate coordinator nodes.
 
 use a consistency protocol similar to those used in quorum systems (r + w > n)
+
+Handle temporary failures:
+    - easily affected by the network outage -> use a sloppy quorum instead of strict quorum membership
+                                               In the sloppy quorum, the first n healthy nodes from the preference list handle all read and write operations.
+    - Hinted Handoff: ensure that reads and writes are fulfilled if a node faces temporary failure.
+
+Handle permanent failures:
+
 
 ------------------------------------------------------------------------------------------------------------------------
 throughput (megabits per second) and latency (round-trip time)
