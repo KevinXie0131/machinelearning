@@ -225,8 +225,13 @@ Handle temporary failures:
     - Hinted Handoff: ensure that reads and writes are fulfilled if a node faces temporary failure.
 
 Handle permanent failures:
+    - The Merkle tree is a mechanism to implement anti-entropy, which means to keep all the data consistent.
+      It reduces data transmission for synchronization and the number of discs accessed during the anti-entropy process.
+         >  There's no need for synchronization if, for example, the hash values of two trees' roots are the same and their leaf nodes are also the same.
 
-
+Promote membership in the ring to detect failures
+    - Planned commissioning and decommissioning of nodes results in membership changes.
+    - A gossip-based protocol also maintains an eventually consistent view of membership.
 ------------------------------------------------------------------------------------------------------------------------
 throughput (megabits per second) and latency (round-trip time)
 We embed logging or monitoring code in our applications, called Code Instrumentation, to collect information of interest
