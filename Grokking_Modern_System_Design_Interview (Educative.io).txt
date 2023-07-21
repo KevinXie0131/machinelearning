@@ -263,6 +263,20 @@ Logging is an I/O-intensive operation
 Cold storages are low-cost storages where archived data is kept.
 Correctly ordering the log in a chronological (or causal) order simplifies log analyses.
 ------------------------------------------------------------------------------------------------------------------------
+Bandwidth estimation: Incoming traffic / Outgoing traffic
+Indexing in a Distributed Search
+    - fuzzy search: approximate string matching rather than exact matching
+    - An inverted index is a HashMap-like data structure that employs a document-term matrix
+      terms: Frequently occurring words / document-term matrix maintains a term-level index
+         > Advantages of using an inverted index
+             - facilitates full-text searches
+         > Disadvantages of using an inverted index
+             - storage overhead
+             - Maintenance costs (processing) on adding, updating, or deleting a document
+
+search engine optimization (SEO) schemes
+
+------------------------------------------------------------------------------------------------------------------------
 RESHADED Approach for System Design
 Requirements / Estimation / Storage schema (optional) / High-level design / API design / Detailed design / Evaluation / Distinctive component/feature
 ------------------------------------------------------------------------------------------------------------------------
