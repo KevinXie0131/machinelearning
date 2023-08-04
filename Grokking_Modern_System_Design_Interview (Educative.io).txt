@@ -276,6 +276,23 @@ Indexing in a Distributed Search
 
 search engine optimization (SEO) schemes
 
+offline phase involves data crawling and indexing in which the user has to do nothing
+online phase consists of searching for results against the search query by the use
+
+The two most common techniques used for data partitioning in distributed indexing are these below:
+    - Document partitioning
+    - Term partitioning
+
+periodic heartbeats / colocation (both searching and indexing are performed on the same node)
+Parallel indexing and searching, where both of these processes are colocated on the same nodes.
+
+Replication factor and replica distribution
+    - Generally, a replication factor of three is enough
+    - One of the three nodes becomes the primary node, while the other two are replicas.
+
+downsides / resource-intensive operations
+MapReduce framework: Cluster manager / Mappers / Reducers
+
 ------------------------------------------------------------------------------------------------------------------------
 RESHADED Approach for System Design
 Requirements / Estimation / Storage schema (optional) / High-level design / API design / Detailed design / Evaluation / Distinctive component/feature
