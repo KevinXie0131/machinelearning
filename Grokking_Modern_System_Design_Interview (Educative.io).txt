@@ -372,6 +372,46 @@ Redis can store small data items efficiently. Memcached can be the right choice 
 To summarize, Memcached is preferred for smaller, simpler read-heavy systems,
    whereas Redis is useful for systems that are complex and are both read- and write-heavy.
 ------------------------------------------------------------------------------------------------------------------------
+pub-sub system
+Publish-subscribe messaging, often known as pub-sub messaging, is an asynchronous service-to-service communication
+
+Use cases of pub-sub:
+   - Improved performance: The pub-sub system enables push-based distribution
+   - Handling ingestion: The pub-sub helps in handling log ingestion.
+   - Real-time monitoring:
+   - Replicating data: The pub-sub system can be used to distribute changes
+
+The pub-sub system and queues are similar because they deliver information that’s produced by the producer to the consumer.
+   The difference is that only one consumer consumes a message in the queue,
+   while there can be multiple consumers of the same message in a pub-sub system.
+
+Functional requirements: Create a topic / Write messages / Subscription / Read messages / Specify retention time / Delete messages
+Non-functional requirements: Scalable / highly available / Durability / Fault tolerance / Concurrent
+
+First design
+   Topic queue -> Message director <- Consumer queue
+Second design
+   producer -> cluster of brokers <- Consumer
+                 |            |
+          Cluster manager   Consumer manager -> storage
+   Acknowledgment / Retention time
+
+Broker will have multiple topics where each topic can have multiple partitions associated with it.
+   - Partitions contain messages encapsulated in segments.
+   - Segments help identify the start and end of a message using an offset address.
+   - a topic is a persistent sequence of messages stored in the local storage of the broker.
+Cluster manager
+   - Broker and topics registry
+   - Manage replication
+Consumer manager
+   - Verify the consumer
+   - Retention time management
+   - Message receiving options management:
+        two methods for consumers to get data:
+           > The first approach is that our system pushes the data to its consumers (result in overloading the consumers with continuous messages)
+           > The second is for consumers to request the system to read data from a specific topic.
+   - Allow multiple reads: The consumer manager stores the offset information of each consumer.
+                           We'll use a key-value to store offset information against each consumer.
 
 
 ------------------------------------------------------------------------------------------------------------------------
