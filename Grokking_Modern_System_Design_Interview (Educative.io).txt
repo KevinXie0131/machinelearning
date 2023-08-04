@@ -292,6 +292,77 @@ Replication factor and replica distribution
 
 downsides / resource-intensive operations
 MapReduce framework: Cluster manager / Mappers / Reducers
+------------------------------------------------------------------------------------------------------------------------
+A cache is a temporary data storage that can serve data faster by keeping data entries in memory.
+cache hit / cache miss
+
+A distributed cache is a caching system where multiple cache servers coordinate to store frequently accessed data
+Caches use the locality of reference principle
+
+Writing policies:
+    - Write-through cache: ensures strong consistency between the database and the cache
+    - Write-back cache: have small writing latency
+    - Write-around cache: such a strategy isn’t favorable for reading recently updated data
+Eviction policies: replace less frequently accessed data with most frequently accessed data
+    - Least recently used (LRU)
+    - Most recently used (MRU)
+    - Least frequently used (LFU)
+    - Most frequently used (MFU)
+Cache invalidation: Certain cached data may get outdated / remove stale or outdated entries from the cache / time-to-live (TTL) value
+    - Active expiration
+    - Passive expiration
+Storage mechanism
+    - Hash function
+        > Identify the cache server in a distributed cache to store and retrieve data.
+        > Locate cache entries inside each cache server.
+    - doubly linked list
+        > bloom filters
+    - dedicated cache servers
+        > There's flexibility in terms of hardware choices for each functionality.
+        > It’s possible to scale web/application servers and cache servers separately.
+    - Co-located cache
+        > the reduction in CAPEX and OPEX of extra hardware
+Cache client
+
+Maintain cache servers list
+    - Solution 1: have a configuration file in each of the service hosts
+                  configuration service can be updated through a push service by any DevOps tool
+                  have to be manually updated and deployed through some DevOps tools
+    - Solution 2: store the configuration file in a centralized location
+                  still need to manually update the configuration file and monitor the health of each server
+    - Solution 3: An automatic way of handling the issue is to use a configuration service that continuously monitors the health of the cache servers.
+                  In addition to that, the cache clients will get notified when a new cache server is added to the cluster.
+                  Finally, the cache clients obtain the list of cache servers from the configuration service.
+
+We used consistent hashing. Finding a key under this algorithm requires a time complexity of O(log(N)), where N represents the number of cache shards.
+The LRU eviction approach uses a constant time to access and update cache entries in a doubly linked list.
+Adding replicas reduces the load on hot shards. Another way to handle the hotkeys problem is to do further sharding within the range of those keys.
+
+But synchronous writing for strong consistency in different data centers has a serious performance implication that isn’t welcomed in caching systems.
+    We usually use asynchronous replication across data centers.
+
+In the case of caching, the asynchronous mode is favored for improved performance.
+   Consequently, our caching system suffers from inconsistencies.
+   Alternatively, strong consistency comes from synchronous writing,
+   but this increases the overall latency, and the performance takes a hit.
+
+locking mechanisms: A mechanism by which access to shared data is limited to a single thread only. Thus achieving synchronization.
+   - Limited locking: In this strategy, only specific sections of the entire data structure will be locked.
+   - Offline eviction: only the required changes will be recorded while performing different operations until it’s necessary to commit the changes
+   - Lock-free implementation
+
+Memcached versus Redis
+Memcached:
+   - Both the key and the value are strings
+   - each server follows the shared-nothing architecture (servers are unaware of each other, and there's no synchronization, data sharing, and communication between the servers)
+   - achieve almost a deterministic query speed (O(1)) serving millions of keys per second
+
+Redis:
+   - can be used as a cache, database, and message broker
+   - built-in replication mechanism, automatic failover, and different levels of persistence
+   - doesn't provide strong consistency due to the use of asynchronous replication.
+   - built-in cluster support: Redis Sentinel
+   - Redis client-server communication with pipelining: Pipelining is the process of combining multiple requests from the client side without waiting for a response from the server.
 
 ------------------------------------------------------------------------------------------------------------------------
 RESHADED Approach for System Design
