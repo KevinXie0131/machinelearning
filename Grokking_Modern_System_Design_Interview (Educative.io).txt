@@ -363,6 +363,16 @@ Redis:
    - doesn't provide strong consistency due to the use of asynchronous replication.
    - built-in cluster support: Redis Sentinel
    - Redis client-server communication with pipelining: Pipelining is the process of combining multiple requests from the client side without waiting for a response from the server.
+   - Redis provides persistence by properties like append only file (AOF) and Redis database (RDB) snapshot.
+   - supports data types like strings, sorted sets, hash maps, bitmaps, and hyper logs
+   - Redis runs as a single process using one core
+   - Geospatial support
+
+Redis can store small data items efficiently. Memcached can be the right choice for file sizes above 100 K
+To summarize, Memcached is preferred for smaller, simpler read-heavy systems,
+   whereas Redis is useful for systems that are complex and are both read- and write-heavy.
+------------------------------------------------------------------------------------------------------------------------
+
 
 ------------------------------------------------------------------------------------------------------------------------
 RESHADED Approach for System Design
