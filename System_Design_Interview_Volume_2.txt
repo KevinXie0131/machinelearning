@@ -408,7 +408,7 @@ concurrency issue:
                                                    not all databases support constraints
 
 Database sharding: to split data into multiple databases so that each of them only contains a portion of data
-Inventory Caching: Redis is a good choice because TTL and Least Recently Used (LRU) cache eviction policy help us male optimal use of memory / as a precaution / the source of true for the inventory data
+Inventory Caching: Redis is a good choice because TTL and Least Recently Used (LRU) cache eviction policy help us make optimal use of memory / as a precaution / the source of true for the inventory data
 The volume of read operations is an order of magnitude higher than write operations
 
 How to maintain consistency between cache and database
@@ -696,7 +696,7 @@ low 99th percentile latency
 
 CPU pinning / mmap: a POXIS-compliant UNIT system called name mmap(2) that maps a file into the memory of a process
 
-in event sourcing, instating of storing the current states, it keeps an immutable log og all state-changing events
+in event sourcing, instating of storing the current states, it keeps an immutable log of all state-changing events
 These events are the golden source of truth
 
 redundant instance / backup instance
