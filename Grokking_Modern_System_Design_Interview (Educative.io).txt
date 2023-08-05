@@ -463,21 +463,30 @@ Algorithms for rate limiting
        > Disadvantages: token bucket can surpass the limit at the edges
                         Choosing an optimal value for the essential parameters is a difficult task.
    - Leaking bucket
-       >
-       > Advantages
-       > Disadvantages
+       > The algorithm process these requests at a constant rate in a first-in-first-out (FIFO) order / Inflow rate / constant Outflow rate
+         The algorithm will discard the incoming requests when the bucket reached its maximum limit
+       > Advantages: avoids the burst of requests, unlike the token bucket algorithm
+                     also space efficient
+       > Disadvantages: Determining an optimal bucket size and outflow rate is a challenge.
    - Fixed window counter
-       >
-       > Advantages
-       > Disadvantages
+       > This algorithm divides the time into fixed intervals called windows and assigns a counter to each window.
+         When a specific window receives a request, the counter is incremented by one.
+         Once the counter reaches its limit, new requests are discarded in that window.
+       > Advantages: also space efficient
+       > Disadvantages: A consistent burst of traffic (twice the number of allowed requests per window) at the window edges could cause a potential decrease in performance.
    - Sliding window log
-       >
-       > Advantages
-       > Disadvantages
+       > keeps track of each incoming request. When a request arrives, its arrival time is stored in a hash map, usually known as the log.
+         The requests are allowed depending on the size of the log and arrival time.
+       > Advantages: it doesn't suffer from the edge conditions, as compared to the fixed window counter algorithm.
+                     The algorithm doesn't suffer from the boundary conditions of fixed windows.
+       > Disadvantages: It consumes extra memory for storing additional information, the time stamps of incoming requests.
    - Sliding window counter
-       >
-       > Advantages
-       > Disadvantages
+       > This algorithm takes into account both the fixed window counter and sliding window log algorithms to make the flow of requests more smooth.
+       > Advantages: also space efficient due to limited states
+                     It smooths out the bursts of requests and processes them with an approximate average rate based on the previous window.
+       > Disadvantages: This algorithm assumes that the number of requests in the previous window is evenly distributed, which may not always be possible.
+
+Burst: This refers to an increase of traffic in a unit time exceeding the defined limit.
 ------------------------------------------------------------------------------------------------------------------------
 RESHADED Approach for System Design
 Requirements / Estimation / Storage schema (optional) / High-level design / API design / Detailed design / Evaluation / Distinctive component/feature
