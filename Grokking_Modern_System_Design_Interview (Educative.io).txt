@@ -488,6 +488,57 @@ Algorithms for rate limiting
 
 Burst: This refers to an increase of traffic in a unit time exceeding the defined limit.
 ------------------------------------------------------------------------------------------------------------------------
+A messaging queue is an intermediate component between the interacting entities known as producers and consumers.
+A messaging queue has several advantages:
+   - Improved performance: asynchronous communication
+                           used to separate out slower operations from the critical path
+   - Better reliability: makes the system more fault tolerant
+   - Granular scalability: Asynchronous communication makes the system more scalable
+   - Easy decoupling
+   - Rate limiting: help absorb any load spikes and prevent services from becoming overloaded
+   - Priority queue
+
+Messaging queue use cases
+   - Sending many emails
+   - Data post-processing: substantially reduces client-perceived latency and enables the service to schedule the offline work
+                           at some appropriate time—probably late at night when the compute capacity is less busy
+   - Recommender systems
+
+core functionality
+A single-server messaging queue has the following drawbacks:
+   - High latency: acquires a lock to access the queue. So this mechanism becomes a bottleneck when many processes try to access the queue
+   - Low availability: Due to the lack of replication of the messaging queue
+   - Lack of durability:
+   - Scalability:
+extend the design of a single-server messaging queue to a distributed messaging queue
+
+Ordering of messages
+   - Best-effort ordering
+   - Strict ordering: Often, a unique identifier or time-stamp is used to mark a message when it's produced.
+One of the following three approaches can be used for ordering incoming messages:
+   - Monotonically increasing numbers: it doesn't guarantee that it will generate the correct order for the messages produced at the client side
+   - Causality-based sorting at the server side: messages are sorted based on the time stamp that was produced at the client side and are put in a queue accordingly
+   - Using time stamps based on synchronized clocks: get sequence numbers that fulfill double duty as sequence numbers and globally synchronized wall clock time stamps.
+                                                     Using this approach, our service can globally order messages across client sessions as well.
+
+Primarily, a queue is designed for first-in, first-out (FIFO) operations
+To minimize latency caused by the online sorting, we use a time-window approach.
+Online sorting means that we need to keep some data sorted as new data keeps coming in.
+
+Managing concurrency
+   - When multiple messages arrive at the same time:
+         > locking mechanism (neither scalable nor performant)
+         > Another solution is to serialize the requests using the system's buffer at both ends of the queue
+           so that the incoming messages are placed in an order, and consumer processes also receive messages in their arrival sequence.
+           a single application thread will put them in the queue (put and extract come to the same port) without any locking
+   - When multiple consumers request concurrently for a message.
+
+Queue data is replicated using either a primary-secondary or quorum-like system inside a cluster
+use data partitioning if the queue gets too long to fit on a server. We can use a consistent hashing-like scheme for this purpose,
+   or we may use a key-value store where the key might be the sequence numbers of the messages.
+
+
+------------------------------------------------------------------------------------------------------------------------
 RESHADED Approach for System Design
 Requirements / Estimation / Storage schema (optional) / High-level design / API design / Detailed design / Evaluation / Distinctive component/feature
 ------------------------------------------------------------------------------------------------------------------------
