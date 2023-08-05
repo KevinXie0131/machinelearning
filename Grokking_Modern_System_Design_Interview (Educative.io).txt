@@ -412,8 +412,72 @@ Consumer manager
            > The second is for consumers to request the system to read data from a specific topic.
    - Allow multiple reads: The consumer manager stores the offset information of each consumer.
                            We'll use a key-value to store offset information against each consumer.
+------------------------------------------------------------------------------------------------------------------------
+A rate limiter, as the name suggests, puts a limit on the number of requests a service fulfills
+A rate limiter is generally used as a defensive layer for services to avoid their excessive usage, whether intended or unintended.
+It also protects services against abusive behaviors that target the application layer, such as denial-of-service (DOS) attacks and brute-force password attempts.
+   - Preventing resource starvation
+   - Managing policies and quotas
+   - Controlling data flow
+   - Avoiding excess costs
 
+Types of throttling
+   - Hard throttling
+   - Soft throttling
+   - Elastic or dynamic throttling
 
+Where to place the rate limiter
+   - On the client side (this strategy is not safe because it can easily be tampered with by malicious activity)
+   - On the server side
+   - As middleware
+
+Two models for implementing a rate limiter
+   - A rate limiter with a centralized database
+      > there are a few drawbacks to this approach. It causes an increase in latency if an enormous number of requests hit the centralized database.
+      > Another extensive problem is the potential for race conditions in highly concurrent requests (or associated lock contention).
+   - A rate limiter with a distributed database
+      > The problem with this approach is that a client could exceed a rate limit—at least momentarily, while the state is being collected from everyone
+
+token bucket algorithm: a global counter
+based on throttle rules
+429 Too Many Requests / 503 service unavailable
+
+Race condition:
+    - locking mechanism can be used
+       - where one process can update the counter at a time while others wait for the lock to be released.
+       - Since this approach can cause a potential bottleneck, it significantly degrades performance and does not scale well.
+    - the 'set-then-get' approach
+       - avoiding the locking approach
+    -  the allowed quota is divided into multiple places and divide the load on them, or use sharded counters to scale an approach.
+
+A rate limiter should not be on the client’s critical path
+To avoid numerous computations in the client's critical path, we should divide the work into offline and online parts
+   - Initially, when a client’s request is received, the system will just check the respective count. If it is less than the maximum limit, the system will allow the client’s request.
+   - In the second phase, the system updates the respective count and cache offline.
+for millions of requests, this approach increases performance significantly.
+
+Algorithms for rate limiting
+   - Token bucket
+       > The bucket is periodically filled with tokens at a constant rate.
+       > Advantages: It is space efficient. The memory needed for the algorithm is nominal due to limited states.
+       > Disadvantages: token bucket can surpass the limit at the edges
+                        Choosing an optimal value for the essential parameters is a difficult task.
+   - Leaking bucket
+       >
+       > Advantages
+       > Disadvantages
+   - Fixed window counter
+       >
+       > Advantages
+       > Disadvantages
+   - Sliding window log
+       >
+       > Advantages
+       > Disadvantages
+   - Sliding window counter
+       >
+       > Advantages
+       > Disadvantages
 ------------------------------------------------------------------------------------------------------------------------
 RESHADED Approach for System Design
 Requirements / Estimation / Storage schema (optional) / High-level design / API design / Detailed design / Evaluation / Distinctive component/feature
