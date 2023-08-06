@@ -616,6 +616,14 @@ peak time / off-peak time
 A cloud provider needs to have a target resources-to-demand ratio
 Task idempotency: An idempotent task produces the same result, no matter how many times we execute it.
                   Idempotency enables us to simply re-execute a failed task.
+
+data center-level task scheduling needs a distributed solution because of multiple tenants and dispersed resources
+queue is a major building block of a task scheduler.
+the main job of the task scheduler is to set the priorities of the tasks for which we used a delay tolerance parameter
+the dependent tasks are executed in order by running the tasks according to DAG stored in the graph database
+------------------------------------------------------------------------------------------------------------------------
+
+
 ------------------------------------------------------------------------------------------------------------------------
 RESHADED Approach for System Design
 Requirements / Estimation / Storage schema (optional) / High-level design / API design / Detailed design / Evaluation / Distinctive component/feature
