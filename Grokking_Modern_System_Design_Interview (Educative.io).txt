@@ -622,18 +622,48 @@ queue is a major building block of a task scheduler.
 the main job of the task scheduler is to set the priorities of the tasks for which we used a delay tolerance parameter
 the dependent tasks are executed in order by running the tasks according to DAG stored in the graph database
 ------------------------------------------------------------------------------------------------------------------------
+The Sharded Counters
+heavy hitters problem: thousands of such images or videos are uploaded simultaneously by many celebrities, each with millions of followers
+The challenge is that writing takes more time than reading, and concurrent activity makes this problem harder.
+
+Managing millions of tweet likes requires many counters operating on many nodes.
+A single counter for each tweet posted by a celebrity is not enough to handle millions of users.
+   The solution to this problem is a sharded counter, also known as a distributed counter,
+   where each counter has a specified number of shards as needed. These shards run on different computational units in parallel.
+
+We can use a sharded counter for every scenario where we need scalable counting (such as Facebook posts and YouTube videos).
+API design for sharded counters:
+   - Create counter: followers_count and post_type (public or protected) are used to find an appropriate value for number_of_shards
+   - Write counter: a specific shard of the counter is incremented or decremented
+   - Read counter: fetches appropriate information from the datastore to collect value from all shards
+
+Many human-centered activities often have a long-tailed activity pattern
+dynamically expand or shrink the number of shards
+a post go viral on Twitter
+
+Burst of writes requests
+   - Round-robin selection
+   - Random selection
+   - Metrics-based selection: Requests to create shards for a specified counter using createCounter API are dispatched to geographically dispersed servers
+
+Manage read requests
+   - periodically reading all the shards of a counter and caching it should serve most of the use cases.
+   - By reducing the accumulation period, we can increase the accuracy of read values.
+
+Using sharded counters for the Top K problem
+   - calculating trends is one of the Top K problems for Twitter
+   - The sharded counter is the key to the above problem.
+   - Region-wise hashtag count: indicates the number of tweets with the same hashtag used within a specific geographical region
+   - A time window: indicates the amount of time during which tweets with specific tags are posted.
+   - Shards -> Location-based couters -> Global hashtag couter
+
+Under a relaxed consistency model
+Reliability: reduce the massive write request by mapping each write request to a particular shard.
+             the hit ratio increases, and the system’s reliability also increases.
+             periodically saves the computed counts in stable storage
 
 
 ------------------------------------------------------------------------------------------------------------------------
 RESHADED Approach for System Design
 Requirements / Estimation / Storage schema (optional) / High-level design / API design / Detailed design / Evaluation / Distinctive component/feature
 ------------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
