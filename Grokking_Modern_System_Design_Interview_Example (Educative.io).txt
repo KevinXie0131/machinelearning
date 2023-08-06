@@ -1,0 +1,29 @@
+YouTube - Building custom data stores like Vitess and BigTable to meet scalability needs
+
+
+
+------------------------------------------------------------------------------------------------------------------------
+Quora - Vertical sharding of MySQL database to meet the scalability requirements
+------------------------------------------------------------------------------------------------------------------------
+Google Maps - The use of segmentation of a map to meet scalability needs and achieve high performance
+------------------------------------------------------------------------------------------------------------------------
+Yelp - Usage of Quadtrees for speedy access to spatial data
+------------------------------------------------------------------------------------------------------------------------
+Uber - Improved payment service to ensure fraud detection, and matching the driver and rider on maps
+------------------------------------------------------------------------------------------------------------------------
+Twitter - The use of client-side load balancers for multiple services that had thousands of instances in order to reduce latency
+------------------------------------------------------------------------------------------------------------------------
+Newsfeed - A recommendation system to ensure ranking and feed suggestions
+------------------------------------------------------------------------------------------------------------------------
+Instagram - A perfect example of how different building blocks combine to build a scalable and performant system
+------------------------------------------------------------------------------------------------------------------------
+TinyURL - Encoding IDs in the base-58 system for generating unique short URLs
+------------------------------------------------------------------------------------------------------------------------
+Web crawler - Detection, identification, and resolution of Web crawler traps
+------------------------------------------------------------------------------------------------------------------------
+WhatsApp - Message management for offline users
+------------------------------------------------------------------------------------------------------------------------
+Typeahead - The usage of an efficient trie data structure to provide suggestions
+------------------------------------------------------------------------------------------------------------------------
+Google Docs - Concurrency management for simultaneous writes, using techniques like operational transformation (OT) and Conflict-free Replicated Data Type (CRDT)
+------------------------------------------------------------------------------------------------------------------------
