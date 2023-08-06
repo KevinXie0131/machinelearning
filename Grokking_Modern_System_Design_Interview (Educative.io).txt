@@ -661,8 +661,6 @@ Under a relaxed consistency model
 Reliability: reduce the massive write request by mapping each write request to a particular shard.
              the hit ratio increases, and the system’s reliability also increases.
              periodically saves the computed counts in stable storage
-
-
 ------------------------------------------------------------------------------------------------------------------------
 RESHADED Approach for System Design
 Requirements / Estimation / Storage schema (optional) / High-level design / API design / Detailed design / Evaluation / Distinctive component/feature
