@@ -605,7 +605,17 @@ The design of the task scheduler:
    - Resource manager: pull tasks / assign resources / keeps track of the execution of each task and sends back their statuses to the queue manager
    - Monitoring service:
 
+three categories for our tasks:
+   - Tasks that can't be delayed.
+   - Tasks that can be delayed.
+   - Tasks that need to be executed periodically (for example, every 5 minutes, or every hour, or every day).
 
+restore their state from a previous checkpoint
+Delay tolerance is the maximum amount of time a task execution could be delayed.
+peak time / off-peak time
+A cloud provider needs to have a target resources-to-demand ratio
+Task idempotency: An idempotent task produces the same result, no matter how many times we execute it.
+                  Idempotency enables us to simply re-execute a failed task.
 ------------------------------------------------------------------------------------------------------------------------
 RESHADED Approach for System Design
 Requirements / Estimation / Storage schema (optional) / High-level design / API design / Detailed design / Evaluation / Distinctive component/feature
