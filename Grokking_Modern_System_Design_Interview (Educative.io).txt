@@ -571,6 +571,42 @@ Message deletion:
      The message is then deleted by the consumer via an API call.
 In both cases, the message being retrieved by the consumer is only deleted by the consumer.
 ------------------------------------------------------------------------------------------------------------------------
+Task Scheduler: aids in fully utilizing the system’s resources, provides users with an uninterrupted execution experience
+   - Single-OS-based node
+   - Cloud computing services
+   - Large distributed systems
+Asynchronous requests are those that are not on a client's critical path and often have some delay tolerance.
+   Users request these tasks, and the system completes the tasks while the requester does not need to wait for the completion of the work.
+   Notifications about the final state of the task are communicated to the requester some time in the future.
+
+task scheduler / task scheduling
+   - Submit tasks
+   - Allocate resources
+   - Monitor task execution
+   - Efficient resource utilization
+   - Release resources
+   - Show task status
+
+Bounded waiting time
+Clients have to specify the type of the offered resource categories, such as Basic, Regular, or Premium.
+tasks can be of two types:
+   - Dependent tasks: must run in a sequence
+   - Independent tasks: can run in parallel
+
+The design of the task scheduler:
+   - Task submitter:
+   - Graph database (GDB): build and store a directed acyclic graph (DAG) of dependent tasks, topologically sorted by the task submitter,
+                           so that we can schedule tasks according to that DAG
+   - Batching and prioritization: After we store the tasks in the RDB, the tasks are grouped into batches.
+                                  Prioritization is based on the attributes of the tasks,
+                                  such as delay tolerance or the tasks with short execution cap, and so on.
+   - Distributed queue:
+   - Queue manager:
+   - Resource manager: pull tasks / assign resources / keeps track of the execution of each task and sends back their statuses to the queue manager
+   - Monitoring service:
+
+
+------------------------------------------------------------------------------------------------------------------------
 RESHADED Approach for System Design
 Requirements / Estimation / Storage schema (optional) / High-level design / API design / Detailed design / Evaluation / Distinctive component/feature
 ------------------------------------------------------------------------------------------------------------------------
