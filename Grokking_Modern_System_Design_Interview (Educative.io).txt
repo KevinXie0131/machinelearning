@@ -513,14 +513,13 @@ A single-server messaging queue has the following drawbacks:
 extend the design of a single-server messaging queue to a distributed messaging queue
 
 Ordering of messages
-   - Best-effort ordering
+   - Best-effort ordering (Relaxed ordering gives us a higher throughput and lower latency)
    - Strict ordering: Often, a unique identifier or time-stamp is used to mark a message when it's produced.
 One of the following three approaches can be used for ordering incoming messages:
    - Monotonically increasing numbers: it doesn't guarantee that it will generate the correct order for the messages produced at the client side
    - Causality-based sorting at the server side: messages are sorted based on the time stamp that was produced at the client side and are put in a queue accordingly
    - Using time stamps based on synchronized clocks: get sequence numbers that fulfill double duty as sequence numbers and globally synchronized wall clock time stamps.
                                                      Using this approach, our service can globally order messages across client sessions as well.
-
 Primarily, a queue is designed for first-in, first-out (FIFO) operations
 To minimize latency caused by the online sorting, we use a time-window approach.
 Online sorting means that we need to keep some data sorted as new data keeps coming in.
@@ -537,7 +536,40 @@ Queue data is replicated using either a primary-secondary or quorum-like system 
 use data partitioning if the queue gets too long to fit on a server. We can use a consistent hashing-like scheme for this purpose,
    or we may use a key-value store where the key might be the sequence numbers of the messages.
 
+auto-expand and auto-shrink the resources
 
+Front-end service:
+   - Request validation
+   - Authentication and authorization
+   - Caching
+   - Request dispatching
+   - Request deduplication: the most reliable one is to compute the hash (preferably SHA256) of the message content
+   - Usage data collection
+
+Back-end service:
+The message replication in a cluster on different hosts can be performed using one of the following two models:
+   - Primary-secondary model: internal cluster manager
+   - A cluster of independent hosts: external cluster manager
+
+the two types of cluster managers responsible for queue management:
+   - internal  cluster managers
+   - external cluster managers
+
+two ways to replicate messages in a queue residing on multiple hosts.
+   - Synchrounous replication
+   - Asynchrounous replication (comes with other problems such as replication lag and consistency issues)
+
+A special type of queue, called a dead-letter queue, can be provided to handle messages that aren't consumed
+   after the maximum number of processing attempts have been made by the consumer.
+
+Message deletion:
+   - The first option is to not delete a message after it’s consumed.
+     A job can then delete the message when the expiration conditions are met.
+     Apache Kafka mostly uses this idea where multiple processes can consume a message.
+   - The second approach also doesn't delete a message after it's consumed.
+     However, it's made invisible for some time via an attribute, for example, visibility_timeout.
+     The message is then deleted by the consumer via an API call.
+In both cases, the message being retrieved by the consumer is only deleted by the consumer.
 ------------------------------------------------------------------------------------------------------------------------
 RESHADED Approach for System Design
 Requirements / Estimation / Storage schema (optional) / High-level design / API design / Detailed design / Evaluation / Distinctive component/feature
