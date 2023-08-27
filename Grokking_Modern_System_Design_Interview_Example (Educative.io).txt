@@ -98,10 +98,22 @@ we prefer sockets due to their high decoupling, flow control, and ability to wor
 WebSockets are another low-latency solution with low overhead.
     However, WebSockets might be an overkill for the features offered by Quora.
 
-
-
+Scalability: The horizontal scaling of these service hosts is convenient because they are homogeneous.
+             To reduce complex join queries, tables anticipating join operations are placed in the same shard or partition.
+Consistency: certain critical data like questions and answers should be stored synchronously
+             For such cases, eventual consistency is favored for improved performance.
+             Offers eventual consistency for non-critical data like the view counter.
+Availability: isolation between different components, keeping redundant instances, using CDN,
+              using configuration services like ZooKeeper, and load balancers to hide failures from users.
+              disaster recovery management / Load balancers hide server failures from end users.
+Performance: Sharding improves QPS of MySQL.
+             Custom, in-memory caching system reduces the latency of frequently accessed data.
+Disaster recovery: frequent backups / Quick restoration of backed-up data in a timely manner completes a disaster recovery plan.
 ------------------------------------------------------------------------------------------------------------------------
 Google Maps - The use of segmentation of a map to meet scalability needs and achieve high performance
+
+
+
 ------------------------------------------------------------------------------------------------------------------------
 Yelp - Usage of Quadtrees for speedy access to spatial data
 ------------------------------------------------------------------------------------------------------------------------
