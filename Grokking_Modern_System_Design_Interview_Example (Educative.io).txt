@@ -1,6 +1,65 @@
 YouTube - Building custom data stores like Vitess and BigTable to meet scalability needs
 
+video streaming service / content creator / content viewer / monthly active users / storage space
+deliver content effectively to the client and avoid network congestions
 
+High availability: Generally, an uptime of 99% and above is considered good
+Scalability: storage / bandwidth / number of concurrent user requests
+Good performance:
+Reliability: should not be lost or damaged.
+don't require strong consistency for YouTube's design
+
+We calculate bandwidth in bits per second (bps)
+Encoders and transcoders compress videos and transform them into different formats and qualities to support varying numbers of devices according to their screen resolution and bandwidth.
+stores the metadata / hands over the video to the encoder for encoding
+blob storage (similar to GFS or S3)
+with the least possible lag
+
+Web servers: Web servers take in user requests and respond to them / interface to our API servers / Apache or Lighttpd
+             Lighttpd is preferable because it can serve static pages and videos due to its fast speed.
+             decouple clients' services from the application and business logic.
+Application server: The application and business logic resides in application servers.
+Bigtable: Bigtable is a good choice for storing thumbnails because of its high throughput and scalability for storing key-value data.
+          Bigtable is optimal for storing a large number of data items each below 10 MB.
+colocation sites: Colocation centers are used where it’s not possible to invest in a data center facility due to business reasons.
+
+for optimal access time / sharding / we scale and do frequent writes on the database
+keywords will be extracted from the documents and stored in a key-value store.
+
+Low latency/Smooth streaming: Geographically distributed cache servers at the ISP level
+                              distributed cache management syste
+                              content delivery networks (CDNs)
+Scalability: horizontal scalability of web and application servers
+Availablity: by replicating data to as many servers as possible to avoid a single point of failure
+             Replicating data across data centers will ensure high availability
+             local load balancers can exclude any dead servers,
+             and global load balancers can steer traffic to a different region if the need arises.
+Reliability: by using data partitioning and fault-tolerance techniques.
+             heartbeat / consistent hashing to add or remove servers seamlessly and reduce the burden on specific servers in case of non-uniform load.
+
+Trade-offs:
+    Consistency: This is because we don't need to show a consistent feed to all the users.
+    Distributed cache: Memcached is a good choice because it is open source and uses the popular Least Recently Used (LRU) algorithm.
+                       Since YouTube video access patterns are long-tailed, LRU-like algorithms are suitable for such data sets.
+    Bigtable versus MySQL: One could use alternatives to GFS and Bigtable, such as HDFS and Cassandra.
+    Public versus private CDN: This choice is more of a cost issue than a design issue.
+    Duplicate videos: copyright issue / simple techniques like locality-sensitive hashing
+                      complex techniques like Block Matching Algorithms (BMAs) and phase correlation / artificial intelligence (AI)
+
+become a choke point / out-of-the-box solutions
+However, data denormalization won’t work because it comes at the cost of reduced writing performance.
+   Even if our work is read-intensive, as the system scales, writing performance will degrade to an unbearable limit.
+
+divide videos into shorter time frames and refer to them as segments -> generate different files called chunks
+small -> medium -> large chunk size: increasing bitrate
+result in the congestion of networks
+
+Adaptive streaming: when the bandwidth is high, a higher quality chunk is sent to the client and vice versa
+adaptive bitrate algorithm depends on the following four parameters:
+   End-to-end available bandwidth (from a CDN/servers to a specific client).
+   The device capabilities of the user.
+   Encoding techniques used.
+   The buffer space at the client.
 
 ------------------------------------------------------------------------------------------------------------------------
 Quora - Vertical sharding of MySQL database to meet the scalability requirements
