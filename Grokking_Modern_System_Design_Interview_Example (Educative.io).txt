@@ -60,9 +60,46 @@ adaptive bitrate algorithm depends on the following four parameters:
    The device capabilities of the user.
    Encoding techniques used.
    The buffer space at the client.
-
 ------------------------------------------------------------------------------------------------------------------------
 Quora - Vertical sharding of MySQL database to meet the scalability requirements
+
+Quora is a social question-and-answer service / more conversational and can result in deeper understanding
+The manager processes distribute work among the worker processes using a router library
+The router library is enqueued with tasks by the manager processes and dequeued by worker processes.
+Each application server maintains several in-memory queues to handle different user requests.
+
+a relational database like MySQL because it offers a higher degree of consistency.
+HBase can be a good option to store and retrieve data at high bandwidth
+   We require high read/write throughput because big data processing systems use high parallelism to efficiently get the required statistics.
+   suitable for storing a large amount of small-sized data.
+Also, blob storage is required to store videos and images posted in questions and answers.
+
+Distributed cache: Memcached and Redis
+CDNs serve frequently accessed videos and images.
+
+Task prioritization is performed by employing different queues for different tasks.
+offline mode poses a lesser burden on the infrastructure
+
+Vertical sharding of MySQL (horizontal sharding is more common)
+A partition has a single primary server and multiple replica servers.
+maintained by a service like ZooKeeper
+the number of read-replicas can be increased for hot shards
+For edge cases where joining may be needed, we can perform it at the application level.
+
+Kafka: reduces the request load on service hosts by separating not-so-urgent tasks from the regular API calls.
+       Each of these jobs is executed through cron jobs.
+       use sharded counters as an effective solution to the view counter problem
+
+Features like comments, upvotes, and downvotes require frequent page updates from the client side.
+    - Polling: the server may get uselessly overburdened.
+    - long polling: the server may not respond for as long as 60 seconds if there are no updates
+                    the server makes client wait until fresh content is available
+we prefer sockets due to their high decoupling, flow control, and ability to work for both single servers or over the network.
+WebSockets are another low-latency solution with low overhead.
+    However, WebSockets might be an overkill for the features offered by Quora.
+
+
+
 ------------------------------------------------------------------------------------------------------------------------
 Google Maps - The use of segmentation of a map to meet scalability needs and achieve high performance
 ------------------------------------------------------------------------------------------------------------------------
