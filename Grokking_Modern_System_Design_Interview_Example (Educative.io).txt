@@ -112,8 +112,57 @@ Disaster recovery: frequent backups / Quick restoration of backed-up data in a t
 ------------------------------------------------------------------------------------------------------------------------
 Google Maps - The use of segmentation of a map to meet scalability needs and achieve high performance
 
+Functional requirements:
+    - Identify the current location
+    - Recommend the fastest route
+    - Give directions
+Non-functional requirements:
+    - Availability: highly available
+    - Scalability: Partition the large graphs into small graphs to ease segment addition.
+                   Host the segments on different servers to enable serving more queries per second.
+    - Less response time: calculate the ETA and the route, given the source and the destination points.
+                          Cache the processed graphs.
+                          Use a key-value store to quickly get the required information.
+    - Accuracy: Collect live data.
 
+Road networks are modeled with a graph data structure, where intersection points are the vertices,
+and the roads between intersections are the weighted edges.
 
+Number of servers estimation: Number of requests a single server can handle per second: 8,000
+Storage estimation: over 20 petabytes as of 2022
+Bandwidth estimation: incoming and outgoing traffic
+
+We'll use Kafka as a pub-sub system in our design.
+
+The route finder forwards the requests to an area search service with the source and the destination points
+The area search service uses the distributed search to find the latitude/longitude for the source and the destination.
+After finding the area, the area search service asks the graph processing service to process part of the graph, depending on the area to find the optimal path
+The graph processing service fetches the edges and nodes within that specified area from the database, finds the shortest path
+The direction request is handled by the navigator
+
+Scalability is about the ability to efficiently process a huge road network graph
+    - The idea is to break down a large graph into smaller sub-graphs, or partitions.
+    - So, we divide the globe into small parts called segments. Each segment corresponds to a subgraph
+
+The most common shortest path algorithm is the Dijkstra’s algorithm.
+With the source and destination points, we can find the aerial distance between them using the haversine formula
+Aerial distance is the distance between two places measured in a straight line through the air rather than using roads on the ground.
+
+Graph database: The road network inside the segment in the form of a graph.
+Relational DB: We store the information to determine whether, at a particular hour of the day, the roads are congested.
+
+improve the ETA estimation accuracy using live data
+Google Maps uses a combination of GPS, Wi-Fi, and cell towers to track users' locations.
+
+WebSocket is a communication protocol that allows users and servers to have a two-way, interactive communication session.
+   This helps in the real-time transfer of data between user and server.
+Google Maps uses lazy loading of data, putting less burden on the system, which improves availability.
+memory issues loading and processing a huge graph:
+   - We divided the world into small segments. Each segment is hosted on a different server in the distributed system.
+     The user requests for different routes are served from the different segment servers.
+improve scalability by non-uniformly selecting the size of a segment:
+   - selecting smaller segment sizes in densely connected areas
+   - selecting bigger segments for the outskirts.
 ------------------------------------------------------------------------------------------------------------------------
 Yelp - Usage of Quadtrees for speedy access to spatial data
 ------------------------------------------------------------------------------------------------------------------------
