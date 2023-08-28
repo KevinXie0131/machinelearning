@@ -165,6 +165,33 @@ improve scalability by non-uniformly selecting the size of a segment:
    - selecting bigger segments for the outskirts.
 ------------------------------------------------------------------------------------------------------------------------
 Yelp - Usage of Quadtrees for speedy access to spatial data
+
+Services based on proximity servers are helpful in finding nearby attractions such as restaurants
+in a given radius with minimum latency.
+There can be two types of users: business owners / other users
+based on their GPS location (longitude, latitude)
+
+This process returns a JSON object that contains a list of all the possible items in the specified category that also fall within the specified radius.
+    Each entry has a place name, address, category, rating, and thumbnail.
+This process returns a JSON object that contains information of the specified place.
+
+We generate IDs using the unique ID generator.
+
+Segments producer: This component is responsible for communicating with the third-party world map data services (for example, Google Maps)
+QuadTree servers: finds a list of places based on the given radius
+Aggregators: The QuadTrees accumulate all the places and send them to the aggregators.
+SQL database: The data in these tables is inherently relational and structured.
+              SQL-based databases are better suited to have a consistent view of the data
+Key-value stores: We'll need to fetch the places in a segment efficiently.
+                  For that, we store the list of places against a segment ID in a key-value store to minimize searching time.
+                  We also save the QuadTree information in the key-value store, by storing the QuadTree data against a unique ID.
+Load balancer: A load balancer distributes users' incoming requests to all the servers uniformly.
+
+If we consider our radius to be ten miles, then we’ll have 6 million segments. An 8-Byte identifier will identify each segment.
+Dynamic segments: We solve the problem of uneven distribution of places in a segment by dynamically sizing the segments.
+Search using a QuadTree: All the leaf nodes in the QuadTree are linked, just like in a doubly-linked list
+                         The leaf node will explore its neighboring nodes to find more cafes
+                         We can easily store a QuadTree on a server.
 ------------------------------------------------------------------------------------------------------------------------
 Uber - Improved payment service to ensure fraud detection, and matching the driver and rider on maps
 ------------------------------------------------------------------------------------------------------------------------
