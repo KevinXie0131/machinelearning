@@ -1,0 +1,11 @@
+Instagram - A perfect example of how different building blocks combine to build a scalable and performant system
+------------------------------------------------------------------------------------------------------------------------
+TinyURL - Encoding IDs in the base-58 system for generating unique short URLs
+------------------------------------------------------------------------------------------------------------------------
+Web crawler - Detection, identification, and resolution of Web crawler traps
+------------------------------------------------------------------------------------------------------------------------
+WhatsApp - Message management for offline users
+------------------------------------------------------------------------------------------------------------------------
+Typeahead - The usage of an efficient trie data structure to provide suggestions
+------------------------------------------------------------------------------------------------------------------------
+Google Docs - Concurrency management for simultaneous writes, using techniques like operational transformation (OT) and Conflict-free Replicated Data Type (CRDT)

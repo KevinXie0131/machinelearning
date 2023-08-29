@@ -312,21 +312,59 @@ Sequencers generate the unique IDs for the Tweets.
 Sharded counters help to handle the count of multiple features such as viewing, liking and Retweeting of the accounts with millions of followers.
 Pub-sub is used for real-time processing such as elimination of redundant data, organizing data, and much more.
 
+CDN: When users search for a specified term or tag, the system first searches in the CDN proxy servers containing the most frequently requested content.
+Twitter uses the Snowflake service to generate unique IDs for Tweets.
+next_token: It is used to get the next page of results. The last result (page) will not have a next_token.
+
+The decision to send specified promoted ads is made on the user_location parameter.
+   For example, the user belongs to the NewYork city, so most probably it gets promoted ads associated or originated in that region.
+
+Retweet a Tweet: a registered user Retweets (re-posts) someone's Tweet on Twitter
+Ad-hoc clusters (occasional analysis) and cold storage clusters (less accessed and less frequently used data)
+heavy read/write traffic (millions of QPS)
+built the Blobstore storage system to store photos attached to Tweets. Now, it also stores videos, binary files, and other objects.
+After a specified period, the server checkpoints the in-memory data to the Blobstore as durable storage.
+
+uses MySQL and PostgreSQL, where it needs strong consistency, ads exchange, and managing ads campaigns.
+After aggregation, the results are stored for ad-hoc analysis to BigQuery (data warehouse)
+
+uses Apache Lucene for real-time search, which uses an inverted index.
+Twitter stores a real-time index (recent Tweets during the past week) in RAM for low latency and quick updates.
+The full index is a hundred times larger than the real-time index. However, Twitter performs batch processing for the full indexes.
+stores this relationship in the form of a graph. Twitter used FlockDB, a graph database tuned for huge adjacency lists, rapid reads and writes, along with graph-traversal operations.
+
+Caching is mainly utilized for storage (heavy read traffic), computation (real-time stream processing and machine learning),
+   and transient data (rate limiters).
+Memcached / Redis
+
+Observability: Alert / Monitor / Configuration / Prediction
+Zipkin, a distributed tracing system
+
+ZooKeeper: Most real-time applications use ZooKeeper to store critical data.
+It can also provide multiple services such as distributed locking and leader election in the distribution system.
+Twitter uses ZooKeeper to store service registry, Manhattan clusters' topology information, metadata, and so on.
+Twitter also uses it for the leader election on the various systems.
+
+Real-world complex problems: heavy hitter problem
+    - need multiple distributed counters to manage burst write requests (increments or decrements) against various interactions on celebrities' Tweets.
+    - Each counter has several shards working on different computational units.
+    - These distributed counters are known as sharded counters.
+
+Trends(Top-k problem): Twitter shows Top-k trends (hashtags or keywords) locally and globally.
+    - Hashtags with the maximum frequency (counts) become trends both locally and globally.
+    - shows various promoted trends (known as 'paid trends') in specified regions under trends.
+
+Timeline: Twitter shows two types of timelines: home and user timelines.
+    - Sharded counters solve the discussed problems efficiently.
+    - place shards of the specified counter near the user to reduce latency and increase overall performance like CDN
+    - The nearest servers managing various shards of the respective counters are continuously updating the like or view counts with short refresh intervals.
+    - We should note, however, that the near real-time counts will update on the Tweets with a long refresh interval.
+    - The reason is the application server waits for multiple counts submitted by the various servers placed in different regions.
+
+real-time processing, such as pulling Tweets, user interactions data, and many other metrics from the real-time streams and client logs, is achieved in the Apache Kafka.
+
 
 
 
 ------------------------------------------------------------------------------------------------------------------------
 Newsfeed - A recommendation system to ensure ranking and feed suggestions
-------------------------------------------------------------------------------------------------------------------------
-Instagram - A perfect example of how different building blocks combine to build a scalable and performant system
-------------------------------------------------------------------------------------------------------------------------
-TinyURL - Encoding IDs in the base-58 system for generating unique short URLs
-------------------------------------------------------------------------------------------------------------------------
-Web crawler - Detection, identification, and resolution of Web crawler traps
-------------------------------------------------------------------------------------------------------------------------
-WhatsApp - Message management for offline users
-------------------------------------------------------------------------------------------------------------------------
-Typeahead - The usage of an efficient trie data structure to provide suggestions
-------------------------------------------------------------------------------------------------------------------------
-Google Docs - Concurrency management for simultaneous writes, using techniques like operational transformation (OT) and Conflict-free Replicated Data Type (CRDT)
-------------------------------------------------------------------------------------------------------------------------
