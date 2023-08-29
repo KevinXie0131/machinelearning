@@ -194,6 +194,74 @@ Search using a QuadTree: All the leaf nodes in the QuadTree are linked, just lik
                          We can easily store a QuadTree on a server.
 ------------------------------------------------------------------------------------------------------------------------
 Uber - Improved payment service to ensure fraud detection, and matching the driver and rider on maps
+
+Uber is an application that provides ride-hailing services to its users.
+High-level Design / Detailed Design / Payment Service and Fraud Detection (detect any fraudulent activity related to payment)
+Confirm pickup / Show trip updates / estimated time of arrival (ETA)
+retract the ride offer
+handle an ever-increasing number of drivers / provide fast and error-free services
+strongly consistent: The drivers and riders in an area should have a consistent view of the system.
+
+API design
+   - Update driver location
+   - Find nearby drivers
+   - Request a ride
+   - Show driver ETA
+   - Confirm pickup
+   - Show trip updates
+   - End the trip
+
+The rider enters the drop-off location and requests a ride.
+Until a matching driver is found, the status will be "Waiting for the driver to respond."
+The drivers report their location every four seconds.
+
+typeOfVehicle: for example, business, economy, and so on.
+
+Location manager: shows the nearby drivers to the riders
+                  This service also receives location updates from the drivers every four seconds.
+                  The location of drivers is then communicated to the QuadTree map service to determine which segment the driver belongs to on a map.
+                  The location manager saves the last location of all drivers in a database and saves the route followed by the drivers on a trip.
+QuadTree map service: updates the location of the drivers.
+                      The main problem is how we deal with finding nearby drivers efficiently:
+                          our dynamic segment solution:
+                             To identify the driver's new location, we must first find a proper grid depending on the driver's previous position.
+                             If the new location doesn't match the current grid, we should remove the driver from the current grid and shift it to the correct grid.
+                             We have to repartition the new grid if it exceeds the driver limit, which is the number of drivers for each region that we set initially.
+                             we can use a hash table to store the latest position of the drivers and update our QuadTree occasionally, say after 10–15 seconds.
+                             We can update the driver's location in the QuadTree around every 15 seconds instead of four seconds,
+
+A QuadTree is a tree data structure in which each internal node has exactly four children.
+   QuadTrees are the two-dimensional analog of octrees and are most often used to partition a two-dimensional space by recursively subdividing it into four quadrants or regions.
+   The data associated with a leaf cell varies by application, but the leaf cell represents a "unit of interesting spatial information".
+
+ETA service: considers factors such as route and traffic.
+The whole road network is represented as a graph.
+   - Intersections are represented by nodes, while edges represent road segments.
+   - The graph also depicts one-way streets, turn limitations, and speed limits.
+
+utilize routing algorithms such as Dijkstra's algorithm (operates on top of an unprocessed graph, is quite slow for such a system)
+preprocess the optimum path inside partitions using contraction hierarchies (all the partitions process the best route in parallel)
+
+Contraction hierarchies is a speed-up method optimized to exploit the properties of graphs representing road networks.
+   The speed-up is achieved by creating shortcuts in a preprocessing phase, which are then used during a shortest-path query to skip over unimportant vertices
+
+DeepETA: machine learning component named DeepETA to deliver an immediate improvement to metrics in production
+
+use Cassandra to store the driver’s last known location and the trip information
+   As the data becomes massive with the passage of time, it reduces our system's performance. Also, it won't be easy to scale the MySQL database.
+use a MySQL database to store trip information while it's in progress.
+   We use MySQL for in-progress trips for frequent updates since the trip information is relational, and it needs to be consistent across tables.
+   The data we store for each trip is highly relational, it's spread over multiple tables, and it must be identical among all tables.
+   MySQL helps to store this relational data and keep it consistent across tables.
+
+Google Cloud Spanner provides global transactions, strongly consistent reads, and automatic multisite replication and failover features.
+
+Fault tolerance: primary-secondary replication model (synchronously replicate data from primary to secondary databases)
+Load balancers: uniformly distribute the load among the servers.
+Cache: first store the updated location in the hash table stored in Redis.
+       Eventually, these values are copied into the persistent storage every 10–15 seconds.
+
+
 ------------------------------------------------------------------------------------------------------------------------
 Twitter - The use of client-side load balancers for multiple services that had thousands of instances in order to reduce latency
 ------------------------------------------------------------------------------------------------------------------------
