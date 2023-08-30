@@ -340,10 +340,11 @@ Memcached / Redis
 Observability: Alert / Monitor / Configuration / Prediction
 Zipkin, a distributed tracing system
 
-ZooKeeper: Most real-time applications use ZooKeeper to store critical data.
-It can also provide multiple services such as distributed locking and leader election in the distribution system.
-Twitter uses ZooKeeper to store service registry, Manhattan clusters' topology information, metadata, and so on.
-Twitter also uses it for the leader election on the various systems.
+ZooKeeper: configuration information, distributed synchronization, naming registry
+    - Most real-time applications use ZooKeeper to store critical data.
+    - It can also provide multiple services such as distributed locking and leader election in the distribution system.
+    - Twitter uses ZooKeeper to store service registry, Manhattan clusters' topology information, metadata, and so on.
+    - Twitter also uses it for the leader election on the various systems.
 
 Real-world complex problems: heavy hitter problem
     - need multiple distributed counters to manage burst write requests (increments or decrements) against various interactions on celebrities' Tweets.
@@ -362,8 +363,12 @@ Timeline: Twitter shows two types of timelines: home and user timelines.
     - The reason is the application server waits for multiple counts submitted by the various servers placed in different regions.
 
 real-time processing, such as pulling Tweets, user interactions data, and many other metrics from the real-time streams and client logs, is achieved in the Apache Kafka.
-
-
+Timeline service: sends a home timeline request
+                  request is forwarded to the nearest CDN containing static data. If the requested data is not found, it's sent to the server providing timeline services.
+Search service: first looks into the RAM in Apache Lucene to get real-time Tweets (Tweets that have been published recently).
+                Then, this server looks up in the index server and finds all Tweets that contain the requested keyword(s).
+                Next, it considers multiple factors, such as time, or location, to rank the discovered Tweets.
+                In the end, it returns the top Tweets.
 
 
 ------------------------------------------------------------------------------------------------------------------------
