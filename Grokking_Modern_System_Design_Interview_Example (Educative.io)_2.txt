@@ -1,26 +1,50 @@
 Instagram - A perfect example of how different building blocks combine to build a scalable and performant system
 
+Users can add a caption for each post and utilize hashtags or location-based geotags to index them and make them searchable within the application.
+A user’s Instagram posts display in their followers’ feeds
 
+We can compromise a little on consistency. It is acceptable if the content (photos or videos) takes time to show in followers’ feeds located in a distant region.
+system is read-heavy because service users spend substantially more time browsing the feeds of others than creating and posting new content.
+efficient storage management should be a primary consideration
 
+the ratio of readers to writers is 100:1.
+We can use compression to reduce the media size substantially.
+A task scheduler schedules the events on the database such as removing the entries whose time to live exceeds the limit.
+
+The POST method is used to post photos/videos to the server from the user through the /postMedia API.
+
+data is inherently relational, and we need an order for the data (posts should appear in chronological order) and no data loss even in case of failures (data durability).
+benefit from relational queries like fetching the followers or images based on a user ID
+
+a unidirectional relationship
+We'll store the photos and videos in a blob store (like S3) and save the path of the photo or video in the table as it is efficient to save larger data in a distributed storage.
+
+he loosely structured data like timeline generation is usually stored in No-SQL, while relational data is saved in SQL-based storage.
+
+It is efficient if we separate the write (uploads) and read services.
+Generate a timeline:
+    - The pull approach:
+        > this approach is slow to respond as we generate a timeline every time the user opens Instagram.
+        > can substantially reduce user-perceived latency by generating the timeline offline.
+        > Instagram is a read-heavy system. So, the calls we make to fetch the recent posts from every follower will usually return nothing.
+    - The push approach: every user is responsible for pushing the content they posted to the people’s timelines who are following them
+        > Consider an account that belongs to a celebrity. So we will push the links of the photo/video to millions users, which is inefficient.
+    - Hybrid approach
+        > Push-based users: The users who have a followers count of hundreds or thousands.
+        > Pull-based users: The users who are celebrities and have followers count of a hundred thousand or millions.
+
+We can set it to 24 hours, and the task scheduler deletes the entries whose time exceeds the 24 hours limit.
 ------------------------------------------------------------------------------------------------------------------------
 TinyURL - Encoding IDs in the base-58 system for generating unique short URLs
-
-
 
 ------------------------------------------------------------------------------------------------------------------------
 Web crawler - Detection, identification, and resolution of Web crawler traps
 
-
-
 ------------------------------------------------------------------------------------------------------------------------
 WhatsApp - Message management for offline users
 
-
-
 ------------------------------------------------------------------------------------------------------------------------
 Typeahead - The usage of an efficient trie data structure to provide suggestions
-
-
 
 ------------------------------------------------------------------------------------------------------------------------
 Google Docs - Concurrency management for simultaneous writes, using techniques like operational transformation (OT) and Conflict-free Replicated Data Type (CRDT)
