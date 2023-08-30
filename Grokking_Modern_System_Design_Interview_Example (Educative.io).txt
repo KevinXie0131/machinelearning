@@ -369,7 +369,5 @@ Search service: first looks into the RAM in Apache Lucene to get real-time Tweet
                 Then, this server looks up in the index server and finds all Tweets that contain the requested keyword(s).
                 Next, it considers multiple factors, such as time, or location, to rank the discovered Tweets.
                 In the end, it returns the top Tweets.
-
-
 ------------------------------------------------------------------------------------------------------------------------
 Newsfeed - A recommendation system to ensure ranking and feed suggestions
