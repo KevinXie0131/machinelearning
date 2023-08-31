@@ -37,6 +37,9 @@ We can set it to 24 hours, and the task scheduler deletes the entries whose time
 ------------------------------------------------------------------------------------------------------------------------
 TinyURL - Encoding IDs in the base-58 system for generating unique short URLs
 
+
+
+
 ------------------------------------------------------------------------------------------------------------------------
 Web crawler - Detection, identification, and resolution of Web crawler traps
 
@@ -48,3 +51,28 @@ Typeahead - The usage of an efficient trie data structure to provide suggestions
 
 ------------------------------------------------------------------------------------------------------------------------
 Google Docs - Concurrency management for simultaneous writes, using techniques like operational transformation (OT) and Conflict-free Replicated Data Type (CRDT)
+
+------------------------------------------------------------------------------------------------------------------------
+Introduction to Distributed System Failures
+The following two factors contribute to failures:
+   - Diverse users: Most services have a vibrant user community, and as their needs evolve, so do the software products.
+   - Complex systems: the sum of system components is more complex than the individual pieces.
+
+Types of failure in distributed systems:
+   - System failure:
+   - Method failure: Such failures suspend the working of distributed systems. It may also make the system execute the processes incorrectly or enter a deadlock state.
+   - Communication medium failure:
+   - Secondary storage failure:
+
+It's preferred to have a graceful degradation so that only a small portion of users are impacted for a short time.
+provide resilience so that if one part fails, the rest can still operate.
+experienced a global outage
+affecting its other affiliates
+a faulty configuration
+Pitfalls of automation
+Cascading failures can arise.
+new cluster provisioning, existing cluster scaling, and task de-provisioning
+had a ripple effect on thousands of third-party online services
+
+
+
