@@ -91,6 +91,8 @@ Other building blocks:
             global caching layer will result in higher latency.
    - rate limiters: Limiting each user's quota is preferable for adding a security layer to our system.
                     by uniquely identifying users through their unique api_dev_key (fixed window counter algorithm)
+                    protect the system against DoS attacks
+                    ensure a good and smooth traffic influx and mitigate the exploitation of system resources.
 
 Solution: An simple way of achieving this functionality is to introduce a unique character in the short URL. This special character will act as an indicator for the exact data center.
 Example: Let's assume that the short URL that needs redirection is service.com/x/short123/, where x indicates the data center containing this record.
@@ -104,21 +106,32 @@ Base-64 is the most common encoding for alphanumeric strings' generation.
 Converting base-10 to base-58: modulus function
 Base-10 = 2468135791013 -> Base-58 = [1] [6] [48] [20] [41] [4] [6] [17] -> Base-58 = 27qMi57J
 
-Both the base-10 numeric IDs and base-64 alphanumeric IDs have 64-bits,
+Both the base-10 numeric IDs and base-64 alphanumeric IDs have 64-bits
 
-The generated short URL should contain alphanumeric characters.
-None of the characters should look alike.
-The minimum default length of the generated short URL should be six characters.
+The output of this short URL generator depends on the design-imposed limitations, as given below:
+   - The generated short URL should contain alphanumeric characters.
+   - None of the characters should look alike.
+   - The minimum default length of the generated short URL should be six characters.
+
 Maximum digits: The calculations above show that the maximum digits in the sequencer generated ID will be 20 and consequently, the maximum number of characters in the encoded short URL will be 11.  
+Starting range: select the sequencer IDs to start from at least 10 digits, i.e., 1 Billion.
 
 We can use the range below the ten digits sequencer IDs for custom short links for users with premium memberships. It will ensure two benefits:
    - Utilization of the blocked range of IDs
    - Less than six characters short URLs
 Our system doesn't ensure a guaranteed custom short link generation, as some other premium member might have claimed the requested custom short URL.
 
+However, if we partition our database based on a predefined range, it might lead to imbalanced partitions due to the variable distribution of URLs in each range.
+   An example of this could be the distribution based on the first letter of the URL.
 
+Scaling a traditional relational database horizontally is a daunting process and poses challenges to meeting our scalability requirements.
+We want to scale and automatically distribute our system's data across multiple servers. For this requirement, a NoSQL database would best serve our purpose.
 
-
+Readability:
+   - Removal of look-alike characters: Distinguishable characters like 0 (zero), O (capital o), I (capital i), and l (lower case L) are eliminated
+   - Removal of non-alphanumeric characters: Non-alphanumeric characters like + (plus) and / (slash) are also eliminated to only have alphanumeric characters in short URLs.
+Unpredictability:
+   - Randomly selecting and associating an ID to each request, from the pool of unused and readily available unique IDs.
 ------------------------------------------------------------------------------------------------------------------------
 Web crawler - Detection, identification, and resolution of Web crawler traps
 
