@@ -66,6 +66,58 @@ Let's assume a split of 80-20 in the incoming requests. 20 percent of redirectio
 Rate limiters will be used to avoid system exploitation.
 A Base-58 encoder to transform the sequencer's numeric output to a more readable and usable alphanumeric form.
 
+api_dev_key: A registered user account's unique identifier.
+             This is useful in tracking a user's activity and allows the system to control the associated services accordingly.
+
+Database: horizontally scalable
+Additionally, the stored records will have no relationships among themselves other than linking the URL-creating user's details,
+    so we don't need structured storage for record-keeping.
+    our system will be read-heavy, NoSQL is a suitable choice for storing data.
+
+MongoDB is a good choice:
+    - It uses leader-follower protocol, making it possible to use replicas for heavy reading.
+    - MongoDB ensures atomicity in concurrent write operations and avoids collisions by returning duplicate-key errors for record-duplication issues.
+    - MongoDB provides a higher read throughput as we can either read from the leader replica or follower replicas. The write operations have to pass through the leader replica.
+      It ensures our system's availability for reading-intensive tasks even in cases where the leader dies.
+
+Short URL generator:
+    - A sequencer to generate unique IDs: generate 64-bit unique numeric IDs
+    - A Base-58 encoder to enhance the readability of the short URL: requires 64-bit alphanumeric short URLs in base-58
+                                                                     convert the numeric (base-10) IDs to alphanumeric (base-58)
+                                                                     a base-10 for the base-58 encoder
+Other building blocks:
+   - load balancers: Global Server Load Balancing (GSLB)
+   - cache: Memcached is the best choice for a cache solution (a simple, horizontally scalable cache system with minimal data structure requirements)
+            global caching layer will result in higher latency.
+   - rate limiters: Limiting each user's quota is preferable for adding a security layer to our system.
+                    by uniquely identifying users through their unique api_dev_key (fixed window counter algorithm)
+
+Solution: An simple way of achieving this functionality is to introduce a unique character in the short URL. This special character will act as an indicator for the exact data center.
+Example: Let's assume that the short URL that needs redirection is service.com/x/short123/, where x indicates the data center containing this record.
+
+Base-64 is the most common encoding for alphanumeric strings' generation.
+   However, there are some inherent issues with sticking to the base-64 for this design problem:
+   the generated short URL might have readability issues because of look-alike characters.
+   Characters like O (capital o) and 0 (zero), I (capital I), and l (lower case L) can be confused
+   while characters like + and / should be avoided because of other system-dependent encodings.
+
+Converting base-10 to base-58: modulus function
+Base-10 = 2468135791013 -> Base-58 = [1] [6] [48] [20] [41] [4] [6] [17] -> Base-58 = 27qMi57J
+
+Both the base-10 numeric IDs and base-64 alphanumeric IDs have 64-bits,
+
+The generated short URL should contain alphanumeric characters.
+None of the characters should look alike.
+The minimum default length of the generated short URL should be six characters.
+Maximum digits: The calculations above show that the maximum digits in the sequencer generated ID will be 20 and consequently, the maximum number of characters in the encoded short URL will be 11.  
+
+We can use the range below the ten digits sequencer IDs for custom short links for users with premium memberships. It will ensure two benefits:
+   - Utilization of the blocked range of IDs
+   - Less than six characters short URLs
+Our system doesn't ensure a guaranteed custom short link generation, as some other premium member might have claimed the requested custom short URL.
+
+
+
 
 ------------------------------------------------------------------------------------------------------------------------
 Web crawler - Detection, identification, and resolution of Web crawler traps
