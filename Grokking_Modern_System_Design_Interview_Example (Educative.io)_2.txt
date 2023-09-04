@@ -217,7 +217,23 @@ Workflow:
    - Re-crawling: Send the newly explored URL to the scheduler
                   Enqueueing of the new URLS and recrawling continues
 
-
+Design improvements:
+   - HTML Fetcher: easily extend our design to incorporate other communication protocols like File Transfer Protocol (FTP)
+   - Extractor: Since we use a blob store for content storage, storing the newly-extracted content comprising text, images, and videos won't be a problem.
+There are several ways to achieve this multi-worker architecture for our system:
+   - Domain level log: best-suited for achieving reverse URL indexing
+   - Range division:
+   - Per URL crawling:
+Crawler traps: a URL or a set of URLs that cause indefinite crawler resource exhaustion.
+   - Classification: web crawler traps are the result of poor website structuring
+                     URLs with query parameters / URLs with internal links / URLs with infinite calendar pages /
+                     URLs for the dynamic content generation / URLs with repeated/cyclic directories
+   - Identification: Analyzing the URL scheme / Analyzing the total number of web pages against a domain
+Solution:
+   - The crawler must implement an application-layer logic to counter the crawler traps.
+   - robots.txt: This file contains the dos and don'ts for a crawler
+                 Another essential component of this document is the revisit frequency instructions for the crawler (Robots Exclusion Protocol)
+   - the crawler needs to be polite enough to limit its crawling at a specific domain (Time to First Byte (TTFB))
 ------------------------------------------------------------------------------------------------------------------------
 WhatsApp - Message management for offline users
 
