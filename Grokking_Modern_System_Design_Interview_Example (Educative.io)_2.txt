@@ -292,11 +292,19 @@ Send or receive media files: Sending media files via the asset service
 
 Support for group messages:
    - WebSocket servers don’t keep track of groups because they only track active users.
+   - For group messages, the following three main components are responsible for delivering messages to each user in a group:
+      > Group message handler: communicates with the group service to retrieve data of Group/A users.
+      > Group message service: keeps all information about users in each group in the system
+         - This service resides on top of the MySQL database cluster, with multiple secondary replicas distributed geographically.
+         - A Redis cache server also exists to cache data from the MySQL servers.
+      > Kafka
+        - each user in a group subscribes to the relevant topic (a group with an associated messaging queue).
+        - The messages are then delivered in a fanout messaging pattern
 
-
-
-
-
+device identity key
+   - each device identity key is stored against the user's account on the WhatsApp server
+   - When the WhatsApp server receives a message from a user, it transmits messages multiple times to each device linked with a user's account.
+   - Similarly, each device used by a user has its own set of encryption keys.
 ------------------------------------------------------------------------------------------------------------------------
 Typeahead - The usage of an efficient trie data structure to provide suggestions
 
