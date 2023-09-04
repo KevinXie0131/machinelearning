@@ -237,14 +237,68 @@ Solution:
 ------------------------------------------------------------------------------------------------------------------------
 WhatsApp - Message management for offline users
 
+WhatsApp is an important messaging application
+keep all that data secure
+Functional requirements:
+   - Conversation: support one-on-one and group conversations
+   - Acknowledgment: support message delivery acknowledgment, such as sent, delivered, and read
+   - Sharing: support sharing of media files, such as images, videos, and audio
+   - Chat storage: support the persistent storage of chat messages when a user is offline until the successful delivery of messages
+   - Push notifications: be able to notify offline users of new messages once their status becomes online.
+
+Security: The system must be secure via end-to-end encryption
+Moreover, the WhatsApp servers keep the messages only for 30 days.
+
+the high-level design consists of a chat server responsible for communication between the sender and the receiver:
+   - User A and user B create a communication channel with the chat server.
+   - Upon receiving the message, the chat server acknowledges back to user
+   - stores the message in the database if the receiver’s status is offline.
+   - The chat server notifies user A that the message has been successfully delivered.
+   - Hold the message on the server in a transient storage until receiver gets back online
+   - Messages are deleted from the database once delivered
+
+Generally, the sender's and receiver's IDs are their phone numbers.
+he maximum file size for media that can be uploaded is 16 MB, while the limit is 100 MB for a document.
+
+Connection with a WebSocket server: Two users are connected via WebSocket handlers
+   - each active device is connected with a WebSocket server via WebSocket protocol.
+   - A WebSocket server keeps the connection open with all the active (online) users.
+   - The mapping between servers, ports, and users is stored in the WebSocket manager that resides on top of a cluster of the data store.
+     In this case, that's Redis.
+
+polling is resource intensive and causes latency, but WebSocket maintains a persistent connection between the client and a server.
+   This protocol transfers data to the client immediately whenever it becomes available.
+   It provides a bidirectional connection used as a common solution to send asynchronous updates from a server to a client.
+
+Send or receive messages: WebSocket communicates with message service on top of Mnesia database cluster
+   - The WebSocket manager is responsible for maintaining a mapping between an active user and a port assigned to the user.
+     Whenever a user is connected to another WebSocket server, this information will be updated in the data store.
+   - Message service is a repository of messages on top of the Mnesia database cluster (WhatsApp uses Erlang-based distributed DBMS called Mnesia)
+   - user A's WebSocket server has the information that user B is connected with its own WebSocket server.
+     The communication between user A and user B gets started via their WebSocket servers.
+   - Both users (sender and receiver) communicate with the WebSocket manager to find each other's WebSocket server.
+   - WebSocket server caches the following information:
+        > If both users are connected to the same server, the call to the WebSocket manager is avoided.
+        > It caches information of recent conversations about which user is connected to which WebSocket server.
+        > WebSocket manager, in turn, invalidates the data in the cache used by the WebSocket servers, and the updated data is sent to the corresponding cache.
+          So, the information in the cache will remain there until it receives an invalidate signal from the WebSocket manager.
+
+Send or receive media files: Sending media files via the asset service
+   - asset service is responsible for sending and receiving media files
+   - The media file is compressed and encrypted on the device side
+   - store the file on blob storage
+   - maintains a hash for each file to avoid duplication of content on the blob storage.
+   - The content is loaded onto a CDN if the asset service receives a large number of requests for some particular content.
+
+Support for group messages:
+   - WebSocket servers don’t keep track of groups because they only track active users.
+
+
+
+
+
 ------------------------------------------------------------------------------------------------------------------------
 Typeahead - The usage of an efficient trie data structure to provide suggestions
-
-
-
-
-
-
 
 ------------------------------------------------------------------------------------------------------------------------
 Google Docs - Concurrency management for simultaneous writes, using techniques like operational transformation (OT) and Conflict-free Replicated Data Type (CRDT)
