@@ -158,7 +158,64 @@ There are multiple approaches to selecting seed URLs:
     - Category-based: Depending on the type of content
     - Popularity-based: groups the seed URLs based on hot topics in a specific area
 
+Scalability: The system should inherently be distributed and multithreaded
+Extensibility: be extensible for different network communication protocols, able to add multiple modules to process, and store various file formats.
+Consistency: Since our system involves multiple crawling workers, having data consistency among all of them is necessary.
+Performance: The system should be smart enough to limit its crawling to a domain, either by time spent or by the count of the visited URLs of that domain.
+             This process is called self-throttling.
+             host a robot.txt file, which communicates domain-specified limitations to the crawler.
+Improved user interface - customized scheduling
 
+the average size of a webpage content is 2070KB (2.07MB)
+metadata: It consists of a webpage title and description of the web page showing its purpose.
+
+Traversal time: average HTTP traversal per webpage is 60 ms
+support multi-worker architecture and divide the tasks among multiple workers running on different servers
+
+Components:
+   - Scheduler: a priority queue (URL frontier,  priority | updates frequency)
+                a relational database (user's added URLs / crawler's extracted URLs)
+        2.048 GB is a reasonable amount of space for a queue.
+        However, a centralized queue has limited read/write bandwidth and is a single point of failure.
+        Therefore, having a sub-queue for each worker will be the best approach.
+
+        another solution can be to have separate queues for different priorities. We can then dequeue from these queues based on the priorities assigned to them.
+   - DNS resolver: Since DNS lookup is a time-consuming process, a better approach is to create a customized DNS resolver
+                   and cache frequently used IP addresses within their time-to-live because they're bound to change after their time-to-live.
+   - HTML fetcher: HTML fetcher establishes a network communication connection between the crawler and the web hosts.
+                   fetcher initiates communication with the server that’s hosting the URL(s).
+                   downloads the file content based on the underlying communication protocol.
+   - Service host: manages the crawling operation among the workers.
+                   This component acts as the brain of the crawler and is composed of worker instances.
+                       > handles the multi-worker architecture of the crawling operation.
+                       > Each worker is responsible for acquiring the DNS resolutions of the incoming URLs from the DNS resolver.
+                       > Each worker acts as a gateway between the scheduler and the HTML fetcher by sending the necessary DNS resolution information to the HTML fetcher for communication initiation.
+   - Extractor: extracts the embedded URLs and the document from the web page.
+                the next step is to extract two things from the webpage: URLs and the content
+                The extractor sends the extracted URLs directly and the content with the document input stream (DIS) to the duplicate eliminator.
+                Once it's verified that the duplicates are absent in the data stores, the extractor sends the URLs to the task scheduler that contains the URL frontier and stores the content in blob storage for indexing purposes.
+   - Duplicate eliminator: performs dedup testing on the incoming URLs and the documents.
+                           perform a dedup test to eliminate the risk of exploiting resources by storing and processing the same content twice.
+                           The duplicate eliminator calculates the checksum value of each extracted URL and compares it against the URLs checksum data store.
+                              If found, it discards the extracted URL. Otherwise, it adds a new entry to the database with the calculated checksum value.
+                           use Redis as our cache
+   - Blob store: Since a web crawler is the backbone of a search engine, storing and indexing the fetched content and relevant metadata is immensely important
+                 The design needs to have a distributed storage,
+
+use DFS when we want to utilize a website' persistent connection to traverse all the web pages on that specific domain.
+   This saves time as it helps us avoid reconnecting with the same website repeatedly in case the session expires.
+
+Workflow:
+   - Assignment to a worker: Servie host loads a URL from the priority queue to te avaible worker
+   - DNS resolution: DNS resolution of the URL
+   - Communication initiation by the HTML fetcher: HTTP connection initiation for HTML fetching
+   - Content extraction
+   - Dedup testing: Placement of document in DIS by the extractor
+                    Dedup testing of the extracted of URLs/extracted document
+   - Content storing: informs the extractor about the dedup results
+                      Saves the newly explored document to the blob store
+   - Re-crawling: Send the newly explored URL to the scheduler
+                  Enqueueing of the new URLS and recrawling continues
 
 
 ------------------------------------------------------------------------------------------------------------------------
