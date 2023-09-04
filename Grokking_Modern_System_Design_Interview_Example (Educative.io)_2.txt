@@ -135,6 +135,32 @@ Unpredictability:
 ------------------------------------------------------------------------------------------------------------------------
 Web crawler - Detection, identification, and resolution of Web crawler traps
 
+A web crawler is an Internet bot that systematically scours the world wide web (WWW) for content, starting its operation from a pool of seed URLs
+Stored URLs that serve as a starting point for a crawler.
+
+crawling / storing (extract and store the content of a URL in a blob store / indexing and ranking)
+Scheduling (crawling is a repeated process, the system should have regular scheduling to update its blob stores' records)
+
+The additional utilities of a web crawler are as follows:
+   - Web pages testing
+   - Web page monitoring
+   - Site mirroring
+   - Copyright infringement check
+The output of the crawling process is the data that's the input for the subsequent processing phases:
+    data cleaning / indexing / page relevance using algorithms like page ranks / analytics.
+
+crawler traps include links with query parameters, internal links redirection, links holding infinite calendar pages, links for dynamic content generation, and links containing cyclic directories.
+There are two possible ways to create or gather seed URLs:
+    - manually create them
+    - scan the IP addresses for the presence of web servers
+There are multiple approaches to selecting seed URLs:
+    - Location-based:
+    - Category-based: Depending on the type of content
+    - Popularity-based: groups the seed URLs based on hot topics in a specific area
+
+
+
+
 ------------------------------------------------------------------------------------------------------------------------
 WhatsApp - Message management for offline users
 
