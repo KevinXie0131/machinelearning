@@ -305,7 +305,25 @@ device identity key
    - each device identity key is stored against the user's account on the WhatsApp server
    - When the WhatsApp server receives a message from a user, it transmits messages multiple times to each device linked with a user's account.
    - Similarly, each device used by a user has its own set of encryption keys.
-------------------------------------------------------------------------------------------------------------------------
+
+Low latency: minimize the latency of the system at various levels
+   - geographically distributed WebSocket servers and the cache associated with them.
+   - use Redis cache clusters on top of MySQL database clusters.
+   - use CDNs for frequently sharing documents and media content.
+Consistency: Provide unique IDs to messages using Sequencer or other mechanisms
+             The system also provides high consistency in messages with the help of a FIFO messaging queue with strict ordering.
+Availability: have enough WebSocket servers and replicate data across multiple servers.
+Security: provides an end-to-end encryption mechanism
+Scalability: WhatsApp can handle around 10 million connections per server
+
+two major trade-offs exist in the proposed WhatsApp design:
+   - There's a trade-off between consistency and availability.
+       > In WhatsApp, the order of messages sent or received by a user is essential.
+         Therefore, we should prioritize consistency rather than availability.
+   - There's a trade-off between latency and security.
+       > End-to-end encryption causes a delay in processing, which has an impact on latency
+       > communication involves multimedia. Encrypting them in near real-time on the sender device and decrypting on the receiver side can be taxing for the devices, causing latency.
+----------------------------------------------------------------------------------------------------------------------
 Typeahead - The usage of an efficient trie data structure to provide suggestions
 
 ------------------------------------------------------------------------------------------------------------------------
