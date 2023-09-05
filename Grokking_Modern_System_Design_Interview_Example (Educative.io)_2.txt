@@ -326,8 +326,84 @@ two major trade-offs exist in the proposed WhatsApp design:
 ----------------------------------------------------------------------------------------------------------------------
 Typeahead - The usage of an efficient trie data structure to provide suggestions
 
+Typeahead suggestion, also referred to as the autocomplete feature, enables users to search for a known and frequently searched query.
+based on the user's search history, the current context of the search, and trending content across different users and regions
+Frequently searched queries always appear at the top of the suggestion list.
+
+an efficient tree data structure called trie that's used to store search prefixes / further optimized to reduce the tree traversal time.
+two main components, the suggestions service and the assembler
+
+Low latency: The latency shouldn't exceed 200 ms.
+             A study suggests that the average time between two keystrokes is 160 milliseconds
+             So, our time-budget of suggestions should be greater than 160 ms to give a real-time response.
+
+Google receives more than 3.5 billion searches every day
+1 billion = 1 GB to store
+Let's assume that a single server can handle 8,000 queries per second
+
+Our proposed system should do the following:
+   - Provide suggestions based on the search history of the user.
+   - Store all the new and trending queries in the database to include them in the list of suggestions
+
+suggestions service: obtains the top ten suggestions from the cache, Redis, and returns them as a response to the client.
+                     The top ten popular queries are returned from the distributed cache, Redis.
+assembler: collects the user searches, applies some analytics to rank the searches, and stores them in a NoSQL database that's distributed across several nodes.
+           creating and updating tries after a certain configurable amount of time.
+           The assembler consists of the following different services:
+               - Collection service: collects the log that consists of phrases, time, and other metadata and dumps it in a database
+                                     Hadoop Distributed File System (HDFS) is considered a suitable storage system for storing this raw data.
+               - Aggregator: retrieves the data from the HDFS and distributes it to different workers.
+                             Generally, the MapReducer is responsible for aggregating the frequency of the prefixes over a given interval of time, and the frequency is updated periodically in the associated Cassandra database.
+                             Cassandra is suitable for this purpose because it can store large amounts of data in a tabular format.
+               - Trie builder: creating or updating tries based on the aggregated data in the Cassandra database.
+                               It stores these new and updated tries on their respective shards in the trie database via ZooKeeper.
+                               NoSQL document databases such as MongoDB are suitable for storing these tries.
+
+load balancers: distribute the incoming requests evenly.
+application servers: entry points for clients so that they can forward requests to the appropriate microservices.
+web servers encapsulate the internal system architecture and provide other services, such as authentication, monitoring, request shaping, management, and more.
+
+API design:
+   getSuggestions(prefix)
+   addToDatabase(query): adds a trending query to the database via an assembler if the query has already been searched and has crossed a certain threshold.
+
+update the query asynchronously using AJAX.
+It allows web pages to exchange a small amount of data, as in the typeahead suggestion system, with the server without interfering with the display and behaviors of the existing web page.
+
+The trie data structure:
+   A trie is a tree-like data structure for storing phrases, with each tree node storing a character in the phrase in order.
+
+Track the top searches: Since our system keeps track of the top searches and returns the top suggestion,
+                        we store the number of times each term is searched in the trie node.
+
+The trie can combine nodes as one where only a single branch exists, which reduces the depth of the tree. This also reduces the traversal time, which in turn increases the efficiency
+
+One way to reduce the trie traversal time is to pre-compute and save the top ten (or any number of our choosing) suggestions for every prefix in the node.
+    The system will have precomputed, sorted, and stored the solution to the prefix
+    However, this approach requires extra space to save precomputed results.
+
+Trie partitioning:
+    - A good solution is to split the trie into multiple tries for a better user experience.
+    - It should be noted that this simple technique doesn't always balance the load equally because some prefixes have many more words while others have fewer
+we use a cluster manager like ZooKeeper to store the mapping between clusters.
+
+Update the trie: This issue can be resolved by updating the trie offline after a specific interval.
+   - To update the trie offline, we log the queries and their frequency in a hash table and aggregate the data at regular intervals.
+     After a specific amount of time, the trie is updated with the aggregated information.
+   - We can put up a MapReduce (MR) job to process all of the logging data regularly, let’s say every 15 minutes.
+    These MR services calculate the frequency of all the searched phrases in the previous 15 minutes and dump the results into a hash table in a database like Cassandra.
+     After that, we may further update the trie with the new data.
+   - Another way is to have one primary copy and several secondary copies of the trie.
+     While the main copy is used to answer the queries, we may update the secondary copy.
+     We may also make the secondary our main copy once the upgrade is complete.
+     We can then upgrade our previous primary, which will then be able to serve the traffic as well.
+
+
+
+
 ------------------------------------------------------------------------------------------------------------------------
 Google Docs - Concurrency management for simultaneous writes, using techniques like operational transformation (OT) and Conflict-free Replicated Data Type (CRDT)
+
 
 ------------------------------------------------------------------------------------------------------------------------
 Introduction to Distributed System Failures
