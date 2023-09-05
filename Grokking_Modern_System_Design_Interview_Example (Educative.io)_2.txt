@@ -398,9 +398,15 @@ Update the trie: This issue can be resolved by updating the trie offline after a
      We may also make the secondary our main copy once the upgrade is complete.
      We can then upgrade our previous primary, which will then be able to serve the traffic as well.
 
-
-
-
+We can minimize the latency with the following options:
+   - Reduce the depth of the tree, which reduces the overall traversal time.
+   - Update the trie offline, which means that the time taken by the update operation isn't on the clients' critical path.
+   - Use geographically distributed application and database servers. This way, the service is provided near the user, which also reduces any communication delays and aids in reducing latency.
+   - Use Redis and Cassandra cache clusters on top of NoSQL database clusters.
+   - Appropriately partition tries, which leads to a proper distribution of the load and results in better performance.
+Fault tolerance: Since the replication and partitioning of the trees are provided, the system operates with high resilience.
+Scalability: Since our proposed system is flexible, more servers can be added or removed as the load increases.
+             the number of partitions or shards of the trees is increased accordingly.
 ------------------------------------------------------------------------------------------------------------------------
 Google Docs - Concurrency management for simultaneous writes, using techniques like operational transformation (OT) and Conflict-free Replicated Data Type (CRDT)
 
