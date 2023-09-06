@@ -3,7 +3,7 @@ Instagram - A perfect example of how different building blocks combine to build 
 Users can add a caption for each post and utilize hashtags or location-based geotags to index them and make them searchable within the application.
 A user's Instagram posts display in their followers' feeds
 
-We can compromise a little on consistency. It is acceptable if the content (photos or videos) takes time to show in followers’ feeds located in a distant region.
+We can compromise a little on consistency. It is acceptable if the content (photos or videos) takes time to show in followers' feeds located in a distant region.
 system is read-heavy because service users spend substantially more time browsing the feeds of others than creating and posting new content.
 efficient storage management should be a primary consideration
 
