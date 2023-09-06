@@ -508,6 +508,7 @@ The key consistency models are the following:
 OT has two disadvantages:
    - Each operation to characters may require changes to the positional index. This means that operations are order dependent on each other.
    - It's challenging to develop and implement.
+Google Docs, Etherpad, and Firepad use OT
 
 The Conflict-free Replicated Data Type (CRDT) was developed in an effort to improve OT.
 A CRDT has a complex data structure but a simplified algorithm.
@@ -516,10 +517,36 @@ A CRDT satisfies both commutativity and idempotency by assigning two key propert
    - It assigns a globally unique identity to each character.
    - It globally orders each character.
 
+The SiteID uniquely identifies a user's site requesting an operation with a Value and a PositionalIndex. The value of PositionalIndex can be in fractions for two main reasons.
+   - The PositionalIndex of other characters won't change because of certain operations.
+   - The order dependency of operations between different users will be avoided.
+at a PositionalIndex of 1.5. Although a new character is added, the positional indexes of existing characters are preserved using fractional indices.
 
+CRDTs ensure strong consistency between users. Even if some users are offline, the local replicas at end users will converge when they come back online.
+In fact, with CRDTs, it's possible to implement a serverless peer-to-peer collaborative document editing service.
 
+use of WebSockets makes it possible to highlight a collaborator's cursor. Other users will anticipate the position of a collaborator's next operation and naturally avoid conflict.
 
+Locks require us to segment documents into small sections where users could lock a portion and edit it.
+This will help developers come up with an easy solution and avoid complexities like OT and CRDTs.
+However, this also leads to poor user experience. two users may want to add characters to the same section of the document,
+but their operations may not necessarily conflict.
 
+A lock is a good choice for services like Google Sheets. This is because the document is divided into equal sizes of small cells,
+   and only one user can add or edit the contents of a specific cell.
+
+operations are order dependent in OT, whereas operations in CRDTs are order independent.
+
+Consistency: Usage of time series database for maintaining the order of operations
+             use peer-to-peer protocols like Gossip protocol (Also referred to as epidemic protocol which is used for disseminating data across all nodes in a network to achieve consistency)
+             we use strong consistency instead of eventual consistency for conflict resolution in a collaborative document editing service
+             the logically centralized server provides the final order of events to all clients.
+Latency: However, users maintain a replica of documents at their end while data is being propagated through WebSockets to end-servers.
+         So, most readers can be served from the same data center.
+         For writers, an optimal zone should be selected as the centralized location between collaborators of the same document.
+         However, for popular documents, asynchronous replication will be an effective method to achieve good performance and low latency for a large number of users.
+         In general, achieving strong consistency becomes a challenge when replication is asynchronous.
+         Using Redis to store different data structures including CRDTs
 ------------------------------------------------------------------------------------------------------------------------
 Introduction to Distributed System Failures
 The following two factors contribute to failures:
