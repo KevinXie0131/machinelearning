@@ -113,7 +113,7 @@ The output of this short URL generator depends on the design-imposed limitations
    - None of the characters should look alike.
    - The minimum default length of the generated short URL should be six characters.
 
-Maximum digits: The calculations above show that the maximum digits in the sequencer generated ID will be 20 and consequently, the maximum number of characters in the encoded short URL will be 11.  
+Maximum digits: The calculations above show that the maximum digits in the sequencer generated ID will be 20 and consequently, the maximum number of characters in the encoded short URL will be 11.
 Starting range: select the sequencer IDs to start from at least 10 digits, i.e., 1 Billion.
 
 We can use the range below the ten digits sequencer IDs for custom short links for users with premium memberships. It will ensure two benefits:
