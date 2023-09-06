@@ -187,7 +187,7 @@ Key-value stores: We'll need to fetch the places in a segment efficiently.
                   We also save the QuadTree information in the key-value store, by storing the QuadTree data against a unique ID.
 Load balancer: A load balancer distributes users' incoming requests to all the servers uniformly.
 
-If we consider our radius to be ten miles, then we’ll have 6 million segments. An 8-Byte identifier will identify each segment.
+If we consider our radius to be ten miles, then we'll have 6 million segments. An 8-Byte identifier will identify each segment.
 Dynamic segments: We solve the problem of uneven distribution of places in a segment by dynamically sizing the segments.
 Search using a QuadTree: All the leaf nodes in the QuadTree are linked, just like in a doubly-linked list
                          The leaf node will explore its neighboring nodes to find more cafes
@@ -247,7 +247,7 @@ Contraction hierarchies is a speed-up method optimized to exploit the properties
 
 DeepETA: machine learning component named DeepETA to deliver an immediate improvement to metrics in production
 
-use Cassandra to store the driver’s last known location and the trip information
+use Cassandra to store the driver's last known location and the trip information
    As the data becomes massive with the passage of time, it reduces our system's performance. Also, it won't be easy to scale the MySQL database.
 use a MySQL database to store trip information while it's in progress.
    We use MySQL for in-progress trips for frequent updates since the trip information is relational, and it needs to be consistent across tables.
@@ -298,7 +298,7 @@ Twitter - The use of client-side load balancers for multiple services that had t
 
 Twitter is a free microblogging social network where registered users post messages called 'Tweets'.
 Search Tweets: search Tweets by typing keywords, hashtags, or usernames in the search bar
-View user or home timeline: Registered users can view the user’s timeline, which contains their own Tweets.
+View user or home timeline: Registered users can view the user's timeline, which contains their own Tweets.
 Retweet a Tweet: Registered users can Retweet public Tweets of other users on Twitter.
 
 highly available: communicate time-sensitive information (service outage messages) / have a good uptime percentage.
