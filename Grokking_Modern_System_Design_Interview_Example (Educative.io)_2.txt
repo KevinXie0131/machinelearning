@@ -206,7 +206,7 @@ use DFS when we want to utilize a website' persistent connection to traverse all
    This saves time as it helps us avoid reconnecting with the same website repeatedly in case the session expires.
 
 Workflow:
-   - Assignment to a worker: Servie host loads a URL from the priority queue to te avaible worker
+   - Assignment to a worker: Service host loads a URL from the priority queue to te avaible worker
    - DNS resolution: DNS resolution of the URL
    - Communication initiation by the HTML fetcher: HTTP connection initiation for HTML fetching
    - Content extraction
@@ -291,7 +291,7 @@ Send or receive media files: Sending media files via the asset service
    - The content is loaded onto a CDN if the asset service receives a large number of requests for some particular content.
 
 Support for group messages:
-   - WebSocket servers don’t keep track of groups because they only track active users.
+   - WebSocket servers don't keep track of groups because they only track active users.
    - For group messages, the following three main components are responsible for delivering messages to each user in a group:
       > Group message handler: communicates with the group service to retrieve data of Group/A users.
       > Group message service: keeps all information about users in each group in the system
