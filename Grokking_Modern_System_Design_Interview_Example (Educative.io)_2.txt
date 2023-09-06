@@ -414,6 +414,46 @@ One of the most crucial elements is establishing a connection with the server as
 ------------------------------------------------------------------------------------------------------------------------
 Google Docs - Concurrency management for simultaneous writes, using techniques like operational transformation (OT) and Conflict-free Replicated Data Type (CRDT)
 
+Problems arising when there's no collaborative document editing service
+use an online collaborative document editing service like Google Docs
+
+advantages:
+   - Users can review and comment on a document while it's being edited.
+   - There are no special hardware specifications required to get the latest features. A machine that can run a browser will suffice.
+   - It's possible to work from any location.
+   - Unlike local desktop editors, users can view long-term document history and restore an older version if need be.
+   - The service is free of cost.
+Etherpad, Microsoft Office 365, Slite
+
+designed in two ways:
+   - It could be designed as a centralized facility using client-server architecture to provide document editing service to all users.
+   - It could be designed using peer-to-peer technology to collaborate on a single document.
+
+Document collaboration: Multiple users should be able to edit a document simultaneously
+Conflict resolution: Online document editing services have to resolve conflicts between users editing the same portion of a document
+Suggestions: The user should get suggestions about completing frequently used words, phrases, and keywords in a document, as well as suggestions about fixing grammatical mistakes.
+View count: see the view count of the document.
+History: see history of collaboration on the document.
+
+Consistency: thereby enabling a consistent view of the document.
+             At the same time, users in different regions should see the updated state of the document.
+             Maintaining consistency is important for users connected to both the same and different zones.
+Availability: show robustness against failures
+
+
+
+
+
+Concurrency in Collaborative Editing:
+
+
+
+
+
+
+
+
+
 
 ------------------------------------------------------------------------------------------------------------------------
 Introduction to Distributed System Failures
