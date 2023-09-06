@@ -440,16 +440,81 @@ Consistency: thereby enabling a consistent view of the document.
              Maintaining consistency is important for users connected to both the same and different zones.
 Availability: show robustness against failures
 
+Pub-sub systems can complete a number of tasks asynchronously in our design.
+A Queueing system will queue editing operations requested by different users.
+   Because many editing requests can't be performed simultaneously, we have to temporarily put them in a queue.
+API gateway: Different client requests will get intercepted through the API gateway.
 
+document-related information for imposing privilege restrictions.
+To save the edit history of documents, we can use a time series database.
+use blob storage to store videos and images within a document
+use Redis specifically to store different data structures, including user sessions, features for the typeahead service, and frequently accessed documents.
+The CDN stores frequently accessed documents and heavy objects, like images and videos.
 
+Processing queue: it's a good idea to queue this data for periodic batch processing.
+                  use WebSockets to reduce overhead and observe live changes to the document by different users.
+Session servers: maintain the user's session information.
+                 manage document access privileges through the session servers
+                 There will also be configuration, monitoring, pub-sub, and logging services that will handle tasks
+                 like monitoring and electing leaders in case of server failures, queueing tasks like user notifications, and logging debugging information.
 
+WebSockets offer us the following characteristics:
+   - They have a long-lasting connection between clients and servers.
+   - They enable full-duplex communication. That is, we can simultaneously communicate from client to server and vice versa.
+   - There's no overhead of HTTP request or response headers.
+Microservices are preferred for the following reasons:
+   - Development is simpler and faster.
+   - Each service within the architecture is isolated. That is, failure of one service doesn't produce a cascading effect.
+   - Different components may have different programming language requirements for various reasons. Microservices give the freedom of using different programming languages for different components.
+   - Because of microservices’ modular nature, it's easy to scale and update services individually.
+First in, first out (FIFO) with strict ordering is best suited for the operations queue
+To provide near real-time view counting, we can use a streaming pub-sub system, such as Kafka, where a topic can be based on a document identifier.
 
-Concurrency in Collaborative Editing:
+Collaborative editing and conflict resolution:
+   Each request gets forwarded to the operations queue.
+   This is where conflicts get resolved between different collaborators of the same document.
+   If there are no conflicts, the data is batched and stored in the time series database via session servers.
+History: It's possible to recover different versions of the document with the help of a time series database
+Asynchronous operations: Notifications, emails, view counts, and comments are asynchronous operations that can be queued through a pub-sub component like Kafka
+Suggestions: Suggestions are in the form of the typeahead service that offers autocomplete suggestions for typically used words and phrases.
+             most frequently used words and phrases will be stored in a caching system like Redis.
 
+For scalability purposes, it’s suitable to store the view counter data in NoSQL because the read/write latency of NoSQL is generally lower.
 
+Concurrency & conflict resolution in Collaborative Editing:
+A document is a composition of characters in a specific order. Each character has a value and a positional index
+An index represents the character's position within the ordered list of characters.
+An operation with the same input produces the same results no matter how many times an operation repeats.
 
+a solution to concurrency issues in collaborative editing should respect two rules:
+   - Commutativity: The order of applied operations shouldn't affect the end result.
+   - Idempotency: Similar operations that have been repeated should apply only once.
 
+Operational transformation (OT) is a technique that's widely used for conflict resolution in collaborative editing
+It's a lock-free and non-blocking approach for conflict resolution
+OT provides consistency for users.
+OT performs operations using the positional index method to resolve conflict. OT resolves the problems above by holding commutativity and idempotency.
 
+Collaborative editors based on OT are consistent if they have the following two properties:
+   - Causality preservation: If operation a happened before operation b, then operation a is executed before operation b.
+   - Convergence: All document replicas at different clients will eventually be identical.
+
+CC consistency model, which is a model for consistency maintenance in collaborative editing.
+The key consistency models are the following:
+   - CC model: As we defined above, this includes causality preservation and convergence.
+   - CCI model: This includes causality preservation, convergence, and intention preservation (This property ensures that operations are executed as intended by the users)
+   - Other models include the CSM (causality, single-operation effects, and multi-operation effects) model and the CA (causality and admissibility) model.
+
+OT has two disadvantages:
+   - Each operation to characters may require changes to the positional index. This means that operations are order dependent on each other.
+   - It's challenging to develop and implement.
+
+The Conflict-free Replicated Data Type (CRDT) was developed in an effort to improve OT.
+A CRDT has a complex data structure but a simplified algorithm.
+
+A CRDT satisfies both commutativity and idempotency by assigning two key properties to each character:
+   - It assigns a globally unique identity to each character.
+   - It globally orders each character.
 
 
 
