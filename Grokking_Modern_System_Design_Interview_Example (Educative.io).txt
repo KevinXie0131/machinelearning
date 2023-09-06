@@ -21,19 +21,19 @@ Web servers: Web servers take in user requests and respond to them / interface t
 Application server: The application and business logic resides in application servers.
 Bigtable: Bigtable is a good choice for storing thumbnails because of its high throughput and scalability for storing key-value data.
           Bigtable is optimal for storing a large number of data items each below 10 MB.
-colocation sites: Colocation centers are used where it’s not possible to invest in a data center facility due to business reasons.
+colocation sites: Colocation centers are used where it's not possible to invest in a data center facility due to business reasons.
 
 for optimal access time / sharding / we scale and do frequent writes on the database
 keywords will be extracted from the documents and stored in a key-value store.
 
 Low latency/Smooth streaming: Geographically distributed cache servers at the ISP level
-                              distributed cache management syste
+                              distributed cache management system
                               content delivery networks (CDNs)
 Scalability: horizontal scalability of web and application servers
-Availablity: by replicating data to as many servers as possible to avoid a single point of failure
-             Replicating data across data centers will ensure high availability
-             local load balancers can exclude any dead servers,
-             and global load balancers can steer traffic to a different region if the need arises.
+Availability: by replicating data to as many servers as possible to avoid a single point of failure
+              Replicating data across data centers will ensure high availability
+              local load balancers can exclude any dead servers,
+              and global load balancers can steer traffic to a different region if the need arises.
 Reliability: by using data partitioning and fault-tolerance techniques.
              heartbeat / consistent hashing to add or remove servers seamlessly and reduce the burden on specific servers in case of non-uniform load.
 
@@ -47,7 +47,7 @@ Trade-offs:
                       complex techniques like Block Matching Algorithms (BMAs) and phase correlation / artificial intelligence (AI)
 
 become a choke point / out-of-the-box solutions
-However, data denormalization won’t work because it comes at the cost of reduced writing performance.
+However, data denormalization won't work because it comes at the cost of reduced writing performance.
    Even if our work is read-intensive, as the system scales, writing performance will degrade to an unbearable limit.
 
 divide videos into shorter time frames and refer to them as segments -> generate different files called chunks
