@@ -1,5 +1,10 @@
-httpswww.hiredintech.comsystem-designintroduction
+https://github.com/donnemartin/system-design-primer
 
+System Design: Course Introduction
+https://www.hiredintech.com/system-design/introduction/
+
+My System Design Template
 https://leetcode.com/discuss/career/229177/My-System-Design-Template
 
+Design Pinterest
 https://tianpan.co/notes/2016-02-13-crack-the-system-design-interview
