@@ -1,3 +1,5 @@
 httpswww.hiredintech.comsystem-designintroduction
 
 https://leetcode.com/discuss/career/229177/My-System-Design-Template
+
+https://tianpan.co/notes/2016-02-13-crack-the-system-design-interview
